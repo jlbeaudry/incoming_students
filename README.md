@@ -12,7 +12,7 @@ toward, open science practices. This project is led by Michael Philipp,
 Matthew Williams, and Jennifer Beaudry.
 
 OSF page for this project:
-<a href="https://osf.io/gmsbn/" class="uri">https://osf.io/gmsbn/</a>
+<a href="https://osf.io/fz6ya/" class="uri">https://osf.io/fz6ya/</a>
 
 <!-- _Notes from Dani's template:_ -->
 <!-- This is a template for a new research project. Should contains the following -->

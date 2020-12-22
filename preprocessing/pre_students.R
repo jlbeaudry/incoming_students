@@ -32,9 +32,11 @@ meta_rename <-  function(df, metadata, old, new) {
 
 ##### LOAD DATA #####
 
-df <- read.csv(here::here("survey", "data", "open_science.csv")) %>%
-  select (-c(StartDate, EndDate, Status, RecordedDate, DistributionChannel,
-             UserLanguage, Consent))
+df <- here::here("survey", "data", "raw_data.csv") %>%
+  read_qualtrics()
+
+df <- df %>%
+  select (-c(V1:Consent))
 
 
 

@@ -19,7 +19,7 @@ This project explores incoming students' knowledge about, and attitudes toward,
 open science practices. This project is led by Michael Philipp, Matthew Williams, 
 and Jennifer Beaudry. 
 
-OSF page for this project: https://osf.io/gmsbn/
+OSF page for this project: https://osf.io/fz6ya/
 
 
 <!-- _Notes from Dani's template:_ -->
