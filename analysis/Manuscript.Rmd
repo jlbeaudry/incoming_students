@@ -1,0 +1,107 @@
+---
+title: What do incoming university students believe about open science practices in
+  psychology?
+author:
+- name: Jennifer L. Beaudry
+  affiliation: '1'
+  corresponding: yes
+  address: Postal address
+  email: jbeaudry@swin.edu.au
+  role: null
+- name: Michael C. Philipp
+  affiliation: '2'
+  role: null
+- name: Matt N. Williams
+  affiliation: '2'
+  role: null
+shorttitle: Psychology students' beliefs about open science
+output:
+  papaja::apa6_pdf: default
+  papaja::apa6_word: default
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+  Enter author note here.
+abstract: |
+  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
+  One sentence clearly stating the **general problem** being addressed by  this particular study.
+  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
+  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
+  One or two sentences to put the results into a more **general context**.
+  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
+  <!-- https://tinyurl.com/ybremelq -->
+keywords: open science, psychology, teaching, reproducibility, replication
+wordcount: X
+bibliography: Matt_Zotero_Library.bib
+floatsintext: yes
+figurelist: no
+tablelist: no
+footnotelist: no
+linenumbers: yes
+mask: yes
+draft: no
+documentclass: apa6
+classoption: man
+affiliation:
+- id: '1'
+  institution: Swinburne University of Technology
+- id: '2'
+  institution: Massey University
+---
+<!-- I've only partially entered authorship deets for the moment and set it to mask authorship info when knitting
+It's set to default to knit to .docx, but can also knit to pdf (if you have a tex distro installed)
+The pdf looks nicer and might be good for a preprint but .docx probably easiest to use for journal submissions.
+-->
+
+```{r setup, include = FALSE}
+library("papaja")
+r_refs("r-references.bib")
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+<!--Intro below is very rough, just making sure everything works here in markdown really.-->
+
+The last decade has seen unprecedented change in methodological and reporting practices in psychology. These changes were partly precipitated by what is popularly known as the "replication crisis": The discovery that close replications of published psychological studies are often unable to replicate the original findings. For example, in an attempt to replicate 100 published psychological studies, only 38% were adjudged to have replicated the original result, and the average effect size was half that in the original studies [@opensciencecollaborationEstimatingReproducibilityPsychological2015a]. 
+
+These apparent problems with replicability led to speculation regarding its causes, and a variety of potential solutions being proferred. Some of these potential solutions include more frequently conducting and publishing replication studies [see @brandtReplicationRecipeWhat2014], more transparent reporting of methods and results [@simmons21WordSolution2012], open sharing of data [see @meyerPracticalTipsEthical2018], and preregistration of data collection and analysis plans [@nosekPreregistrationRevolution2018]. In some cases changes to practices have been drastic and widespread: For example, the practice of accepting *Registered Reports* (wherein peer review and in principle acceptance for publication happens *prior* to data collection) was first proposed in 2012 (history details at : 10.31222/osf.io/43298) and is already offered by more than 250 journals (https://osf.io/rr/).
+
+Many of these recent changes have links to the classic *Mertonian* norms of science. For example, the practice of sharing open source software directly corresponds to the Mertonian norm of *communism*: Scientists should have common ownership of scientific goods. Similarly, the practices of sharing of preprints for open peer review and open data for checking of reproducibility  corresponds to the Mertonian norm of *organised skepticism*: Scientific claims should be subjected to critical scrutiny.
+
+<!--In fact I think our items may have been designed to correspond to specific Mertonian norms and counternorms - we should describe how this works when we come to writing Method > Measures.-->
+
+These rapid changes lead to an important challenging: Training psychology students to understand and apply methodological practices which are rapidly evolving. Training in methodological practices is obviously crucial for graduate students who will apply psychological research methods themselves, but it is also important for early undergraduate students. Only by understanding contemporary methodological practices - and problems with methodological practices in psychology - can they become informed and critical consumers of knowledge about psychology. 
+
+
+# Methods
+We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+
+## Participants
+
+
+## Material
+
+## Procedure
+
+## Data analysis
+We used `r cite_r("r-references.bib")` for all our analyses.
+
+
+# Results
+
+# Discussion
+
+
+\newpage
+
+# References
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id="refs" custom-style="Bibliography"></div>
+\endgroup
