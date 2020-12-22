@@ -3,5 +3,5 @@
 .RData
 .DS_Store
 .workbch
-.csv
+*.csv
 /data
