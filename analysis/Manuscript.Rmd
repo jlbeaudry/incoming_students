@@ -67,7 +67,6 @@ r_refs("r-references.bib")
 set.seed(42)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
-<!--Intro below is very rough, just making sure everything works here in markdown really.-->
 
 The last decade has seen unprecedented change in methodological and reporting practices in psychology. These changes were partly precipitated by what is popularly known as the "replication crisis": The discovery that close replications of published psychological studies are often unable to replicate the original findings[@kleinInvestigatingVariationReplicability2014; @kleinManyLabsInvestigating2018]. For example, in an attempt to replicate 100 published psychological studies, only 38% were adjudged to have replicated the original result, and the average effect size was half that in the original studies [@opensciencecollaborationEstimatingReproducibilityPsychological2015]. 
 
