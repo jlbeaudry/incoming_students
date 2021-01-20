@@ -36,8 +36,15 @@ df <- here::here("survey", "data", "raw_data.csv") %>%
   read_qualtrics()
 
 df <- df %>%
+  mutate(id = 1:n()) %>%
   select (-c(V1:Consent))
 
+
+# note re: eligibility
+# only those who say "1" are eligible
+
+df <- df %>%
+  filter(Eligibility %in% 1)
 
 
 
