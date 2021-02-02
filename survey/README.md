@@ -1,9 +1,8 @@
 # Experiment Map
 
-For multi experiment projects, it's important to keep track of what each of the
-experiments was, when they took place, etc. This readme should explain all this.
+The original Qualtrics survey is available in `source`. 
 
-There should be one folder per experiment, and they should be named according to
-a standard scheme. If there is an experiment called "urntask" then the corresponding
-folder should be called `exp_urntask` (it should contain three subfolders, which
-should always be called `data`, `source` and `other`).
+The raw data that is used for preprocessing is available in `data`. The data 
+files will also be available on the OSF. <link to be added>  
+
+
