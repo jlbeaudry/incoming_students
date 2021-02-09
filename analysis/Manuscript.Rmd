@@ -118,13 +118,12 @@ We report how we determined our sample size, all data exclusions (if any), all m
 
 ```{r eligibility}
 
-# I fell down a massive git hub hole, so I'll make progress on this tomorrow!
+# all participants
+n <- nrow(df)
 
 # note re: eligibility
 # only those who say "1" are eligible
 
-df$eligibility <- factor(df$eligibility)
-df$eligibility_lab <- factor(df$eligibility_lab)
 
 el <- df %>%
   dplyr::count(eligibility_lab) 
@@ -135,6 +134,12 @@ el <- df %>%
 
 
 ## Participants
+
+Of those who started the survey (*n* = `r n`), `r el[5,2]` were eligible based on starting 
+their first unit of study in psychology at a university within the next month. 
+
+<!-- [[ Breadcrumbs: work through the eligibility criteria from the prereg ]] -->
+
 
 ```{r demographics}
 
