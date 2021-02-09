@@ -58,7 +58,10 @@ papaja and its many dependencies.
 -->
 
 ```{r setup, include = FALSE}
-library("papaja")
+library(papaja)
+library(here)
+library(tidyverse)
+
 r_refs("r-references.bib")
 ```
 
@@ -67,6 +70,28 @@ r_refs("r-references.bib")
 set.seed(42)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
+
+```{r import data}
+
+#import the data. 
+df2 <- read.csv (here::here("data", "students_processed.csv"))
+# [[breadcrumbs: work on parsing the columns. It could be that I didn't need to 
+# write them as factors in the preprocessing]]
+df3 <- read.csv (here::here("data", "students_processed.csv"), 
+                 colClasses = c('numeric','factor','factor',
+                                rep('character', 3),
+                                rep('factor', 2), 'character', 
+                                rep('numeric', 35), rep('character', 3),
+                                rep('factor', 4), rep('character', 2),
+                                rep('factor', 21))
+                 )
+                
+# # import the metadata [check if I need it for these analyses?]
+# metadata <- here::here("survey", "data", "os_metadata_raw_data.csv") %>% 
+#   read_csv(col_names = TRUE, skip_empty_rows = TRUE) %>% 
+#   filter(!is.na(OldVariable))
+```
+
 
 The last decade has seen unprecedented change in methodological and reporting practices in psychology. These changes were partly precipitated by what is popularly known as the "replication crisis": The discovery that close replications of published psychological studies are often unable to replicate the original findings[@kleinInvestigatingVariationReplicability2014; @kleinManyLabsInvestigating2018]. For example, in an attempt to replicate 100 published psychological studies, only 38% were adjudged to have replicated the original result, and the average effect size was half that in the original studies [@opensciencecollaborationEstimatingReproducibilityPsychological2015]. 
 
@@ -89,7 +114,18 @@ For these reasons, we aimed to conduct a study describing what incoming undergra
 # Methods
 We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
+```{r eligibility}
+
+# I fell down a massive git hub hole, so I'll make progress on this tomorrow!
+
+```
+
+
 ## Participants
+
+```{r demographics}
+
+```
 
 
 ## Material
