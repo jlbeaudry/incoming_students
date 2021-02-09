@@ -140,4 +140,4 @@ df <- df %>%
 # when done preprocessing, write the data to a new file
 # row.names gets rid of the first column from the dataframe.
 
-write.csv(df, here::here("data", "data_processed.csv"), row.names = FALSE)
+write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
