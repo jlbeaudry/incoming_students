@@ -59,7 +59,7 @@ metadata <- read_csv(here::here("data", "students_metadata_working_data.csv")) %
 
 df_num <- df_num %>%
   relocate(id) %>% # move the ID variable to the first column
-  select(-c(v1:consent)) %>%  # remove extraneous columns
+  select(-c(v1:consent,scenario_remind)) %>%  # remove extraneous columns
   select(-c(uni_country:nationality))  # remove Qualtrics-coded variables [use label dataset for these]
 
 df_lab <- df_lab %>%
@@ -93,46 +93,46 @@ df <- meta_rename(df, metadata, old = old_variable, new = new_variable)
 
 #### CONVERT VARIABLES INTO FACTORS ####
 
-df$age <- factor(df$age)
-df$age_lab <- factor(df$age_lab)
-df$eligibility <- factor(df$eligibility)
-df$eligibility_lab <- factor(df$eligibility_lab)
-df$high_school <- factor(df$high_school)
-df$high_school_lab <- factor(df$high_school_lab)
-df$psych_hs <- factor(df$psych_hs)
-df$psych_hs_lab <- factor(df$psych_hs_lab)
-df$first_gen_lab <- factor(df$first_gen_lab)
-df$critical_cnorm_lab <- factor(df$critical_cnorm_lab)
-df$critical_norm_lab <- factor(df$critical_norm_lab)
-df$prereg_norm_lab <- factor(df$prereg_norm_lab)
-df$prereg_cnorm_lab <- factor(df$prereg_cnorm_lab)
-df$reg_report_norm_lab <- factor(df$reg_report_norm_lab)
-df$reg_report_cnorm_lab <- factor(df$reg_report_cnorm_lab)
-df$phack_cnorm_lab <- factor(df$phack_cnorm_lab)
-df$phack_norm_lab <- factor(df$phack_norm_lab)
-df$hark_cnorm_lab <- factor(df$hark_cnorm_lab)
-df$hark_norm_lab <- factor(df$hark_norm_lab)
-df$info_for_rep_norm_lab <- factor(df$info_for_rep_norm_lab)
-df$info_for_rep_cnorm_lab <- factor(df$info_for_rep_cnorm_lab)
-df$preprint_norm_lab <- factor(df$preprint_norm_lab)
-df$preprint_cnorm_lab <- factor(df$preprint_cnorm_lab)
-df$open_materials_norm_lab <- factor(df$open_materials_norm_lab)
-df$open_materials_cnorm_lab <- factor(df$open_materials_cnorm_lab)
-df$open_data_norm_lab <- factor(df$open_data_norm_lab)
-df$open_data_cnorm_lab <- factor(df$open_data_cnorm_lab)
-df$open_acc_norm_lab <- factor(df$open_acc_norm_lab)
-df$open_acc_cnorm_lab <- factor(df$open_acc_cnorm_lab)
-df$crisis_lab <- factor(df$crisis_lab)
+# [[ Breadcrumbs: I think I need to delete all of this from here & just do it
+   # when I import the data into the Rmd file]]
 
+# df$age <- factor(df$age)
+# df$age_lab <- factor(df$age_lab)
+# df$eligibility <- factor(df$eligibility)
+# df$eligibility_lab <- factor(df$eligibility_lab)
+# df$high_school <- factor(df$high_school)
+# df$high_school_lab <- factor(df$high_school_lab)
+# df$psych_hs <- factor(df$psych_hs)
+# df$psych_hs_lab <- factor(df$psych_hs_lab)
+# df$first_gen_lab <- factor(df$first_gen_lab)
+# df$critical_cnorm_lab <- factor(df$critical_cnorm_lab)
+# df$critical_norm_lab <- factor(df$critical_norm_lab)
+# df$prereg_norm_lab <- factor(df$prereg_norm_lab)
+# df$prereg_cnorm_lab <- factor(df$prereg_cnorm_lab)
+# df$reg_report_norm_lab <- factor(df$reg_report_norm_lab)
+# df$reg_report_cnorm_lab <- factor(df$reg_report_cnorm_lab)
+# df$phack_cnorm_lab <- factor(df$phack_cnorm_lab)
+# df$phack_norm_lab <- factor(df$phack_norm_lab)
+# df$hark_cnorm_lab <- factor(df$hark_cnorm_lab)
+# df$hark_norm_lab <- factor(df$hark_norm_lab)
+# df$info_for_rep_norm_lab <- factor(df$info_for_rep_norm_lab)
+# df$info_for_rep_cnorm_lab <- factor(df$info_for_rep_cnorm_lab)
+# df$preprint_norm_lab <- factor(df$preprint_norm_lab)
+# df$preprint_cnorm_lab <- factor(df$preprint_cnorm_lab)
+# df$open_materials_norm_lab <- factor(df$open_materials_norm_lab)
+# df$open_materials_cnorm_lab <- factor(df$open_materials_cnorm_lab)
+# df$open_data_norm_lab <- factor(df$open_data_norm_lab)
+# df$open_data_cnorm_lab <- factor(df$open_data_cnorm_lab)
+# df$open_acc_norm_lab <- factor(df$open_acc_norm_lab)
+# df$open_acc_cnorm_lab <- factor(df$open_acc_cnorm_lab)
+# df$crisis_lab <- factor(df$crisis_lab)
 
-#### DETERMINE ELIGIBILITY ####
-
-# note re: eligibility
-# only those who say "1" are eligible
+###### REARRANGE THE VARIABLES IN THE TIBBLE TO ALIGN WITH SURVEY ORDER ######
+# at least somewhat; I haven't moved the number and label variables of each
+  # question together, but this brings the demographics info together
 
 df <- df %>%
-  filter(eligibility %in% 1)
-
+  relocate (c(uni_country, nationality), .after = gender)
 
 
 ################### WRITE DATA TO CSV #############

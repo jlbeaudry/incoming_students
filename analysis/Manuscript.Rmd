@@ -73,19 +73,21 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 ```{r import data}
 
-#import the data. 
-df2 <- read.csv (here::here("data", "students_processed.csv"))
-# [[breadcrumbs: work on parsing the columns. It could be that I didn't need to 
-# write them as factors in the preprocessing]]
-df3 <- read.csv (here::here("data", "students_processed.csv"), 
-                 colClasses = c('numeric','factor','factor',
-                                rep('character', 3),
-                                rep('factor', 2), 'character', 
-                                rep('numeric', 35), rep('character', 3),
-                                rep('factor', 4), rep('character', 2),
-                                rep('factor', 21))
-                 )
-                
+# import the data 
+df <- read.csv (here::here("data", "students_processed.csv"))
+
+# convert variables to factors as needed
+df$age <- as_factor(df$age)
+df$eligibility <- as_factor(df$eligibility)
+
+# convert factors to characters as needed
+df$university <- as.character(df$university)
+df$degree <- as.character(df$degree)
+df$major <- as.character(df$major)
+df$major <- as.character(df$major)
+df$uni_country <- as.character(df$uni_country)
+df$nationality <- as.character(df$nationality)
+
 # # import the metadata [check if I need it for these analyses?]
 # metadata <- here::here("survey", "data", "os_metadata_raw_data.csv") %>% 
 #   read_csv(col_names = TRUE, skip_empty_rows = TRUE) %>% 
@@ -117,6 +119,17 @@ We report how we determined our sample size, all data exclusions (if any), all m
 ```{r eligibility}
 
 # I fell down a massive git hub hole, so I'll make progress on this tomorrow!
+
+# note re: eligibility
+# only those who say "1" are eligible
+
+df$eligibility <- factor(df$eligibility)
+df$eligibility_lab <- factor(df$eligibility_lab)
+
+el <- df %>%
+  dplyr::count(eligibility_lab) 
+
+# filter(eligibility %in% 1)
 
 ```
 
