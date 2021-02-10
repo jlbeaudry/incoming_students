@@ -8,6 +8,7 @@
 
 library(tidyverse)
 library(here)
+library(tools)
 
 
 ####### FUNCTIONS ############
@@ -141,3 +142,48 @@ df <- df %>%
 # row.names gets rid of the first column from the dataframe.
 
 write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
+
+
+
+################### CODING QUALITATIVE RESPONSES #############
+
+# We will need to code their qualitative responses (university, degree,
+# major). To do so, for the eligible participants,
+# I am selecting those variables and exporting
+# them to a separate document.  [[breadcrumbs: rejoin later to the doc &
+# then write that data to the main data file.
+# Move this above when done preprocessing. ]]
+# row.names gets rid of the first column from the dataframe.
+
+qual <- df %>%
+  filter(eligibility %in% 1) %>%
+  select(c(id,university, degree, major))
+
+# force them to title case & then group those that are similar
+  # use the id number to count how many responses matched
+  # do this separately for uni, degree, and major
+qual_uni <- qual %>%
+  transmute(university = toTitleCase(university),id) %>%
+  group_by(university) %>%
+  summarise(n_distinct(id)) %>%
+  rename(`frequency` = `n_distinct(id)`)
+
+qual_deg <- qual %>%
+  transmute(degree = toTitleCase(degree),id) %>%
+  group_by(degree) %>%
+  summarise(n_distinct(id)) %>%
+  rename(`frequency` = `n_distinct(id)`)
+
+qual_maj <- qual %>%
+  transmute(major = toTitleCase(major),id) %>%
+  group_by(major) %>%
+  summarise(n_distinct(id)) %>%
+  rename(`frequency` = `n_distinct(id)`)
+
+# write each of them to csv files
+write.csv(qual_uni, here::here("preprocessing", "qual_responses_uni.csv"), row.names = FALSE)
+
+write.csv(qual_deg, here::here("preprocessing", "qual_responses_deg.csv"), row.names = FALSE)
+
+write.csv(qual_maj, here::here("preprocessing", "qual_responses_maj.csv"), row.names = FALSE)
+
