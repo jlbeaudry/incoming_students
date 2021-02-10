@@ -176,7 +176,7 @@ report their age(*n* = `r age [8,2]`).
 # once qual responses are coded, I will need to return here to 
  # include details about which univrsity the participant is enrolled in
  # name of qualification
- # major
+ # major [how many are majoring in psyc; NAs; will decide later?]
 
 ```
 
