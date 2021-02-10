@@ -32,7 +32,7 @@ abstract: |
   <!-- https://tinyurl.com/ybremelq -->
 keywords: open science, psychology, teaching, reproducibility, replication
 wordcount: X
-bibliography: Matt_Zotero_Library.bib
+bibliography: [Matt_Zotero_Library.bib,r-references.bib]
 floatsintext: yes
 figurelist: no
 tablelist: no
