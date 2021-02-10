@@ -116,13 +116,15 @@ For these reasons, we aimed to conduct a study describing what incoming undergra
 # Methods
 We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
-```{r eligibility}
+```{r inclusion}
 
 # all participants
 n_all <- nrow(df)
 
-# note re: eligibility
-# only those who say "1" are eligible
+# note re: exclusion
+# exclude those who are younger than 18
+# only those who say "1" to eligibility are included; all other responses are excluded
+# those whose `status` variable is an 'IP Address' are included
 
 age <- df %>%
   dplyr::count(age_lab) 
@@ -130,8 +132,11 @@ age <- df %>%
 el <- df %>%
   dplyr::count(eligibility_lab) 
 
-n <- el[5,2]
-# filter(eligibility %in% 1)
+status <- df %>% 
+  dplyr::count(status_lab)
+
+# n <- el[5,2] [need to specify a final n : Breadcrumbs]
+
 
 ```
 

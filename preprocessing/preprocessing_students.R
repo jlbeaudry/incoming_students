@@ -34,6 +34,11 @@ meta_rename <-  function(df, metadata, old, new) {
   rename_at(df, vars(all_of(keys)), ~ values)
 }
 
+# Matt's missing data function; counts how many NAs there are
+miss_fun = function(x){
+  sum(is.na(x))
+}
+
 ##### LOAD DATA #####
 
 # raw data without labels
@@ -49,12 +54,11 @@ df_lab <- here::here("survey", "data", "students_raw_data_with_labels.csv") %>%
 
 # load metadata
 
-metadata <- read_csv(here::here("data", "students_metadata_working_data.csv")) %>%
+metadata <- read_csv(here::here("data", "students_metadata.csv")) %>%
   select(-c(X10,"note:")) %>%  # delete unnecessary columns
-  filter(old_variable != "NA") # remove the instruction variables
+  filter(old_variable != "NA", old_variable != "exclude") # remove the instruction variables
 
-
-# Breadcrumb: likely rename to remove working data
+# Breadcrumb: likely rename to remove working data [done!]
 
 #### CLEAN DATA ####
 
@@ -65,7 +69,7 @@ df_num <- df_num %>%
 
 df_lab <- df_lab %>%
   relocate(id) %>% # move the ID variable to the first column
-  select(-c(start_date:consent)) %>%  # remove extraneous columns
+  select(-c(start_date, end_date, progress:consent)) %>%  # remove extraneous columns
   select(-c(uni:major,
             gender,
             q54,
@@ -136,6 +140,73 @@ df <- df %>%
   relocate (c(uni_country, nationality), .after = gender)
 
 
+########## EXCLUSION CRITERIA ############
+
+# Breadcrumbs: random things:
+  # check to see how we used the R refs in the VR document
+  # send M&M the data files & tell them where they belong...
+  # what are we going to do with those folks who did not give their age or
+  # give information about their enrolment
+
+# Breadcrumbs: work through the exclusion criteria, then create a
+  # new 'inclusion' variable using the case when function?
+
+# I need to revisit the numbers here because it looks like extra folks have been
+  # exluded, but I don't know why.... Need to revist when my brain is fresh.
+
+# work with this later....
+df_el <- df %>%
+  filter(eligibility %in% 1) %>%
+  filter(age_lab != "0-17 years")
+# filter(eligibility %in% 1) %>%
+#   filter(status_lab %in% "IP Address")
+
+# key items in the study; look to see who did NOT respond to any of these
+study_var <- c("critical_cnorm",
+                 "critical_norm",
+                 "prereg_norm",
+                 "prereg_cnorm",
+                 "reg_report_norm",
+                 "reg_report_cnorm",
+                 "phack_cnorm",
+                 "phack_norm",
+                 "hark_cnorm",
+                 "hark_norm",
+                 "info_for_rep_norm",
+                 "info_for_rep_cnorm",
+                 "preprint_norm",
+                 "preprint_cnorm",
+                 "open_materials_norm",
+                 "open_materials_cnorm",
+                 "open_data_norm",
+                 "open_data_cnorm",
+                 "open_access_norm",
+                 "open_access_cnorm",
+                 "preregistration",
+                 "registered_report",
+                 "incomplete_results",
+                 "harking",
+                 "detailed_methodology",
+                 "preprint_pre",
+                 "open_materials",
+                 "open_data",
+                 "available_data",
+                 "open_access",
+                 "rep_perc",
+                 "crisis")
+
+# create new variable showing the number of items with missing values
+df$nmiss = apply(X = df[, study_var], MARGIN = 1, FUN = miss_fun)
+df_el$nmiss = apply(X = df_el[, study_var], MARGIN = 1, FUN = miss_fun)
+
+miss <- df %>%
+  dplyr::count(nmiss)
+
+miss_el <- df_el %>%
+  dplyr::count(nmiss)
+
+# Breadcrumbs: keep anyone who did not respond to any of thet
+
 ################### WRITE DATA TO CSV #############
 
 # when done preprocessing, write the data to a new file
@@ -154,9 +225,11 @@ write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
 # then write that data to the main data file.
 # Move this above when done preprocessing. ]]
 # row.names gets rid of the first column from the dataframe.
+# ONLY DO THIS FOR THOSE WHO ARE ACTUALLY ELIGIBLE BASED ON ALL EXCLUSION CRITERIA
 
 qual <- df %>%
   filter(eligibility %in% 1) %>%
+  filter(status_lab %in% "IP Address") %>%
   select(c(id,university, degree, major))
 
 # force them to title case & then group those that are similar
