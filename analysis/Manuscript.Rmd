@@ -85,8 +85,8 @@ df$university <- as.character(df$university)
 df$degree <- as.character(df$degree)
 df$major <- as.character(df$major)
 df$major <- as.character(df$major)
-df$uni_country <- as.character(df$uni_country)
-df$nationality <- as.character(df$nationality)
+# df$uni_country <- as.character(df$uni_country)
+# df$nationality <- as.character(df$nationality) [i think these should be factors]
 
 # # import the metadata [check if I need it for these analyses?]
 # metadata <- here::here("survey", "data", "os_metadata_raw_data.csv") %>% 
@@ -119,31 +119,67 @@ We report how we determined our sample size, all data exclusions (if any), all m
 ```{r eligibility}
 
 # all participants
-n <- nrow(df)
+n_all <- nrow(df)
 
 # note re: eligibility
 # only those who say "1" are eligible
 
+age <- df %>%
+  dplyr::count(age_lab) 
 
 el <- df %>%
   dplyr::count(eligibility_lab) 
 
+n <- el[5,2]
 # filter(eligibility %in% 1)
+
+```
+
+
+
+```{r demographics}
+
+# gender --> need to run through gendercoder
+# high school status
+# high school psyc 
+# country of university 
+# country of nationality
+# whether parents' attended uni
 
 ```
 
 
 ## Participants
 
-Of those who started the survey (*n* = `r n`), `r el[5,2]` were eligible based on starting 
-their first unit of study in psychology at a university within the next month. 
+Of those who started the survey (*n* = `r n_all`), we screened out participants who 
+were not eligible to participate based on our preregistration. Specifically, 
+we screened out people who were younger than 18 years of age (*n* = `r age[1,2]`). 
+We also screened out individuals who had already started a psychology unit at a
+university, regardless of whether they completed it (*n* = `r el[1,2] + el[3,2] + el[4,2]`); 
+were not enrolled in a psychology unit at a university (*n* = `r el[2,2]`); or did 
+not answer this question (*n* = `r el[6,2]`). The remaining `r el[5,2]` participants
+were eligible based on starting their first unit of study in psychology at 
+a university within the next month. For those individuals who were screened out, 
+our Qualtrics program automatically directed them to the debriefing form.  
 
-<!-- [[ Breadcrumbs: work through the eligibility criteria from the prereg ]] -->
+Of the remaining `r n` participants, most reported that they were
+18-24 years old (*n* = `r age[2,2]`), `r age [3,2]` 
+reported that they were 25-34 years old, `r age [4,2]` were 35-44 years old,
+`r age [5,2]` were 45-54 years old, `r age [6,2]` were 55-64 years old, and
+`r age [7,2]` were 65 years or older. A small number of participants did not 
+report their age(*n* = `r age [8,2]`). 
 
 
-```{r demographics}
+
+```{r qual responses}
+
+# once qual responses are coded, I will need to return here to 
+ # include details about which univrsity the participant is enrolled in
+ # name of qualification
+ # major
 
 ```
+
 
 
 ## Material
