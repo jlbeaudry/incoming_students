@@ -34,7 +34,7 @@ meta_rename <-  function(df, metadata, old, new) {
   rename_at(df, vars(all_of(keys)), ~ values)
 }
 
-# Matt's missing data function; counts how many NAs there are
+# Matt Williams's missing data function; counts how many NAs there are
 miss_fun = function(x){
   sum(is.na(x))
 }
@@ -53,7 +53,6 @@ df_lab <- here::here("survey", "data", "students_raw_data_with_labels.csv") %>%
   mutate(id = 1:n())
 
 # load metadata
-
 metadata <- read_csv(here::here("data", "students_metadata.csv")) %>%
   select(-c(X10,"note:")) %>%  # delete unnecessary columns
   filter(old_variable != "NA", old_variable != "exclude") # remove the instruction variables
@@ -145,21 +144,9 @@ df <- df %>%
 # Breadcrumbs: random things:
   # check to see how we used the R refs in the VR document
   # send M&M the data files & tell them where they belong...
-  # what are we going to do with those folks who did not give their age or
-  # give information about their enrolment
+  # what are we going to do with those folks who did not give their age [retain] or
+  # give information about their enrolment [exclude], as per reg
 
-# Breadcrumbs: work through the exclusion criteria, then create a
-  # new 'inclusion' variable using the case when function?
-
-# I need to revisit the numbers here because it looks like extra folks have been
-  # exluded, but I don't know why.... Need to revist when my brain is fresh.
-
-# work with this later....
-df_el <- df %>%
-  filter(eligibility %in% 1) %>%
-  filter(age_lab != "0-17 years")
-# filter(eligibility %in% 1) %>%
-#   filter(status_lab %in% "IP Address")
 
 # key items in the study; look to see who did NOT respond to any of these
 study_var <- c("critical_cnorm",
@@ -196,16 +183,69 @@ study_var <- c("critical_cnorm",
                  "crisis")
 
 # create new variable showing the number of items with missing values
-df$nmiss = apply(X = df[, study_var], MARGIN = 1, FUN = miss_fun)
-df_el$nmiss = apply(X = df_el[, study_var], MARGIN = 1, FUN = miss_fun)
+df$nmiss <- apply(X = df[, study_var], MARGIN = 1, FUN = miss_fun)
+df_el$nmiss <- apply(X = df_el[, study_var], MARGIN = 1, FUN = miss_fun)
 
-miss <- df %>%
-  dplyr::count(nmiss)
+# create a new variable `exclude` to indicate which participants meet our inclusion criteria
+df <- df %>%
+  mutate(exclude = case_when(
+    eligibility == '1' & nmiss < 32  ~ "include",
+    TRUE ~ "exclude"))
 
-miss_el <- df_el %>%
-  dplyr::count(nmiss)
+# can use just eligibility to cover the exclusion criteria of age & Qualtrics status.
+  # also need to exclude those who were eligible, but did not answer any of the
+  # key questions. Use this code to confirm that those who were excluded based
+  # on other criteria were actually excluded
 
-# Breadcrumbs: keep anyone who did not respond to any of thet
+breakdown <- df %>%
+  filter(exclude %in% "exclude") %>%
+  group_by(nmiss,age_lab,eligibility_lab) %>%
+  count()
+
+# [[BREADCRUMBS: CLEAN ALL OF THIS UP & WORK THROUGH THE LOGIC AGAIN, INCLUDE
+#   THE KEY INFO RE HOW MANY WERE ELIGIBLE, BUT DID NOT COMPLETE ANY KEY
+#   MEASURES [88] BASED ON THE ANTI-JOIN!]]
+# add the exclusion variables to the dataframe & metadata (and remove when loading metadata)
+
+# all criteria together
+exclusion <- df %>%
+  filter(age_lab %in% "0-17 years" | eligibility != 1 | eligibility %in% NA | status_lab != "IP Address" | nmiss == 32) %>%
+  count()
+
+exclusion <- df %>%
+  filter(age_lab %in% "0-17 years" |  eligibility %in% NA | status_lab != "IP Address") %>%
+  count(nmiss)
+
+ex_age <- df %>%
+  filter(age_lab %in% "0-17 years")
+
+
+df_exclusion <- df %>%
+  mutate (age_criteria = case_when (age_lab %in% "0-17 years" ~ "exclude",
+                                    TRUE ~ "include")) %>%
+  mutate (eligibility_criteria = case_when (eligibility %in% NA ~ "exclude",
+                                            eligibility != "1" ~ "exclude",
+                                            TRUE ~ "include")) %>%
+  mutate (status_criteria = case_when (status_lab != "IP Address" ~ "exclude",
+                                       TRUE ~ "include"))
+
+
+df_excluded <- df_exclusion %>%
+  filter(age_criteria %in% "exclude" | eligibility_criteria %in% "exclude" | status_criteria %in% "exclude")
+
+df_test <- anti_join (df, df_excluded, by = "id")
+
+ex_el <- df %>%
+  filter(eligibility %in% NA | eligibility != "1")
+
+exclusion <- df %>%
+  filter(age_lab %in% "0-17 years" | eligibility != "1" | eligibility %in% "NA" | status_lab != "IP Address") %>%
+  count(nmiss)
+
+exclusion <- df %>%
+  filter(age_lab %in% "0-17 years" | eligibility != "1" | eligibility %in% "NA" | status_lab != "IP Address") %>%
+  count(nmiss)
+
 
 ################### WRITE DATA TO CSV #############
 
@@ -214,27 +254,24 @@ miss_el <- df_el %>%
 
 write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
 
-
-
 ################### CODING QUALITATIVE RESPONSES #############
 
 # We will need to code their qualitative responses (university, degree,
-# major). To do so, for the eligible participants,
-# I am selecting those variables and exporting
-# them to a separate document.  [[breadcrumbs: rejoin later to the doc &
-# then write that data to the main data file.
-# Move this above when done preprocessing. ]]
-# row.names gets rid of the first column from the dataframe.
-# ONLY DO THIS FOR THOSE WHO ARE ACTUALLY ELIGIBLE BASED ON ALL EXCLUSION CRITERIA
+  # major). To do so, for the eligible participants, I am selecting those
+  # variables and exporting them to a separate document.
+
+# [[breadcrumbs: rejoin the coded vales back to the df &
+  # then write that data to the main data file.
+  # Move this above when done preprocessing. ]]
 
 qual <- df %>%
-  filter(eligibility %in% 1) %>%
-  filter(status_lab %in% "IP Address") %>%
+  filter(exclude %in% "include") %>%
   select(c(id,university, degree, major))
 
-# force them to title case & then group those that are similar
+# force the responses to title case & then group those that are similar
   # use the id number to count how many responses matched
   # do this separately for uni, degree, and major
+
 qual_uni <- qual %>%
   transmute(university = toTitleCase(university),id) %>%
   group_by(university) %>%
