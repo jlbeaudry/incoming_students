@@ -118,25 +118,31 @@ We report how we determined our sample size, all data exclusions (if any), all m
 
 ```{r inclusion}
 
-# all participants
-n_all <- nrow(df)
+# participant numbers (all & included cases)
+df_all <- df
+n_all <- nrow(df_all)
+df <- df_all %>% 
+  filter(exclude %in% "include") # only those who met the inclusion criterion
+n <- nrow(df)
 
-# note re: exclusion
-# exclude those who are younger than 18
-# only those who say "1" to eligibility are included; all other responses are excluded
-# those whose `status` variable is an 'IP Address' are included
+ex <- df_all %>% 
+  filter(exclude %in% "exclude") %>% # n for those excluded
+  nrow()
 
-age <- df %>%
+# note re: exclusion [all coded in `exclude` in preprocessing, 
+# but need to summarise exclusion criteria here]
+  # exclude those who are younger than 18
+  # only those who say "1" to eligibility are included; all other responses are excluded
+  # those whose `status` variable is an 'IP Address' are included
+
+age <- df_all %>%
   dplyr::count(age_lab) 
 
-el <- df %>%
+el <- df_all %>%
   dplyr::count(eligibility_lab) 
 
-status <- df %>% 
+status <- df_all %>% 
   dplyr::count(status_lab)
-
-# n <- el[5,2] [need to specify a final n : Breadcrumbs]
-
 
 ```
 
@@ -156,13 +162,18 @@ status <- df %>%
 
 ## Participants
 
-Of those who started the survey (*n* = `r n_all`), we screened out participants who 
-were not eligible to participate based on our preregistration. Specifically, 
-we screened out people who were younger than 18 years of age (*n* = `r age[1,2]`). 
-We also screened out individuals who had already started a psychology unit at a
-university, regardless of whether they completed it (*n* = `r el[1,2] + el[3,2] + el[4,2]`); 
-were not enrolled in a psychology unit at a university (*n* = `r el[2,2]`); or did 
-not answer this question (*n* = `r el[6,2]`). The remaining `r el[5,2]` participants
+Of those who started the survey (*n* = `r n_all`), we screened out `r ex` 
+participants who were not eligible to participate based on the combination of our
+preregistered exclusion criteria. Specifically, we screened out people who were younger than 
+18 years (*n* = `r age[1,2]`). We also screened out individuals who had already 
+started a psychology unit at a university, regardless of whether they had 
+completed it (*n* = `r el[1,2] + el[3,2] + el[4,2]`); were not enrolled in a 
+psychology unit at a university (*n* = `r el[2,2]`); or did not answer this 
+question (*n* = `r el[6,2]`). We also screened out an additional XX participants
+who met our eligibility criteria, but did not respond to any of the main items
+in the study. 
+
+The remaining `r n` participants
 were eligible based on starting their first unit of study in psychology at 
 a university within the next month. For those individuals who were screened out, 
 our Qualtrics program automatically directed them to the debriefing form.  
@@ -171,8 +182,7 @@ Of the remaining `r n` participants, most reported that they were
 18-24 years old (*n* = `r age[2,2]`), `r age [3,2]` 
 reported that they were 25-34 years old, `r age [4,2]` were 35-44 years old,
 `r age [5,2]` were 45-54 years old, `r age [6,2]` were 55-64 years old, and
-`r age [7,2]` were 65 years or older. A small number of participants did not 
-report their age(*n* = `r age [8,2]`). 
+`r age [7,2]` were 65 years or older. 
 
 
 
