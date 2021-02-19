@@ -127,8 +127,10 @@ We report how we determined our sample size, all data exclusions (if any), all m
 # participant numbers (all & included cases)
 df_all <- df
 n_all <- nrow(df_all)
+
+# only participants who met the inclusion criterion
 df <- df_all %>% 
-  filter(exclude %in% "include") # only those who met the inclusion criterion
+  filter(exclude %in% "include") 
 n <- nrow(df)
 
 ex <- df_all %>% 
@@ -137,21 +139,25 @@ ex <- df_all %>%
 
 # note re: exclusion [all coded in `exclude` in preprocessing, 
 # but need to summarise exclusion criteria here]
-  # exclude those who are younger than 18
+  # exclude those who are younger than 18 [7]
   # only those who say "1" to eligibility are included; all other responses are excluded
   # those whose `status` variable is an 'IP Address' are included
 
-age <- df_all %>%
-  dplyr::count(age_lab) 
+age_ex <- df_all %>%
+  filter(age_criteria %in% "exclude") %>% 
+  nrow()
 
 el <- df_all %>%
-  dplyr::count(eligibility_lab) 
+  filter(eligibility_criteria %in% "exclude") %>% 
+  dplyr::count(eligibility_lab) # need the breakdown by condition
 
 status <- df_all %>% 
-  dplyr::count(status_lab)
+  filter(status_criteria %in% "exclude") %>% 
+  dplyr::count(status_lab) # need the breakdown by condition
 
 nmiss <- df_all %>% 
-  dplyr::count(nmiss)
+  filter(nmiss_criteria %in% "exclude") %>% 
+  nrow()
 
 ```
 
@@ -174,20 +180,17 @@ nmiss <- df_all %>%
 Of those who started the survey (*n* = `r n_all`), we screened out `r ex` 
 participants who were not eligible to participate based on the combination of our
 preregistered exclusion criteria. Specifically, we screened out people who were younger than 
-18 years (*n* = `r age[1,2]`). We also screened out individuals who had already 
+18 years (*n* = `r age_ex`). We also screened out individuals who had already 
 started a psychology unit at a university, regardless of whether they had 
 completed it (*n* = `r el[1,2] + el[3,2] + el[4,2]`); were not enrolled in a 
 psychology unit at a university (*n* = `r el[2,2]`); or did not answer this 
-<<<<<<< HEAD
-question (*n* = `r el[6,2]`). We also screened out an additional  participants
-=======
-question (*n* = `r el[6,2]`). We also screened out an additional XX participants
->>>>>>> f87ca90fd15c03630fa16bcdd0353e907be14f55
-who met our eligibility criteria, but did not respond to any of the main items
-in the study. 
+question (*n* = `r el[5,2]`). We then excluded additional responses that 
+Qualtrics flagged as spam (*n* = `r status [1,2]`) or as a survey preview 
+(*n* = `r status [2,2]`). Finally, we excluded participants who met all other 
+eligibility criteria, but did not respond to any of the main items
+in the study (*n* = `r nmiss`). 
 
-The remaining `r n` participants
-were eligible based on starting their first unit of study in psychology at 
+The remaining `r n` participants were eligible based on starting their first unit of study in psychology at 
 a university within the next month. For those individuals who were screened out, 
 our Qualtrics program automatically directed them to the debriefing form.  
 
@@ -215,6 +218,8 @@ reported that they were 25-34 years old, `r age [4,2]` were 35-44 years old,
 ## Procedure
 
 ## Data analysis
+<!-- Can we move this to a reproducible code statement at the end? It works now -->
+
 We used `r cite_r("r-references.bib")` for all our analyses.
 
 
