@@ -35,6 +35,7 @@ meta_rename <-  function(df, metadata, old, new) {
 }
 
 # Matt Williams's missing data function; counts how many NAs there are
+
 miss_fun = function(x){
   sum(is.na(x))
 }
@@ -88,7 +89,7 @@ df <- df_num %>% inner_join(df_lab, by = "id")
 df <- meta_rename(df, metadata, old = old_variable, new = new_variable)
 
 
-# Breadcrumbs turn eligibility into a factor & use the info.
+# Breadcrumbs turn eligibility & criteria into a factor & use the info. [done]
 # again, will need to include the variable labels for those that make sense! [done!]
 # so the next step should be to select columns from the two data files & merge them [done!]
 # Also need to spend time working on the metadata!
@@ -142,10 +143,10 @@ df <- df %>%
 ########## EXCLUSION CRITERIA ############
 
 # Breadcrumbs: random things:
-  # check to see how we used the R refs in the VR document
+  # check to see how we used the R refs in the VR document [done & fixed]
   # send M&M the data files & tell them where they belong...
   # what are we going to do with those folks who did not give their age [retain] or
-  # give information about their enrolment [exclude], as per reg
+  # give information about their enrolment [exclude], as per prereg
 
 
 # key items in the study; look to see who did NOT respond to any of these
@@ -184,68 +185,53 @@ study_var <- c("critical_cnorm",
 
 # create new variable showing the number of items with missing values
 df$nmiss <- apply(X = df[, study_var], MARGIN = 1, FUN = miss_fun)
-df_el$nmiss <- apply(X = df_el[, study_var], MARGIN = 1, FUN = miss_fun)
 
-# create a new variable `exclude` to indicate which participants meet our inclusion criteria
+
+# create a new factor `exclude` to indicate which participants meet our inclusion criteria
+
 df <- df %>%
-  mutate(exclude = case_when(
+  mutate(exclude = factor(case_when(
     eligibility == '1' & nmiss < 32  ~ "include",
-    TRUE ~ "exclude"))
+    TRUE ~ "exclude")))
 
-# can use just eligibility to cover the exclusion criteria of age & Qualtrics status.
+# can use just eligibility == 1 to cover the exclusion criteria of age & Qualtrics status.
   # also need to exclude those who were eligible, but did not answer any of the
-  # key questions. Use this code to confirm that those who were excluded based
-  # on other criteria were actually excluded
+  # key questions (nmiss = 32).
 
-breakdown <- df %>%
-  filter(exclude %in% "exclude") %>%
-  group_by(nmiss,age_lab,eligibility_lab) %>%
-  count()
 
 # [[BREADCRUMBS: CLEAN ALL OF THIS UP & WORK THROUGH THE LOGIC AGAIN, INCLUDE
 #   THE KEY INFO RE HOW MANY WERE ELIGIBLE, BUT DID NOT COMPLETE ANY KEY
-#   MEASURES [88] BASED ON THE ANTI-JOIN!]]
-# add the exclusion variables to the dataframe & metadata (and remove when loading metadata)
+#   MEASURES [88] BASED ON THE ANTI-JOIN!]] [done!]
+# add the exclusion variables to the dataframe & metadata (and remove when loading metadata) [still need to do!]
 
-# all criteria together
-exclusion <- df %>%
-  filter(age_lab %in% "0-17 years" | eligibility != 1 | eligibility %in% NA | status_lab != "IP Address" | nmiss == 32) %>%
-  count()
+# create new variables for each of the eliibility criteria
+  # capture the hieararchy of decisions, but forcing previously-excluded cases to
+  # be recoded as "N/A" for each subsequent criterion
 
-exclusion <- df %>%
-  filter(age_lab %in% "0-17 years" |  eligibility %in% NA | status_lab != "IP Address") %>%
-  count(nmiss)
-
-ex_age <- df %>%
-  filter(age_lab %in% "0-17 years")
-
-
-df_exclusion <- df %>%
-  mutate (age_criteria = case_when (age_lab %in% "0-17 years" ~ "exclude",
-                                    TRUE ~ "include")) %>%
-  mutate (eligibility_criteria = case_when (eligibility %in% NA ~ "exclude",
-                                            eligibility != "1" ~ "exclude",
-                                            TRUE ~ "include")) %>%
-  mutate (status_criteria = case_when (status_lab != "IP Address" ~ "exclude",
-                                       TRUE ~ "include"))
-
-
-df_excluded <- df_exclusion %>%
-  filter(age_criteria %in% "exclude" | eligibility_criteria %in% "exclude" | status_criteria %in% "exclude")
-
-df_test <- anti_join (df, df_excluded, by = "id")
-
-ex_el <- df %>%
-  filter(eligibility %in% NA | eligibility != "1")
-
-exclusion <- df %>%
-  filter(age_lab %in% "0-17 years" | eligibility != "1" | eligibility %in% "NA" | status_lab != "IP Address") %>%
-  count(nmiss)
-
-exclusion <- df %>%
-  filter(age_lab %in% "0-17 years" | eligibility != "1" | eligibility %in% "NA" | status_lab != "IP Address") %>%
-  count(nmiss)
-
+df <- df %>%
+  mutate (age_criteria = factor(case_when (
+    age_lab %in% "0-17 years" ~ "exclude",
+    TRUE ~ "include")
+  )) %>%
+  mutate (eligibility_criteria = factor(case_when (
+    age_criteria %in% "exclude" ~ "N/A",
+    eligibility %in% NA ~ "exclude",
+      eligibility != "1" ~ "exclude",
+      TRUE ~ "include")
+  )) %>%
+  mutate (status_criteria = factor(case_when (
+    age_criteria %in% "exclude" ~ "N/A",
+    eligibility_criteria %in% "exclude" ~ "N/A",
+    status_lab != "IP Address" ~ "exclude",
+               TRUE ~ "include")
+  )) %>%
+  mutate(nmiss_criteria = factor(case_when (
+    age_criteria %in% "exclude" ~ "N/A",
+    eligibility_criteria %in% "exclude" ~ "N/A",
+    status_criteria %in% "exclude" ~ "N/A",
+    nmiss < 32  ~ "include",
+    TRUE ~ "exclude")
+  ))
 
 ################### WRITE DATA TO CSV #############
 
@@ -260,7 +246,7 @@ write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
   # major). To do so, for the eligible participants, I am selecting those
   # variables and exporting them to a separate document.
 
-# [[breadcrumbs: rejoin the coded vales back to the df &
+# [[breadcrumbs: rejoin the coded values back to the df &
   # then write that data to the main data file.
   # Move this above when done preprocessing. ]]
 
