@@ -32,7 +32,7 @@ abstract: |
   <!-- https://tinyurl.com/ybremelq -->
 keywords: open science, psychology, teaching, reproducibility, replication
 wordcount: X
-bibliography: ['r-references.bib','Matt_Zotero_Library.bib']
+bibliography: ['r-references.bib','Undergrads & Open Science (public).bib']
 floatsintext: yes
 figurelist: no
 tablelist: no
@@ -57,7 +57,7 @@ This could be useful in future for readers interested in reproducing results but
 papaja and its many dependencies.
 -->
 
-<!-- I need to update the main .bib file to be a synced copy of our group library, and then ensure all citations below are in that library (and that the keys match.) -->
+<!-- The .bib file is now just from our shared library -->
 
 ```{r setup, include = FALSE}
 library(papaja)
