@@ -140,9 +140,6 @@ ex <- df_all %>%
 
 # note re: exclusion [all coded in `exclude` in preprocessing, 
 # but need to summarise exclusion criteria here]
-  # exclude those who are younger than 18 [7]
-  # only those who say "1" to eligibility are included; all other responses are excluded
-  # those whose `status` variable is an 'IP Address' are included
 
 age_ex <- df_all %>%
   filter(age_criteria %in% "exclude") %>% 
@@ -163,16 +160,27 @@ nmiss <- df_all %>%
 ```
 
 
+```{r demographics for those included in analyses}
 
-```{r demographics}
+# age
+age <- df %>% dplyr::count(age_lab)
 
-# gender --> need to run through gendercoder
+# gender --> need to run through gendercoder [breadcrumb!]
+
 # high school status
-# high school psyc 
-# country of university 
-# country of nationality
-# whether parents' attended uni
+hs_status <- df %>% dplyr::count(high_school_lab)
 
+# high school psyc 
+hs_psyc <- df %>% dplyr::count(psych_hs_lab)
+
+# country of university 
+uni_country <- df %>% dplyr::count(uni_country)
+
+# country of nationality
+nationality <- df %>% dplyr::count(nationality)
+
+# whether parents' attended uni
+first_gen <- df %>% dplyr::count(first_gen_lab)
 ```
 
 
@@ -196,11 +204,21 @@ a university within the next month. For those individuals who were screened out,
 our Qualtrics program automatically directed them to the debriefing form.  
 
 Of the remaining `r n` participants, most reported that they were
-18-24 years old (*n* = `r age[2,2]`), `r age [3,2]` 
-reported that they were 25-34 years old, `r age [4,2]` were 35-44 years old,
-`r age [5,2]` were 45-54 years old, `r age [6,2]` were 55-64 years old, and
-`r age [7,2]` were 65 years or older. 
+18-24 years old (*n* = `r age[1,2]`), `r age [2,2]` 
+reported that they were 25-34 years old, `r age [3,2]` were 35-44 years old,
+`r age [4,2]` were 45-54 years old, and `r age [5,2]` was 55-64 years old. ADD GENDER HERE!
 
+Nearly all reported that they graduated from high
+school or secondary school (*n* = `r hs_status[3,2]`). Of those participants who 
+attended high school, a little less than half completed psychology courses in 
+high school (*n* = `r hs_psyc[2,2]`). In terms of their nationality, most 
+participants reported that they were Australian (*n* = `r nationality[3,2]`), 
+from the United Kingdom (*n* = `r nationality[24,2]`), or Chinese 
+(*n* = `r nationality[6,2]`). In terms of where the participants were attending 
+university, most reported that they were in Australia (*n* = `r uni_country[1,2]`), 
+the United Kingdom (*n* = `r uni_country[5,2]`), or New Zealand (*n* = `r uni_country[4,2]`). 
+Finally, about 2/3rds of participants reported that at least one of their parents 
+attended university (*n* = `r first_gen[2,2]`). 
 
 
 ```{r qual responses}
@@ -225,6 +243,8 @@ We used `r cite_r("r-references.bib")` for all our analyses.
 
 
 # Results
+
+
 
 # Discussion
 
