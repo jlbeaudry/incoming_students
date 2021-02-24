@@ -88,49 +88,15 @@ df <- df_num %>% inner_join(df_lab, by = "id")
 
 df <- meta_rename(df, metadata, old = old_variable, new = new_variable)
 
-
 # Breadcrumbs turn eligibility & criteria into a factor & use the info. [done]
 # again, will need to include the variable labels for those that make sense! [done!]
 # so the next step should be to select columns from the two data files & merge them [done!]
-# Also need to spend time working on the metadata!
+# Also need to spend more time working on the metadata!
 # will need to keep the num & label versions for the strongly agree variables [done!]
 
 
 #### CONVERT VARIABLES INTO FACTORS ####
 
-# [[ Breadcrumbs: I think I need to delete all of this from here & just do it
-   # when I import the data into the Rmd file]]
-
-# df$age <- factor(df$age)
-# df$age_lab <- factor(df$age_lab)
-# df$eligibility <- factor(df$eligibility)
-# df$eligibility_lab <- factor(df$eligibility_lab)
-# df$high_school <- factor(df$high_school)
-# df$high_school_lab <- factor(df$high_school_lab)
-# df$psych_hs <- factor(df$psych_hs)
-# df$psych_hs_lab <- factor(df$psych_hs_lab)
-# df$first_gen_lab <- factor(df$first_gen_lab)
-# df$critical_cnorm_lab <- factor(df$critical_cnorm_lab)
-# df$critical_norm_lab <- factor(df$critical_norm_lab)
-# df$prereg_norm_lab <- factor(df$prereg_norm_lab)
-# df$prereg_cnorm_lab <- factor(df$prereg_cnorm_lab)
-# df$reg_report_norm_lab <- factor(df$reg_report_norm_lab)
-# df$reg_report_cnorm_lab <- factor(df$reg_report_cnorm_lab)
-# df$phack_cnorm_lab <- factor(df$phack_cnorm_lab)
-# df$phack_norm_lab <- factor(df$phack_norm_lab)
-# df$hark_cnorm_lab <- factor(df$hark_cnorm_lab)
-# df$hark_norm_lab <- factor(df$hark_norm_lab)
-# df$info_for_rep_norm_lab <- factor(df$info_for_rep_norm_lab)
-# df$info_for_rep_cnorm_lab <- factor(df$info_for_rep_cnorm_lab)
-# df$preprint_norm_lab <- factor(df$preprint_norm_lab)
-# df$preprint_cnorm_lab <- factor(df$preprint_cnorm_lab)
-# df$open_materials_norm_lab <- factor(df$open_materials_norm_lab)
-# df$open_materials_cnorm_lab <- factor(df$open_materials_cnorm_lab)
-# df$open_data_norm_lab <- factor(df$open_data_norm_lab)
-# df$open_data_cnorm_lab <- factor(df$open_data_cnorm_lab)
-# df$open_acc_norm_lab <- factor(df$open_acc_norm_lab)
-# df$open_acc_cnorm_lab <- factor(df$open_acc_cnorm_lab)
-# df$crisis_lab <- factor(df$crisis_lab)
 
 ###### REARRANGE THE VARIABLES IN THE TIBBLE TO ALIGN WITH SURVEY ORDER ######
 # at least somewhat; I haven't moved the number and label variables of each
@@ -206,7 +172,7 @@ df <- df %>%
 
 # create new variables for each of the eliibility criteria
   # capture the hieararchy of decisions, but forcing previously-excluded cases to
-  # be recoded as "N/A" for each subsequent criterion
+  # be recoded as "N/A" for each subsequent criterion [done!]
 
 df <- df %>%
   mutate (age_criteria = factor(case_when (
