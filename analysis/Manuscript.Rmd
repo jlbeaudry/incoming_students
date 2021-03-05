@@ -165,7 +165,8 @@ nmiss <- df_all %>%
 # age
 age <- df %>% dplyr::count(age_lab)
 
-# gender --> need to run through gendercoder [breadcrumb!]
+# gender --> need to summarise once we've recoded it in preprocessing script
+  # [breadcrumb]
 
 # high school status
 hs_status <- df %>% dplyr::count(high_school_lab)

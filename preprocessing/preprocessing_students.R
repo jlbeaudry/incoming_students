@@ -105,14 +105,17 @@ df <- meta_rename(df, metadata, old = old_variable, new = new_variable)
 df <- df %>%
   relocate (c(uni_country, nationality), .after = gender)
 
+######### RECODE GENDER ##########
+
+# gender --> need to run through gendercoder [breadcrumb!]
 
 ########## EXCLUSION CRITERIA ############
 
 # Breadcrumbs: random things:
   # check to see how we used the R refs in the VR document [done & fixed]
-  # send M&M the data files & tell them where they belong...
+  # send M&M the data files & tell them where they belong... [done]
   # what are we going to do with those folks who did not give their age [retain] or
-  # give information about their enrolment [exclude], as per prereg
+  # give information about their enrolment [exclude], as per prereg [done]
 
 
 # key items in the study; look to see who did NOT respond to any of these
@@ -168,7 +171,8 @@ df <- df %>%
 # [[BREADCRUMBS: CLEAN ALL OF THIS UP & WORK THROUGH THE LOGIC AGAIN, INCLUDE
 #   THE KEY INFO RE HOW MANY WERE ELIGIBLE, BUT DID NOT COMPLETE ANY KEY
 #   MEASURES [88] BASED ON THE ANTI-JOIN!]] [done!]
-# add the exclusion variables to the dataframe & metadata (and remove when loading metadata) [still need to do!]
+# add the exclusion variables to the dataframe & metadata (and remove when
+  # loading metadata) [still need to do!]
 
 # create new variables for each of the eliibility criteria
   # capture the hieararchy of decisions, but forcing previously-excluded cases to
