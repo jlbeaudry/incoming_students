@@ -9,6 +9,7 @@
 library(tidyverse)
 library(here)
 library(tools)
+library(gendercodeR)
 
 
 ####### FUNCTIONS ############
@@ -43,13 +44,13 @@ miss_fun = function(x){
 ##### LOAD DATA #####
 
 # raw data without labels
-df_num <- here::here("data", "students_raw_data.csv") %>%
+df_num <- here::here("survey", "data", "students_raw_data.csv") %>%
   read_qualtrics(legacy = TRUE) %>%
   mutate(id = 1:n())
 
 
 # raw data with labels
-df_lab <- here::here("data", "students_raw_data_with_labels.csv") %>%
+df_lab <- here::here("survey", "data", "students_raw_data_with_labels.csv") %>%
   read_qualtrics(legacy = FALSE) %>%
   mutate(id = 1:n())
 
@@ -100,54 +101,67 @@ df <- meta_rename(df, metadata, old = old_variable, new = new_variable)
 
 ###### REARRANGE THE VARIABLES IN THE TIBBLE TO ALIGN WITH SURVEY ORDER ######
 # at least somewhat; I haven't moved the number and label variables of each
-  # question together, but this brings the demographics info together
+# question together, but this brings the demographics info together
 
 df <- df %>%
   relocate (c(uni_country, nationality), .after = gender)
+
+######### RECODE GENDER ##########
+
+custom_dictionary <- list(
+  `female.` = "female",
+  `femamle` = "female",
+  `-` = NA_character_,
+  `gender no longer has a place in modern society. sex is male.` = "male",
+  `queer man` = "queer man"
+)
+
+df <- df %>%
+  mutate(gender  = recode_gender(gender, dictionary = c(broad, custom_dictionary), fill = TRUE))
 
 
 ########## EXCLUSION CRITERIA ############
 
 # Breadcrumbs: random things:
-  # check to see how we used the R refs in the VR document [done & fixed]
-  # send M&M the data files & tell them where they belong...
-  # what are we going to do with those folks who did not give their age [retain] or
-  # give information about their enrolment [exclude], as per prereg
+# check to see how we used the R refs in the VR document [done & fixed]
+# send M&M the data files & tell them where they belong... [done]
+# what are we going to do with those folks who did not give their age [retain] or
+# give information about their enrolment [exclude], as per prereg [done]
 
 
 # key items in the study; look to see who did NOT respond to any of these
 study_var <- c("critical_cnorm",
-                 "critical_norm",
-                 "prereg_norm",
-                 "prereg_cnorm",
-                 "reg_report_norm",
-                 "reg_report_cnorm",
-                 "phack_cnorm",
-                 "phack_norm",
-                 "hark_cnorm",
-                 "hark_norm",
-                 "info_for_rep_norm",
-                 "info_for_rep_cnorm",
-                 "preprint_norm",
-                 "preprint_cnorm",
-                 "open_materials_norm",
-                 "open_materials_cnorm",
-                 "open_data_norm",
-                 "open_data_cnorm",
-                 "open_access_norm",
-                 "open_access_cnorm",
-                 "preregistration",
-                 "registered_report",
-                 "incomplete_results",
-                 "harking",
-                 "detailed_methodology",
-                 "preprint_pre",
-                 "open_materials",
-                 "open_data",
-                 "available_data",
-                 "open_access",
-                 "rep_perc",
-                 "crisis")
+               "critical_norm",
+               "prereg_norm",
+               "prereg_cnorm",
+               "reg_report_norm",
+               "reg_report_cnorm",
+               "phack_cnorm",
+               "phack_norm",
+               "hark_cnorm",
+               "hark_norm",
+               "info_for_rep_norm",
+               "info_for_rep_cnorm",
+               "preprint_norm",
+               "preprint_cnorm",
+               "open_materials_norm",
+               "open_materials_cnorm",
+               "open_data_norm",
+               "open_data_cnorm",
+               "open_access_norm",
+               "open_access_cnorm",
+               "preregistration",
+               "registered_report",
+               "incomplete_results",
+               "harking",
+               "detailed_methodology",
+               "preprint_pre",
+               "open_materials",
+               "open_data",
+               "available_data",
+               "open_access",
+               "rep_perc",
+               "crisis")
 
 # create new variable showing the number of items with missing values
 df$nmiss <- apply(X = df[, study_var], MARGIN = 1, FUN = miss_fun)
@@ -161,18 +175,19 @@ df <- df %>%
     TRUE ~ "exclude")))
 
 # can use just eligibility == 1 to cover the exclusion criteria of age & Qualtrics status.
-  # also need to exclude those who were eligible, but did not answer any of the
-  # key questions (nmiss = 32).
+# also need to exclude those who were eligible, but did not answer any of the
+# key questions (nmiss = 32).
 
 
 # [[BREADCRUMBS: CLEAN ALL OF THIS UP & WORK THROUGH THE LOGIC AGAIN, INCLUDE
 #   THE KEY INFO RE HOW MANY WERE ELIGIBLE, BUT DID NOT COMPLETE ANY KEY
 #   MEASURES [88] BASED ON THE ANTI-JOIN!]] [done!]
-# add the exclusion variables to the dataframe & metadata (and remove when loading metadata) [still need to do!]
+# add the exclusion variables to the dataframe & metadata (and remove when
+# loading metadata) [still need to do!]
 
 # create new variables for each of the eliibility criteria
-  # capture the hieararchy of decisions, but forcing previously-excluded cases to
-  # be recoded as "N/A" for each subsequent criterion [done!]
+# capture the hieararchy of decisions, but forcing previously-excluded cases to
+# be recoded as "N/A" for each subsequent criterion [done!]
 
 df <- df %>%
   mutate (age_criteria = factor(case_when (
@@ -182,14 +197,14 @@ df <- df %>%
   mutate (eligibility_criteria = factor(case_when (
     age_criteria %in% "exclude" ~ "N/A",
     eligibility %in% NA ~ "exclude",
-      eligibility != "1" ~ "exclude",
-      TRUE ~ "include")
+    eligibility != "1" ~ "exclude",
+    TRUE ~ "include")
   )) %>%
   mutate (status_criteria = factor(case_when (
     age_criteria %in% "exclude" ~ "N/A",
     eligibility_criteria %in% "exclude" ~ "N/A",
     status_lab != "IP Address" ~ "exclude",
-               TRUE ~ "include")
+    TRUE ~ "include")
   )) %>%
   mutate(nmiss_criteria = factor(case_when (
     age_criteria %in% "exclude" ~ "N/A",
@@ -209,20 +224,20 @@ write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
 ################### CODING QUALITATIVE RESPONSES #############
 
 # We will need to code their qualitative responses (university, degree,
-  # major). To do so, for the eligible participants, I am selecting those
-  # variables and exporting them to a separate document.
+# major). To do so, for the eligible participants, I am selecting those
+# variables and exporting them to a separate document.
 
 # [[breadcrumbs: rejoin the coded values back to the df &
-  # then write that data to the main data file.
-  # Move this above when done preprocessing. ]]
+# then write that data to the main data file.
+# Move this above when done preprocessing. ]]
 
 qual <- df %>%
   filter(exclude %in% "include") %>%
   select(c(id,university, degree, major))
 
 # force the responses to title case & then group those that are similar
-  # use the id number to count how many responses matched
-  # do this separately for uni, degree, and major
+# use the id number to count how many responses matched
+# do this separately for uni, degree, and major
 
 qual_uni <- qual %>%
   transmute(university = toTitleCase(university),id) %>%
@@ -248,4 +263,3 @@ write.csv(qual_uni, here::here("preprocessing", "qual_responses_uni.csv"), row.n
 write.csv(qual_deg, here::here("preprocessing", "qual_responses_deg.csv"), row.names = FALSE)
 
 write.csv(qual_maj, here::here("preprocessing", "qual_responses_maj.csv"), row.names = FALSE)
-
