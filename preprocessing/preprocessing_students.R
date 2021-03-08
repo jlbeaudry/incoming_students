@@ -58,8 +58,6 @@ metadata <- read_csv(here::here("data", "students_metadata.csv")) %>%
   select(-c(X10,"note:")) %>%  # delete unnecessary columns
   filter(old_variable != "NA", old_variable != "exclude") # remove the instruction variables
 
-# Breadcrumb: likely rename to remove working data [done!]
-
 #### CLEAN DATA ####
 
 df_num <- df_num %>%
@@ -88,11 +86,7 @@ df <- df_num %>% inner_join(df_lab, by = "id")
 
 df <- meta_rename(df, metadata, old = old_variable, new = new_variable)
 
-# Breadcrumbs turn eligibility & criteria into a factor & use the info. [done]
-# again, will need to include the variable labels for those that make sense! [done!]
-# so the next step should be to select columns from the two data files & merge them [done!]
-# Also need to spend more time working on the metadata!
-# will need to keep the num & label versions for the strongly agree variables [done!]
+# Breadcrumbs finish working on the metadata!
 
 
 #### CONVERT VARIABLES INTO FACTORS ####
@@ -110,13 +104,6 @@ df <- df %>%
 # gender --> need to run through gendercoder [breadcrumb!]
 
 ########## EXCLUSION CRITERIA ############
-
-# Breadcrumbs: random things:
-  # check to see how we used the R refs in the VR document [done & fixed]
-  # send M&M the data files & tell them where they belong... [done]
-  # what are we going to do with those folks who did not give their age [retain] or
-  # give information about their enrolment [exclude], as per prereg [done]
-
 
 # key items in the study; look to see who did NOT respond to any of these
 study_var <- c("critical_cnorm",
@@ -167,16 +154,12 @@ df <- df %>%
   # also need to exclude those who were eligible, but did not answer any of the
   # key questions (nmiss = 32).
 
-
-# [[BREADCRUMBS: CLEAN ALL OF THIS UP & WORK THROUGH THE LOGIC AGAIN, INCLUDE
-#   THE KEY INFO RE HOW MANY WERE ELIGIBLE, BUT DID NOT COMPLETE ANY KEY
-#   MEASURES [88] BASED ON THE ANTI-JOIN!]] [done!]
-# add the exclusion variables to the dataframe & metadata (and remove when
+# breadcrumb: add the exclusion variables to the dataframe & metadata (and remove when
   # loading metadata) [still need to do!]
 
 # create new variables for each of the eliibility criteria
   # capture the hieararchy of decisions, but forcing previously-excluded cases to
-  # be recoded as "N/A" for each subsequent criterion [done!]
+  # be recoded as "N/A" for each subsequent criterion
 
 df <- df %>%
   mutate (age_criteria = factor(case_when (
@@ -212,7 +195,7 @@ write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
 
 ################### CODING QUALITATIVE RESPONSES #############
 
-# We will need to code their qualitative responses (university, degree,
+# Breadcrumbs: We will need to code their qualitative responses (university, degree,
   # major). To do so, for the eligible participants, I am selecting those
   # variables and exporting them to a separate document.
 
