@@ -200,14 +200,17 @@ Qualtrics flagged as spam (*n* = `r status [1,2]`) or as a survey preview
 eligibility criteria, but did not respond to any of the main items
 in the study (*n* = `r nmiss`). 
 
-The remaining `r n` participants were eligible based on starting their first unit of study in psychology at 
-a university within the next month. For those individuals who were screened out, 
-our Qualtrics program automatically directed them to the debriefing form.  
+The remaining `r n` participants were eligible based on starting their first unit 
+of study in psychology at a university within the next month. For those individuals 
+who were screened out, our Qualtrics program automatically directed them to the 
+debriefing form.  
 
 Of the remaining `r n` participants, most reported that they were
 18-24 years old (*n* = `r age[1,2]`), `r age [2,2]` 
 reported that they were 25-34 years old, `r age [3,2]` were 35-44 years old,
-`r age [4,2]` were 45-54 years old, and `r age [5,2]` was 55-64 years old. ADD GENDER HERE!
+`r age [4,2]` were 45-54 years old, and `r age [5,2]` was 55-64 years old. 
+
+<!-- ADD GENDER HERE! -->
 
 Nearly all reported that they graduated from high
 school or secondary school (*n* = `r hs_status[3,2]`). Of those participants who 
@@ -238,9 +241,61 @@ attended university (*n* = `r first_gen[2,2]`).
 ## Procedure
 
 ## Data analysis
-<!-- Can we move this to a reproducible code statement at the end? It works now -->
 
-We used `r cite_r("r-references.bib")` for all our analyses.
+```{r, difference between norm & counternorm, eval = FALSE}
+
+# select all columns that relate to norms & counternorms
+diff <- df %>% select(c(id, ends_with("norm")))
+
+means <- diff %>% 
+  sapply(mean, na.rm = TRUE) 
+  
+knitr::kable(means)
+
+
+# select columns that relate to norms
+norms <- df %>% select(c(id, ends_with("_norm")))
+
+# select columns that relate to counternorms
+cnorms <- df %>% select(c(id, ends_with("_cnorm")))
+
+
+
+
+# breadcrumbs - pivot long
+
+norm_long <- norms %>% 
+  pivot_longer (cols = ends_with("norm"),
+                names_to = "practice",
+                values_to = "rating") 
+  str_remove(norm_long, "_norm")
+
+norm_wide <- diff %>% 
+  pivot_wider(names_from = ends_with("_norm"),
+              values_from = c(ends_with("_norm"), ends_with("_cnorm"))
+)
+```
+
+```{r, eval=FALSE}
+# I'm sure there's a fancier way to subtract the counternorm from the norm, 
+  # but for now we will do this...
+ 
+norms <-  vars_select(names(df), ends_with('_norm'))
+cnorms <-  vars_select(names(df), ends_with('_cnorm'))
+
+miss_fun = function(x){
+  sum(is.na(x))
+}
+
+diff_fun = function(x, y){
+  (norms - cnorms)
+}
+
+diff_fun(x = norms, y = cnorms)
+
+df$diff <- apply(X = df[, ], MARGIN = 1, FUN = miss_fun)
+
+```
 
 
 # Results
@@ -249,6 +304,11 @@ We used `r cite_r("r-references.bib")` for all our analyses.
 
 # Discussion
 
+
+\newpage
+# Reproducible Code Statement
+
+We used `r cite_r("r-references.bib")` for all our analyses.
 
 \newpage
 
