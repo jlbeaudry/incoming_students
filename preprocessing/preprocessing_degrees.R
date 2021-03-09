@@ -67,7 +67,7 @@ df <- df %>%
   )
 
 ## Recode degrees using the rule below
-# Note: hons and advanced degrees are collapsed into the more generic degree type
+# Note: hons and advanced degrees are collapsed into the more generic degree type (e.g. BPsych and BPsych Hons are both categorised as BPsych)
 
 df <- df %>%
   mutate(degree_recoded = toTitleCase(degree)) %>%
