@@ -3,7 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  english,
   man,mask,floatsintext]{apa6}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
@@ -38,13 +37,12 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={What do incoming university students believe about open science practices in psychology?},
-  pdfauthor={Jennifer L. Beaudry1, Michael C. Philipp2, \& Matt N. Williams2},
-  pdflang={en-EN},
+  pdfauthor={Jennifer L. Beaudry, Michael C. Philipp, \& Matt N. Williams},
   pdfkeywords={open science, psychology, teaching, reproducibility, replication},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -61,87 +59,52 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-% Make \paragraph and \subparagraph free-standing
-\ifx\paragraph\undefined\else
-  \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-  \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-% Manuscript styling
+\shorttitle{Psychology students' beliefs about open science}
+\affiliation{
+\vspace{0.5cm}
+\textsuperscript{1} Swinburne University of Technology\\\textsuperscript{2} Massey University}
+\keywords{open science, psychology, teaching, reproducibility, replication\newline\indent Word count: X}
+\usepackage{csquotes}
 \usepackage{upgreek}
 \captionsetup{font=singlespacing,justification=justified}
 
-% Table formatting
 \usepackage{longtable}
 \usepackage{lscape}
-% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
-\usepackage{multirow}		% Table styling
-\usepackage{tabularx}		% Control Column width
-\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
-\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage[flushleft]{threeparttable}
+\usepackage{threeparttablex}
 
-% Create new environments so endfloat can handle them
-% \newenvironment{ltable}
-%   {\begin{landscape}\begin{center}\begin{threeparttable}}
-%   {\end{threeparttable}\end{center}\end{landscape}}
 \newenvironment{lltable}{\begin{landscape}\begin{center}\begin{ThreePartTable}}{\end{ThreePartTable}\end{center}\end{landscape}}
 
-% Enables adjusting longtable caption width to table width
-% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
 \makeatletter
 \newcommand\LastLTentrywidth{1em}
 \newlength\longtablewidth
 \setlength{\longtablewidth}{1in}
 \newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
 
-% \setlength{\parindent}{0.5in}
-% \setlength{\parskip}{0pt plus 0pt minus 0pt}
 
-% \usepackage{etoolbox}
-\makeatletter
-\patchcmd{\HyOrg@maketitle}
-  {\section{\normalfont\normalsize\abstractname}}
-  {\section*{\normalfont\normalsize\abstractname}}
-  {}{\typeout{Failed to patch abstract.}}
-\patchcmd{\HyOrg@maketitle}
-  {\section{\protect\normalfont{\@title}}}
-  {\section*{\protect\normalfont{\@title}}}
-  {}{\typeout{Failed to patch title.}}
-\makeatother
-\shorttitle{Psychology students' beliefs about open science}
-\keywords{open science, psychology, teaching, reproducibility, replication\newline\indent Word count: X}
 \usepackage{lineno}
 
 \linenumbers
-\usepackage{csquotes}
-\ifxetex
-  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
-  \usepackage{polyglossia}
-  \setmainlanguage[]{english}
-\else
-  \usepackage[shorthands=off,main=english]{babel}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{cslreferences}%
+  {\setlength{\parindent}{0pt}%
+  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces}%
+  {\par}
 
 \title{What do incoming university students believe about open science practices in psychology?}
 \author{Jennifer L. Beaudry\textsuperscript{1}, Michael C. Philipp\textsuperscript{2}, \& Matt N. Williams\textsuperscript{2}}
 \date{}
 
-
-\authornote{
-
-Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+\authornote{Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
 Enter author note here.
 
-The authors made the following contributions. Jennifer L. Beaudry: ; Michael C. Philipp: ; Matt N. Williams: .
-
-Correspondence concerning this article should be addressed to Jennifer L. Beaudry, Postal address. E-mail: \href{mailto:jbeaudry@swin.edu.au}{\nolinkurl{jbeaudry@swin.edu.au}}
-
-}
-
-\affiliation{\vspace{0.5cm}\textsuperscript{1} Swinburne University of Technology\\\textsuperscript{2} Massey University}
+Correspondence concerning this article should be addressed to Jennifer L. Beaudry, Postal address. E-mail: \href{mailto:jbeaudry@swin.edu.au}{\nolinkurl{jbeaudry@swin.edu.au}}}
 
 \abstract{
 One or two sentences providing a \textbf{basic introduction} to the field, comprehensible to a scientist in any discipline.
@@ -151,30 +114,28 @@ One sentence summarizing the main result (with the words ``\textbf{here we show}
 Two or three sentences explaining what the \textbf{main result} reveals in direct comparison to what was thought to be the case previously, or how the main result adds to previous knowledge.
 One or two sentences to put the results into a more \textbf{general context}.
 Two or three sentences to provide a \textbf{broader perspective}, readily comprehensible to a scientist in any discipline.
+
+
 }
-
-
 
 \begin{document}
 \maketitle
 
-The last decade has seen unprecedented change in methodological and reporting practices in psychology. These changes were partly precipitated by what is popularly known as the \enquote{replication crisis}: The discovery that close replications of published psychological studies are often unable to replicate the original findings(Klein et al., 2014, 2018). For example, in an attempt to replicate 100 published psychological studies, only 38\% were adjudged to have replicated the original result, and the average effect size was half that in the original studies (Open Science Collaboration, 2015).
+The last decade has seen unprecedented change in methodological and reporting practices in psychology. These changes were partly precipitated by what is popularly known as the ``replication crisis'': The discovery that close replications of published psychological studies are often unable to replicate the original findings(Klein et al., 2014, 2018). These apparent problems with replication have lead to a variety of potential solutions to make research practices more transparent, including more frequent publication of replication studies (see Brandt et al., 2014), more thorough reporting of methods and results (Simmons, Nelson, \& Simonsohn, 2012), open sharing of data (see Meyer, 2018), and preregistration of data collection and analysis plans (Nosek, Ebersole, DeHaven, \& Mellor, 2018). These calls for more transparent research practices prompted the discipline to reflect on the norms and beliefs that underpin its practice of research. Many studies have polled researchers' understandings of and adherence to open science norms, beliefs, and practices {[}e.g., Baker (2016); Group (2018), Harris et al. (2018)). In turn, initiatives have been directed toward training undergraduate students in the adoption of an open science ethos (e.g., Chopik, Bremner, Defever, \& Keller, 2018; Grahe et al., 2012, pp. Jekel et al. (2020), Schönbrodt(2019)). These initiatives help engrain open science norms and change attitudes about research practices, but we know little about what these students know or believe about open science research practices prior to entering the university classroom.
 
-These apparent problems with replicability led to speculation regarding its causes, and a variety of potential solutions being proferred. Some of these potential solutions include more frequently conducting and publishing replication studies (see Brandt et al., 2014), more transparent reporting of methods and results (Simmons, Nelson, \& Simonsohn, 2012), open sharing of data (see Meyer, 2018), and preregistration of data collection and analysis plans (Nosek, Ebersole, DeHaven, \& Mellor, 2018). In some cases changes to practices have been drastic and widespread: For example, the practice of accepting \emph{Registered Reports} (wherein peer review and in principle acceptance for publication happens \emph{prior} to data collection) was first proposed in 2012 (see Chambers \& Tzavella, 2020 for a history) and is already offered by more than 250 journals (\url{https://osf.io/rr/}).
+The most comprehensive set of principles for how science \emph{ought} to be practiced are Merton's (1942) norms of science. Scientists (Anderson et al., 2000) and graduate students (Anderson \& Louis, 1994) alike have historically endorsed the normative value of Merton's principles. Furthermore, many of the recent practices designed to make science more transparent and open reflect Mertonian norms. For example, the practice of sharing open source software directly corresponds to the Mertonian norm of \emph{communism}: Scientists should have common ownership of scientific goods. Similarly, the practices of sharing of preprints for open peer review and open data for checking of reproducibility corresponds to the norm of communality, but also to that of \emph{organised skepticism}: Scientific claims should be subjected to critical scrutiny. Preregistration can be connected to the norm of \emph{disinterestedness}: By making (and preregistering) decisions about how to analyse data before results are produced, a researcher can limit the degree to which the substantive results produced by different analytic strategies affect their decisions regarding which analyses to report. In this sense, the ongoing reform in psychological research can partly be understood as simultaneously a set of new practices and a re-affirmation of old norms.
 
-Many of these recent changes have links to the classic \emph{Mertonian} norms of science (Merton, 1973). For example, the practice of sharing open source software directly corresponds to the Mertonian norm of \emph{communism}: Scientists should have common ownership of scientific goods. Similarly, the practices of sharing of preprints for open peer review and open data for checking of reproducibility corresponds to the Mertonian norm of \emph{organised skepticism}: Scientific claims should be subjected to critical scrutiny. Even the practice of preregistration has a connection to the norm of \emph{disinterestedness}, in that a preregistration acts as a social control reducing the potential impact of personal investment in a particular outcome from affecting the choice of results reported in a given study. In this sense, the ongoing reform in psychological research can partly be understood as simultaneously a set of new practices and a re-affirmation of old norms.
+Nevertheless, rapid changes in methodological practice and empirical findings present significant pedagogical challenges for the teacher of psychology. Keeping textbooks and other instructional materials up to date is difficult when supposedly well-established findings are being contradicted by new replications emerging at a rapid pace. Furthermore, training in emerging methodological practices is crucial for graduate students who may go on to apply psychological research methods themselves, so that the next generation of researchers can produce research which is more replicable than that of the last. Even for students who do not go on to conduct research themselves, an understanding of contemporary methodological practices - and problems with methodological practices in psychology - is essential for these students to become informed and critical consumers of knowledge about psychology. However, the question of how best to provide this understanding is by no means trivial to answer. Indeed, there are several reasons why it might be unwise to assume a simple knowledge deficit, where students lack knowledge about reproducibility and open science practices and the teacher's only role is to communicate this knowledge.
 
-Nevertheless, rapid changes in methodological practice and empirical findings present significant pedagogical challenges for the teacher of psychology. Keeping textbooks and other instructional materials \enquote{up to date} is obviously difficult when supposedly well-established findings are being contradicted by new replications emerging at a rapid pace. Furthermore, training in emerging methodological practices is crucial for graduate students who may go on to apply psychological research methods themselves, such that the next generation of researchers can produce research which is more replicable than that of the last. Even for students who do not go on to conduct research themselves, an understanding of contemporary methodological practices - and problems with methodological practices in psychology - is essential for these students to become informed and critical consumers of knowledge about psychology. However, the question of how best to provide this understanding is by no means trivial. Indeed, there are several reasons why it might be unwise to assume a simple knowledge deficit, where students lack knowledge about reproducibility and open science practices and the teacher's only role is to communicate this knowledge.
+First, unlike some areas of psychology covered in undergraduate courses (e.g., models of working memory, or the internal workings of human senses), the replication crisis is frequently discussed in mainstream and social media (e.g., Yong, 2016, 2018; O'Grady, 2020, \& Pm, 2020). Many students may plausibly have some knowledge about these issues obtained prior to (or independently of) their formal studies. Teaching methods should thus be informed by some understanding of what students' pre-existing levels of knowledge are.
 
-First, unlike some areas of psychology covered in undergraduate courses (e.g., models of working memory, or the internal workings of human senses), the replication crisis is frequently discussed in mainstream and social media: Many students may plausibly have some knowledge about these issues already. Teaching methods should thus be informed by some understanding of what students' pre-existing levels of knowledge are.
+Second, when psychology students are beginning their university studies, they are often learning for the first time about how and why it is useful to apply scientific methods to studying human behaviour (rather than only relying on alternative sources of knowledge such as intuition or anecdote or authority). Could an over-emphasis on problems with replicability leave such students unconvinced that scientific methods for studying human behaviour are valuable \emph{at all}, leaving them to favour even less credible alternative sources of knowledge? It is therefore important to determine what levels of trust in psychological research (and its replicability) are prevalent in incoming undergraduate students. In their examination of the usefulness of a one-hour lecture about the replication crisis, Chopik et al. (2018) found that undergraduate students trusted the results of studies by psychologists less after the lecture than they did before it, although the effect size was fairly small (d = -.36), and mean trust levels remained fairly high after the lecture (M = 4.94 on a scale of 1 to 7).
 
-Second, when psychology students are just beginning their university studies, they are often learning for the first time about how and why it is useful to apply scientific methods to studying human behaviour (rather than only relying on alternative sources of knowledge such as intuition or anecdote or authority). Could an over-emphasis on problems with replicability leave such students unconvinced that scientific methods for studying human behaviour are valuable \emph{at all}, leaving them to favour even less credible alternative sources of knowledge? It is therefore important to determine what levels of trust in psychological research (and its replicability) are prevalent in incoming undergraduate students, rather than simply assuming that the correct degree of calibration is always to prompt students to trust psychology research \emph{less} than they already do. In their examination of the usefulness of a one-hour lecture about the replication crisis, Chopik, Bremner, Defever, and Keller (2018) found that undergraduate students trusted the results of studies by psychologists less after the lecture than they did before it, although the effect size was fairly small (d = -.36), and mean trust levels remained fairly high after the lecture (M = 4.94 on a scale of 1 to 7).
+Third, anecdotal evidence suggests that students being taught about open science practices and reforms to improve reproducibility (such as open sharing of data and analysis code) are often surprised that this is not \emph{already} standard practice. In other words, students' naive conception of how science works may in some ways be closer to that embodied in recent reforms rather than ``business as usual'' practices. Indeed, surveys of scientists' subscriptions to Mertonian norms have often found that while most scientists endorse Mertonian norms such as communality, universalism and disinterestedness, this is by no means the case for all scientists. Furthermore, they typically perceive the behaviour of other scientists as being less consistent with these norms than their own (Anderson, Martinson, \& De Vries, 2007). It is thus possible that, for some students, teaching about reform may be less a matter of conveying new information and more one of reinforcing ``naive'' assumptions. In fact, although beyond the scope of this article, it is \emph{possible} that incoming undergraduate students more strongly endorse open science norms than do academics.
 
-Third, anecdotal evidence suggests that students being taught about open science practices and reforms to improve reproducibility (such as open sharing of data and analysis code) are often surprised that this is not \emph{already} standard practice. In other words, their naive conception of how science works may in some ways be closer to that embodied in recent reforms rather than traditional practices. It is thus possible that, for some students, teaching about reform may be less a matter of conveying new information and more of reinforcing \enquote{naive} assumptions. In fact, although beyond the scope of this article, it may possibly be the case that incoming undergraduate students more strongly endorse open science norms than do academics.
+These considerations suggest that it is important that teachers wishing to inform undergraduate psychology students about the replication crisis and open science practices have some understanding of what such students actually know and believe about these topics already. In addition, undergraduate psychology students themselves represent one of the most important audiences for psychological research: The number of undergraduate students enrolled in psychology courses in any given year dwarfs the number of academics working in psychology. As such, the \emph{preferences} of these students with respect to reproducibility and open science practices are themselves important as a phenomenon of interest. If, for example, undergraduate psychology students have a strong preference that journal articles are freely available to members of the public, this preference on the part of some of the consumers of the knowledge we produce should have some bearing on our choices in relation to sharing of manuscripts. This is especially the case given that undergraduate students are directly or indirectly responsible for much of the funding which allows universities to operate and research to be conducted. In fact, in serving as participants for course credit in many universities, undergraduate psychology students also provide the data underlying much psychological research.
 
-These considerations suggest that it is important that teachers wishing to inform undergraduate psychology students about the replication crisis and open science practices have some understanding of what such students actually know and believe about these topics already. In addition, undergraduate psychology students themselves represent one of the most important audiences for psychological research: The number of undergraduate students enrolled in psychology courses and learning about psychological research in any given year dwarfs the number of academics working in psychology. As such, the \emph{preferences} of these students with respect to reproducibility and open science practices are themselves important as a phenomenon of interest. If, for example, undergraduate psychology students have a strong preference that journal articles are freely available to members of the public, this preference on the part of some of the consumers of the knowledge we produce should have some bearing on our choices in relation to sharing of manuscripts. This is especially the case given that undergraduate students are directly or indirectly responsible for much of the funding which allows universities to operate and research to be conducted. In fact, in serving as participants for course credit in many universities, undergraduate psychology students also provide the data underlying much psychological research.
-
-For these reasons, we aimed to conduct a study describing what incoming undergraduate students of psychology believe about reproducibility and open science practices in psychology. Our survey encompassed norms (how students felt research \emph{should} be conducted), norms in practice (how students believe psychological research \emph{is} conducted) and replicability (how replicable students believe psychological research is). In doing so we hope to provide knowledge which can inform the pedagogy of teaching about replication and open science practices.
+For these reasons, we aimed to conduct a study describing what incoming undergraduate students of psychology believe about reproducibility and open science practices in psychology. Our survey encompassed norms (how students felt research \emph{should} be conducted), norms in practice (how students believe psychological research \emph{is} conducted) and replicability (how replicable students believe psychological research is). In doing so we hope to provide knowledge which can inform the pedagogy of teaching about replication and open science practices. This study is exploratory (see Wagenmakers, Wetzels, Borsboom, van der Maas, \& Kievit, 2012) and descriptive, and does not involve the specification or testing of hypotheses.
 
 \hypertarget{methods}{%
 \section{Methods}\label{methods}}
@@ -183,6 +144,41 @@ We report how we determined our sample size, all data exclusions (if any), all m
 
 \hypertarget{participants}{%
 \subsection{Participants}\label{participants}}
+
+Of those who started the survey (\emph{n} = 423), we screened out 184
+participants who were not eligible to participate based on the combination of our
+preregistered exclusion criteria. Specifically, we screened out people who were younger than
+18 years (\emph{n} = 7). We also screened out individuals who had already
+started a psychology unit at a university, regardless of whether they had
+completed it (\emph{n} = 72); were not enrolled in a
+psychology unit at a university (\emph{n} = 1); or did not answer this
+question (\emph{n} = 14). We then excluded additional responses that
+Qualtrics flagged as spam (\emph{n} = 1) or as a survey preview
+(\emph{n} = 1). Finally, we excluded participants who met all other
+eligibility criteria, but did not respond to any of the main items
+in the study (\emph{n} = 88).
+
+The remaining 239 participants were eligible based on starting their first unit
+of study in psychology at a university within the next month. For those individuals
+who were screened out, our Qualtrics program automatically directed them to the
+debriefing form.
+
+Of the remaining 239 participants, most reported that they were
+18-24 years old (\emph{n} = 193), 21
+reported that they were 25-34 years old, 12 were 35-44 years old,
+12 were 45-54 years old, and 1 was 55-64 years old.
+
+Nearly all reported that they graduated from high
+school or secondary school (\emph{n} = 230). Of those participants who
+attended high school, a little less than half completed psychology courses in
+high school (\emph{n} = 106). In terms of their nationality, most
+participants reported that they were Australian (\emph{n} = 125),
+from the United Kingdom (\emph{n} = 43), or Chinese
+(\emph{n} = 15). In terms of where the participants were attending
+university, most reported that they were in Australia (\emph{n} = 160),
+the United Kingdom (\emph{n} = 63), or New Zealand (\emph{n} = 11).
+Finally, about 2/3rds of participants reported that at least one of their parents
+attended university (\emph{n} = 157).
 
 \hypertarget{material}{%
 \subsection{Material}\label{material}}
@@ -193,13 +189,64 @@ We report how we determined our sample size, all data exclusions (if any), all m
 \hypertarget{data-analysis}{%
 \subsection{Data analysis}\label{data-analysis}}
 
-We used R (Version 4.0.1; {\textbf{???}}) and the R-package \emph{papaja} (Version 0.1.0.9997; {\textbf{???}}) for all our analyses.
+\begin{tabular}{l|r}
+\hline
+  & x\\
+\hline
+critical\_cnorm & 2.410042\\
+\hline
+critical\_norm & 4.322176\\
+\hline
+prereg\_norm & 3.974895\\
+\hline
+prereg\_cnorm & 2.753138\\
+\hline
+reg\_report\_norm & 3.355649\\
+\hline
+reg\_report\_cnorm & 3.556485\\
+\hline
+phack\_cnorm & 2.133891\\
+\hline
+phack\_norm & 4.338912\\
+\hline
+hark\_cnorm & 1.661088\\
+\hline
+hark\_norm & 3.887029\\
+\hline
+info\_for\_rep\_norm & 4.422594\\
+\hline
+info\_for\_rep\_cnorm & 1.514644\\
+\hline
+preprint\_norm & 1.610879\\
+\hline
+preprint\_cnorm & 4.357143\\
+\hline
+open\_materials\_norm & 3.689076\\
+\hline
+open\_materials\_cnorm & 2.497908\\
+\hline
+open\_data\_norm & 2.656904\\
+\hline
+open\_data\_cnorm & 3.485356\\
+\hline
+open\_access\_norm & 3.857143\\
+\hline
+open\_access\_cnorm & 2.531381\\
+\hline
+\end{tabular}
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
+
+\newpage
+
+\hypertarget{reproducible-code-statement}{%
+\section{Reproducible Code Statement}\label{reproducible-code-statement}}
+
+We used R (Version 3.6.3; R Core Team, 2020) and the R-packages \emph{dplyr} (Version 1.0.2; Wickham et al., 2020), \emph{forcats} (Version 0.5.0; Wickham, 2020), \emph{ggplot2} (Version 3.3.3; Wickham, 2016), \emph{here} (Version 0.1; Müller, 2017), \emph{papaja} (Version 0.1.0.9842; Aust \& Barth, 2018), \emph{purrr} (Version 0.3.4; Henry \& Wickham, 2020), \emph{readr} (Version 1.3.1; Wickham, Hester, \& Francois, 2018), \emph{stringr} (Version 1.4.0; Wickham, 2019), \emph{tibble} (Version 3.0.4; Müller \& Wickham, 2020), \emph{tidyr} (Version 1.1.1; Wickham \& Henry, 2020), and \emph{tidyverse} (Version 1.3.0; Wickham, Averick, et al., 2019) for all our analyses.
 
 \newpage
 
@@ -211,37 +258,188 @@ We used R (Version 4.0.1; {\textbf{???}}) and the R-package \emph{papaja} (Versi
 \setlength{\leftskip}{0.5in}
 
 \hypertarget{refs}{}
-\leavevmode\hypertarget{ref-brandtReplicationRecipeWhat2014}{}%
-Brandt, M. J., IJzerman, H., Dijksterhuis, A., Farach, F. J., Geller, J., Giner-Sorolla, R., \ldots{} van 't Veer, A. (2014). The replication recipe: What makes for a convincing replication? \emph{Journal of Experimental Social Psychology}, \emph{50}, 217--224. \url{https://doi.org/10.1016/j.jesp.2013.10.005}
+\begin{cslreferences}
+\leavevmode\hypertarget{ref-andersonNormativeDissonanceScience2007}{}%
+Anderson, M. S., Martinson, B. C., \& De Vries, R. (2007). Normative dissonance in science: Results from a national survey of U.S. Scientists. \emph{Journal of Empirical Research on Human Research Ethics}, \emph{2}(4), 3--14. doi:\href{https://doi.org/10.1525/jer.2007.2.4.3}{10.1525/jer.2007.2.4.3}
 
-\leavevmode\hypertarget{ref-chambersRegisteredReportsPresent2020}{}%
-Chambers, C., \& Tzavella, L. (2020). Registered reports: Past, present and future. \url{https://doi.org/10.31222/osf.io/43298}
+\leavevmode\hypertarget{ref-R-papaja}{}%
+Aust, F., \& Barth, M. (2018). \emph{papaja: Create APA manuscripts with R Markdown}. Retrieved from \url{https://github.com/crsh/papaja}
+
+\leavevmode\hypertarget{ref-baker500ScientistsLift2016}{}%
+Baker, M. (2016). 1,500 scientists lift the lid on reproducibility. \emph{Nature News}, \emph{533}(7604), 452. doi:\href{https://doi.org/10.1038/533452a}{10.1038/533452a}
+
+\leavevmode\hypertarget{ref-brandtReplicationRecipeWhat2014}{}%
+Brandt, M. J., IJzerman, H., Dijksterhuis, A., Farach, F. J., Geller, J., Giner-Sorolla, R., \ldots{} van 't Veer, A. (2014). The replication recipe: What makes for a convincing replication? \emph{Journal of Experimental Social Psychology}, \emph{50}, 217--224. doi:\href{https://doi.org/10.1016/j.jesp.2013.10.005}{10.1016/j.jesp.2013.10.005}
 
 \leavevmode\hypertarget{ref-chopikHowWhetherTeach2018}{}%
-Chopik, W. J., Bremner, R. H., Defever, A. M., \& Keller, V. N. (2018). How (and whether) to teach undergraduates about the replication crisis in psychological science. \emph{Teaching of Psychology}, \emph{45}(2), 158--163. \url{https://doi.org/10.1177/0098628318762900}
+Chopik, W. J., Bremner, R. H., Defever, A. M., \& Keller, V. N. (2018). How (and whether) to teach undergraduates about the replication crisis in psychological science. \emph{Teaching of Psychology}, \emph{45}(2), 158--163. doi:\href{https://doi.org/10.1177/0098628318762900}{10.1177/0098628318762900}
+
+\leavevmode\hypertarget{ref-graheHarnessingUndiscoveredResource2012}{}%
+Grahe, J. E., Reifman, A., Hermann, A. D., Walker, M., Oleson, K. C., Nario-Redmond, M., \& Wiebe, R. P. (2012). Harnessing the undiscovered resource of student research projects. \emph{Perspectives on Psychological Science}, \emph{7}(6), 605--607. doi:\href{https://doi.org/10.1177/1745691612459057}{10.1177/1745691612459057}
+
+\leavevmode\hypertarget{ref-openscienceworkinggroup2017SurveyOpen2018}{}%
+Group, O. S. W. (2018). \emph{2017 survey on open research practices administered by the School of Psychology, Cardiff University}. Cardiff University.
+
+\leavevmode\hypertarget{ref-harrisUseReproducibleResearch2018}{}%
+Harris, J. K., Johnson, K. J., Carothers, B. J., Combs, T. B., Luke, D. A., \& Wang, X. (2018). Use of reproducible research practices in public health: A survey of public health analysts. \emph{PLOS ONE}, \emph{13}(9), e0202447. doi:\href{https://doi.org/10.1371/journal.pone.0202447}{10.1371/journal.pone.0202447}
+
+\leavevmode\hypertarget{ref-R-purrr}{}%
+Henry, L., \& Wickham, H. (2020). \emph{Purrr: Functional programming tools}. Retrieved from \url{https://CRAN.R-project.org/package=purrr}
+
+\leavevmode\hypertarget{ref-jekelHowTeachOpen2020}{}%
+Jekel, M., Fiedler, S., Allstadt Torras, R., Mischkowski, D., Dorrough, A. R., \& Glöckner, A. (2020). How to teach open science principles in the undergraduate curriculumthe Hagen cumulative science project. \emph{Psychology Learning \& Teaching}, \emph{19}(1), 91--106. doi:\href{https://doi.org/10.1177/1475725719868149}{10.1177/1475725719868149}
 
 \leavevmode\hypertarget{ref-kleinInvestigatingVariationReplicability2014}{}%
-Klein, R. A., Ratliff, K. A., Vianello, M., Adams Jr., R. B., Bahník, Š., Bernstein, M. J., \ldots{} Nosek, B. A. (2014). Investigating variation in replicability: A ``many labs'' replication project. \emph{Social Psychology}, \emph{45}(3), 142--152. \url{https://doi.org/10.1027/1864-9335/a000178}
+Klein, R. A., Ratliff, K. A., Vianello, M., Adams Jr., R. B., Bahník, Š., Bernstein, M. J., \ldots{} Nosek, B. A. (2014). Investigating variation in replicability: A ``many labs'' replication project. \emph{Social Psychology}, \emph{45}(3), 142--152. doi:\href{https://doi.org/10.1027/1864-9335/a000178}{10.1027/1864-9335/a000178}
 
 \leavevmode\hypertarget{ref-kleinManyLabsInvestigating2018}{}%
-Klein, R. A., Vianello, M., Hasselman, F., Adams, B. G., Adams, R. B., Alper, S., \ldots{} Nosek, B. A. (2018). Many labs 2: Investigating variation in replicability across samples and settings. \emph{Advances in Methods and Practices in Psychological Science}, \emph{1}(4), 443--490. \url{https://doi.org/10.1177/2515245918810225}
-
-\leavevmode\hypertarget{ref-mertonSociologyScienceTheoretical1973}{}%
-Merton, R. K. (1973). \emph{The sociology of science : Theoretical and empirical investigations}. Chicago : University of Chicago Press.
+Klein, R. A., Vianello, M., Hasselman, F., Adams, B. G., Adams, R. B., Alper, S., \ldots{} Nosek, B. A. (2018). Many labs 2: Investigating variation in replicability across samples and settings. \emph{Advances in Methods and Practices in Psychological Science}, \emph{1}(4), 443--490. doi:\href{https://doi.org/10.1177/2515245918810225}{10.1177/2515245918810225}
 
 \leavevmode\hypertarget{ref-meyerPracticalTipsEthical2018}{}%
-Meyer, M. N. (2018). Practical tips for ethical data sharing. \emph{Advances in Methods and Practices in Psychological Science}, \emph{1}(1), 131--144. \url{https://doi.org/10.1177/2515245917747656}
+Meyer, M. N. (2018). Practical tips for ethical data sharing. \emph{Advances in Methods and Practices in Psychological Science}, \emph{1}(1), 131--144. doi:\href{https://doi.org/10.1177/2515245917747656}{10.1177/2515245917747656}
+
+\leavevmode\hypertarget{ref-R-here}{}%
+Müller, K. (2017). \emph{Here: A simpler way to find your files}. Retrieved from \url{https://CRAN.R-project.org/package=here}
+
+\leavevmode\hypertarget{ref-R-tibble}{}%
+Müller, K., \& Wickham, H. (2020). \emph{Tibble: Simple data frames}. Retrieved from \url{https://CRAN.R-project.org/package=tibble}
 
 \leavevmode\hypertarget{ref-nosekPreregistrationRevolution2018}{}%
-Nosek, B. A., Ebersole, C. R., DeHaven, A. C., \& Mellor, D. T. (2018). The preregistration revolution. \emph{Proceedings of the National Academy of Sciences}, \emph{115}(11), 2600--2606. \url{https://doi.org/10.1073/pnas.1708274114}
+Nosek, B. A., Ebersole, C. R., DeHaven, A. C., \& Mellor, D. T. (2018). The preregistration revolution. \emph{Proceedings of the National Academy of Sciences}, \emph{115}(11), 2600--2606. doi:\href{https://doi.org/10.1073/pnas.1708274114}{10.1073/pnas.1708274114}
 
-\leavevmode\hypertarget{ref-opensciencecollaborationEstimatingReproducibilityPsychological2015}{}%
-Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. \emph{Science}, \emph{349}(6251), aac4716--aac4716. \url{https://doi.org/10.1126/science.aac4716}
+\leavevmode\hypertarget{ref-ogradyPsychologyReplicationCrisis2020}{}%
+O'Grady, C., 2020, \& Pm, 2. (2020). Psychology's replication crisis inspires ecologists to push for more reliable research. \emph{Science}.
+
+\leavevmode\hypertarget{ref-R-base}{}%
+R Core Team. (2020). \emph{R: A language and environment for statistical computing}. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from \url{https://www.R-project.org/}
+
+\leavevmode\hypertarget{ref-schonbrodtTrainingStudentsOpen2019}{}%
+Schönbrodt, F. (2019). Training students for the Open Science future. \emph{Nature Human Behaviour}, \emph{3}(10), 1031--1031. doi:\href{https://doi.org/10.1038/s41562-019-0726-z}{10.1038/s41562-019-0726-z}
 
 \leavevmode\hypertarget{ref-simmons21WordSolution2012}{}%
 Simmons, J. P., Nelson, L. D., \& Simonsohn, U. (2012). \emph{A 21 word solution} (SSRN Scholarly Paper No. ID 2160588). Rochester, NY: Social Science Research Network.
 
-\endgroup
+\leavevmode\hypertarget{ref-wagenmakersAgendaPurelyConfirmatory2012}{}%
+Wagenmakers, E.-J., Wetzels, R., Borsboom, D., van der Maas, H. L. J., \& Kievit, R. A. (2012). An agenda for purely confirmatory research. \emph{Perspectives on Psychological Science}, \emph{7}(6), 632--638. doi:\href{https://doi.org/10.1177/1745691612463078}{10.1177/1745691612463078}
 
+\leavevmode\hypertarget{ref-R-ggplot2}{}%
+Wickham, H. (2016). \emph{Ggplot2: Elegant graphics for data analysis}. Springer-Verlag New York. Retrieved from \url{https://ggplot2.tidyverse.org}
+
+\leavevmode\hypertarget{ref-R-stringr}{}%
+Wickham, H. (2019). \emph{Stringr: Simple, consistent wrappers for common string operations}. Retrieved from \url{https://CRAN.R-project.org/package=stringr}
+
+\leavevmode\hypertarget{ref-R-forcats}{}%
+Wickham, H. (2020). \emph{Forcats: Tools for working with categorical variables (factors)}. Retrieved from \url{https://CRAN.R-project.org/package=forcats}
+
+\leavevmode\hypertarget{ref-R-tidyverse}{}%
+Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., \ldots{} Yutani, H. (2019). Welcome to the tidyverse. \emph{Journal of Open Source Software}, \emph{4}(43), 1686. doi:\href{https://doi.org/10.21105/joss.01686}{10.21105/joss.01686}
+
+\leavevmode\hypertarget{ref-R-dplyr}{}%
+Wickham, H., François, R., Henry, L., \& Müller, K. (2020). \emph{Dplyr: A grammar of data manipulation}. Retrieved from \url{https://CRAN.R-project.org/package=dplyr}
+
+\leavevmode\hypertarget{ref-R-tidyr}{}%
+Wickham, H., \& Henry, L. (2020). \emph{Tidyr: Tidy messy data}. Retrieved from \url{https://CRAN.R-project.org/package=tidyr}
+
+\leavevmode\hypertarget{ref-R-readr}{}%
+Wickham, H., Hester, J., \& Francois, R. (2018). \emph{Readr: Read rectangular text data}. Retrieved from \url{https://CRAN.R-project.org/package=readr}
+
+\leavevmode\hypertarget{ref-yongPsychologyReplicationCrisis2016}{}%
+Yong, E. (2016). Psychology's replication crisis can't be wished away. \emph{The Atlantic}.
+
+\leavevmode\hypertarget{ref-yongPsychologyReplicationCrisis2018}{}%
+Yong, E. (2018). Psychology's replication crisis is running out of excuses. \emph{The Atlantic}.
+
+\leavevmode\hypertarget{ref-andersonNormativeDissonanceScience2007}{}%
+Anderson, M. S., Martinson, B. C., \& De Vries, R. (2007). Normative dissonance in science: Results from a national survey of U.S. Scientists. \emph{Journal of Empirical Research on Human Research Ethics}, \emph{2}(4), 3--14. doi:\href{https://doi.org/10.1525/jer.2007.2.4.3}{10.1525/jer.2007.2.4.3}
+
+\leavevmode\hypertarget{ref-R-papaja}{}%
+Aust, F., \& Barth, M. (2018). \emph{papaja: Create APA manuscripts with R Markdown}. Retrieved from \url{https://github.com/crsh/papaja}
+
+\leavevmode\hypertarget{ref-baker500ScientistsLift2016}{}%
+Baker, M. (2016). 1,500 scientists lift the lid on reproducibility. \emph{Nature News}, \emph{533}(7604), 452. doi:\href{https://doi.org/10.1038/533452a}{10.1038/533452a}
+
+\leavevmode\hypertarget{ref-brandtReplicationRecipeWhat2014}{}%
+Brandt, M. J., IJzerman, H., Dijksterhuis, A., Farach, F. J., Geller, J., Giner-Sorolla, R., \ldots{} van 't Veer, A. (2014). The replication recipe: What makes for a convincing replication? \emph{Journal of Experimental Social Psychology}, \emph{50}, 217--224. doi:\href{https://doi.org/10.1016/j.jesp.2013.10.005}{10.1016/j.jesp.2013.10.005}
+
+\leavevmode\hypertarget{ref-chopikHowWhetherTeach2018}{}%
+Chopik, W. J., Bremner, R. H., Defever, A. M., \& Keller, V. N. (2018). How (and whether) to teach undergraduates about the replication crisis in psychological science. \emph{Teaching of Psychology}, \emph{45}(2), 158--163. doi:\href{https://doi.org/10.1177/0098628318762900}{10.1177/0098628318762900}
+
+\leavevmode\hypertarget{ref-graheHarnessingUndiscoveredResource2012}{}%
+Grahe, J. E., Reifman, A., Hermann, A. D., Walker, M., Oleson, K. C., Nario-Redmond, M., \& Wiebe, R. P. (2012). Harnessing the undiscovered resource of student research projects. \emph{Perspectives on Psychological Science}, \emph{7}(6), 605--607. doi:\href{https://doi.org/10.1177/1745691612459057}{10.1177/1745691612459057}
+
+\leavevmode\hypertarget{ref-openscienceworkinggroup2017SurveyOpen2018}{}%
+Group, O. S. W. (2018). \emph{2017 survey on open research practices administered by the School of Psychology, Cardiff University}. Cardiff University.
+
+\leavevmode\hypertarget{ref-harrisUseReproducibleResearch2018}{}%
+Harris, J. K., Johnson, K. J., Carothers, B. J., Combs, T. B., Luke, D. A., \& Wang, X. (2018). Use of reproducible research practices in public health: A survey of public health analysts. \emph{PLOS ONE}, \emph{13}(9), e0202447. doi:\href{https://doi.org/10.1371/journal.pone.0202447}{10.1371/journal.pone.0202447}
+
+\leavevmode\hypertarget{ref-R-purrr}{}%
+Henry, L., \& Wickham, H. (2020). \emph{Purrr: Functional programming tools}. Retrieved from \url{https://CRAN.R-project.org/package=purrr}
+
+\leavevmode\hypertarget{ref-jekelHowTeachOpen2020}{}%
+Jekel, M., Fiedler, S., Allstadt Torras, R., Mischkowski, D., Dorrough, A. R., \& Glöckner, A. (2020). How to teach open science principles in the undergraduate curriculumthe Hagen cumulative science project. \emph{Psychology Learning \& Teaching}, \emph{19}(1), 91--106. doi:\href{https://doi.org/10.1177/1475725719868149}{10.1177/1475725719868149}
+
+\leavevmode\hypertarget{ref-kleinInvestigatingVariationReplicability2014}{}%
+Klein, R. A., Ratliff, K. A., Vianello, M., Adams Jr., R. B., Bahník, Š., Bernstein, M. J., \ldots{} Nosek, B. A. (2014). Investigating variation in replicability: A ``many labs'' replication project. \emph{Social Psychology}, \emph{45}(3), 142--152. doi:\href{https://doi.org/10.1027/1864-9335/a000178}{10.1027/1864-9335/a000178}
+
+\leavevmode\hypertarget{ref-kleinManyLabsInvestigating2018}{}%
+Klein, R. A., Vianello, M., Hasselman, F., Adams, B. G., Adams, R. B., Alper, S., \ldots{} Nosek, B. A. (2018). Many labs 2: Investigating variation in replicability across samples and settings. \emph{Advances in Methods and Practices in Psychological Science}, \emph{1}(4), 443--490. doi:\href{https://doi.org/10.1177/2515245918810225}{10.1177/2515245918810225}
+
+\leavevmode\hypertarget{ref-meyerPracticalTipsEthical2018}{}%
+Meyer, M. N. (2018). Practical tips for ethical data sharing. \emph{Advances in Methods and Practices in Psychological Science}, \emph{1}(1), 131--144. doi:\href{https://doi.org/10.1177/2515245917747656}{10.1177/2515245917747656}
+
+\leavevmode\hypertarget{ref-R-here}{}%
+Müller, K. (2017). \emph{Here: A simpler way to find your files}. Retrieved from \url{https://CRAN.R-project.org/package=here}
+
+\leavevmode\hypertarget{ref-R-tibble}{}%
+Müller, K., \& Wickham, H. (2020). \emph{Tibble: Simple data frames}. Retrieved from \url{https://CRAN.R-project.org/package=tibble}
+
+\leavevmode\hypertarget{ref-nosekPreregistrationRevolution2018}{}%
+Nosek, B. A., Ebersole, C. R., DeHaven, A. C., \& Mellor, D. T. (2018). The preregistration revolution. \emph{Proceedings of the National Academy of Sciences}, \emph{115}(11), 2600--2606. doi:\href{https://doi.org/10.1073/pnas.1708274114}{10.1073/pnas.1708274114}
+
+\leavevmode\hypertarget{ref-ogradyPsychologyReplicationCrisis2020}{}%
+O'Grady, C., 2020, \& Pm, 2. (2020). Psychology's replication crisis inspires ecologists to push for more reliable research. \emph{Science}.
+
+\leavevmode\hypertarget{ref-R-base}{}%
+R Core Team. (2020). \emph{R: A language and environment for statistical computing}. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from \url{https://www.R-project.org/}
+
+\leavevmode\hypertarget{ref-schonbrodtTrainingStudentsOpen2019}{}%
+Schönbrodt, F. (2019). Training students for the Open Science future. \emph{Nature Human Behaviour}, \emph{3}(10), 1031--1031. doi:\href{https://doi.org/10.1038/s41562-019-0726-z}{10.1038/s41562-019-0726-z}
+
+\leavevmode\hypertarget{ref-simmons21WordSolution2012}{}%
+Simmons, J. P., Nelson, L. D., \& Simonsohn, U. (2012). \emph{A 21 word solution} (SSRN Scholarly Paper No. ID 2160588). Rochester, NY: Social Science Research Network.
+
+\leavevmode\hypertarget{ref-wagenmakersAgendaPurelyConfirmatory2012}{}%
+Wagenmakers, E.-J., Wetzels, R., Borsboom, D., van der Maas, H. L. J., \& Kievit, R. A. (2012). An agenda for purely confirmatory research. \emph{Perspectives on Psychological Science}, \emph{7}(6), 632--638. doi:\href{https://doi.org/10.1177/1745691612463078}{10.1177/1745691612463078}
+
+\leavevmode\hypertarget{ref-R-ggplot2}{}%
+Wickham, H. (2016). \emph{Ggplot2: Elegant graphics for data analysis}. Springer-Verlag New York. Retrieved from \url{https://ggplot2.tidyverse.org}
+
+\leavevmode\hypertarget{ref-R-stringr}{}%
+Wickham, H. (2019). \emph{Stringr: Simple, consistent wrappers for common string operations}. Retrieved from \url{https://CRAN.R-project.org/package=stringr}
+
+\leavevmode\hypertarget{ref-R-forcats}{}%
+Wickham, H. (2020). \emph{Forcats: Tools for working with categorical variables (factors)}. Retrieved from \url{https://CRAN.R-project.org/package=forcats}
+
+\leavevmode\hypertarget{ref-R-tidyverse}{}%
+Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., \ldots{} Yutani, H. (2019). Welcome to the tidyverse. \emph{Journal of Open Source Software}, \emph{4}(43), 1686. doi:\href{https://doi.org/10.21105/joss.01686}{10.21105/joss.01686}
+
+\leavevmode\hypertarget{ref-R-dplyr}{}%
+Wickham, H., François, R., Henry, L., \& Müller, K. (2020). \emph{Dplyr: A grammar of data manipulation}. Retrieved from \url{https://CRAN.R-project.org/package=dplyr}
+
+\leavevmode\hypertarget{ref-R-tidyr}{}%
+Wickham, H., \& Henry, L. (2020). \emph{Tidyr: Tidy messy data}. Retrieved from \url{https://CRAN.R-project.org/package=tidyr}
+
+\leavevmode\hypertarget{ref-R-readr}{}%
+Wickham, H., Hester, J., \& Francois, R. (2018). \emph{Readr: Read rectangular text data}. Retrieved from \url{https://CRAN.R-project.org/package=readr}
+
+\leavevmode\hypertarget{ref-yongPsychologyReplicationCrisis2016}{}%
+Yong, E. (2016). Psychology's replication crisis can't be wished away. \emph{The Atlantic}.
+
+\leavevmode\hypertarget{ref-yongPsychologyReplicationCrisis2018}{}%
+Yong, E. (2018). Psychology's replication crisis is running out of excuses. \emph{The Atlantic}.
+\end{cslreferences}
+
+\endgroup
 
 \end{document}
