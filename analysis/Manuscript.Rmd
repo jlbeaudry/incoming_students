@@ -264,38 +264,74 @@ Participants' beliefs about the replicabilty of results in psychological science
 
 ## Data analysis
 
-```{r, difference between norm & counternorm, eval = FALSE}
-
-# select all columns that relate to norms & counternorms
-diff <- df %>% select(c(id, ends_with("norm")))
-
-means <- diff %>% 
-  sapply(mean, na.rm = TRUE) 
-  
-knitr::kable(means)
+# Results
 
 
-# select columns that relate to norms
-norms <- df %>% select(c(id, ends_with("_norm")))
+```{r, difference between norm and counternorm}
+
+# select columns that relate to norms & pivot it long
+norm_long <- df %>% 
+  select(c(id, ends_with("_norm"))) %>% 
+    pivot_longer (cols = ends_with("norm"),
+                names_to = "practice",
+                values_to = "norm rating") 
+
+# remove "_norm" from the practice variables
+norm_long$practice = gsub(pattern = "_norm", replacement = "", x = norm_long$practice)
 
 # select columns that relate to counternorms
-cnorms <- df %>% select(c(id, ends_with("_cnorm")))
-
-
-
-
-# breadcrumbs - pivot long
-
-norm_long <- norms %>% 
-  pivot_longer (cols = ends_with("norm"),
+cnorm_long <- df %>% 
+  select(c(id, ends_with("_cnorm"))) %>% 
+  pivot_longer (cols = ends_with("cnorm"),
                 names_to = "practice",
-                values_to = "rating") 
-  str_remove(norm_long, "_norm")
+                values_to = "cnorm rating") 
 
-norm_wide <- diff %>% 
-  pivot_wider(names_from = ends_with("_norm"),
-              values_from = c(ends_with("_norm"), ends_with("_cnorm"))
-)
+# remove "_cnorm" from the practice variables
+cnorm_long$practice = gsub(pattern = "_cnorm", replacement = "", x = cnorm_long$practice)
+
+# join the norm and counternorm tibbles
+norm_cnorm <- norm_long %>% inner_join(cnorm_long)
+
+# create a `diff` variable that is the counternorm subtracted from the norm
+norm_cnorm <- norm_cnorm %>% 
+  mutate (diff = (`norm rating` - `cnorm rating`)) %>% 
+      dplyr::select(-(`id`)) # remove this now that I've confirmed it works
+
+
+norm_means <- norm_cnorm %>% 
+    dplyr::group_by(practice) %>%  
+    summarise(norm_mean = mean(`norm rating`, na.rm = TRUE), 
+              norm_sd = sd(`norm rating`, na.rm = TRUE), 
+              cnorm_mean = mean(`cnorm rating`, na.rm = TRUE), 
+              cnorm_sd = sd(`cnorm rating`, na.rm = TRUE), 
+              diff_mean = mean(`diff`, na.rm = TRUE), 
+              diff_sd = sd(`diff`, na.rm = TRUE)) %>% 
+  ungroup()
+  
+# breadcrumb: I need to use papaja tables....
+# pull means & sd into the same column with (sd) in parentheses
+# headings should then be norm, counternorm, difference
+
+  
+knitr::kable(norm_means,
+             caption = "Means (sd) for norms, counternorms, and the difference between the two for each of the practices",
+             digits = 2,
+             align = c('lcccccc'))
+  
+# breadcrumbs: rename the practices so it's easier to read
+
+# I don't need this...
+# norm_means <- norm_cnorm %>% 
+    # select(-id) %>% 
+    # group_by(practice) %>%  
+    # mutate(norm_mean = mean(`norm rating`, na.rm = TRUE)) %>% 
+    # mutate(norm_sd = sd(`norm rating`, na.rm = TRUE)) %>% 
+    # mutate(cnorm_mean = mean(`cnorm rating`, na.rm = TRUE)) %>% 
+    # mutate(cnorm_sd = sd(`cnorm rating`, na.rm = TRUE)) %>% 
+    # mutate(diff_mean = mean(`diff`, na.rm = TRUE)) %>% 
+    # mutate(diff_sd = sd(`diff`, na.rm = TRUE)) 
+
+
 ```
 
 ```{r, eval=FALSE}
@@ -318,9 +354,6 @@ diff_fun(x = norms, y = cnorms)
 df$diff <- apply(X = df[, ], MARGIN = 1, FUN = miss_fun)
 
 ```
-
-
-# Results
 
 
 
