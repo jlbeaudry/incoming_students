@@ -63,12 +63,9 @@ papaja and its many dependencies.
 library(papaja)
 library(here)
 library(tidyverse)
-<<<<<<< HEAD
 library(finalfit) # to keep trailing zeros
-=======
 library(psych) #for correlation matrices
 library(tidyselect) 
->>>>>>> 9f66935b323290cf8338281f81fabe8e81d2460c
 
 r_refs("r-references.bib")
 ```
@@ -261,7 +258,7 @@ Participants' beliefs about the replicabilty of results in psychological science
 
 Estimates were recorded using a slider bar ranging from 0% to 100%. 
 A second question asked participants whether they had heard of the replication crisis. Those who had heard of the replication crisis were asked two additional open-ended questions. First, they were asked to describe what the replication crisis is. Second, they were asked which scientific disciplines were most affected by the replication crisis. 
->>>>>>> 9f66935b323290cf8338281f81fabe8e81d2460c
+
 
 ## Procedure
 
@@ -271,15 +268,15 @@ Collaborators/Contributors/Colleagues from ## tertiary institutions in Australia
 
 # Results
 
-<<<<<<< HEAD
+
 In line with our preregisterd analysis plan, we cacluated the difference in means
 between responses to each norm item and its accompanying counternorm, along with 
 95% confidence intervals. For this analysis, we removed three cases with missing values. 
 Table XX displays the means and standard deviations for each norm, counternorm, 
 and the difference values. 
-=======
+
  \@ref(tab:chunk-name)
->>>>>>> 9f66935b323290cf8338281f81fabe8e81d2460c
+
 
 ```{r, difference between norm and counternorm}
 
@@ -356,14 +353,14 @@ prac_means$Difference <- paste0(round_tidy(prac_means$diff_mean,2),
                             round_tidy(prac_means$upper,2),
                             "]")
 
-# clean it up into a new dataframe
+# clean it up into a new dataframe with only the columns we need
 practice_means <- prac_means %>% 
   select(practice,Norm, Counternorm, Difference)
 
 
-# breadcrumb: I need to use papaja tables....
-# pull means & sd into the same column with (sd) in parentheses
-# first level headings should then be norm, counternorm, difference
+# breadcrumb: I need to use apa_tables.... (in line with papaja)
+# pull means & sd into the same column with (sd) in parentheses [done!]
+# headings should then be norm, counternorm, difference [done!]
 
   
 knitr::kable(practice_means,
@@ -373,40 +370,8 @@ knitr::kable(practice_means,
   
 # breadcrumbs: rename the practices so it's easier to read
 
-# I don't need this...
-# norm_means <- norm_cnorm %>% 
-    # select(-id) %>% 
-    # group_by(practice) %>%  
-    # mutate(norm_mean = mean(`norm rating`, na.rm = TRUE)) %>% 
-    # mutate(norm_sd = sd(`norm rating`, na.rm = TRUE)) %>% 
-    # mutate(cnorm_mean = mean(`cnorm rating`, na.rm = TRUE)) %>% 
-    # mutate(cnorm_sd = sd(`cnorm rating`, na.rm = TRUE)) %>% 
-    # mutate(diff_mean = mean(`diff`, na.rm = TRUE)) %>% 
-    # mutate(diff_sd = sd(`diff`, na.rm = TRUE)) 
-
-
 ```
 
-```{r, eval=FALSE}
-# I'm sure there's a fancier way to subtract the counternorm from the norm, 
-  # but for now we will do this...
- 
-norms <-  vars_select(names(df), ends_with('_norm'))
-cnorms <-  vars_select(names(df), ends_with('_cnorm'))
-
-miss_fun = function(x){
-  sum(is.na(x))
-}
-
-diff_fun = function(x, y){
-  (norms - cnorms)
-}
-
-diff_fun(x = norms, y = cnorms) #throws error non-numeric argument to binary operator
-
-df$diff <- apply(X = df[, ], MARGIN = 1, FUN = miss_fun)
-
-```
 
 ```{r correlation_matrix}
 #pairs.panel etc. won't really work because there are too many variables
