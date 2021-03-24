@@ -63,6 +63,8 @@ papaja and its many dependencies.
 library(papaja)
 library(here)
 library(tidyverse)
+library(psych) #for correlation matrices
+library(tidyselect) 
 
 r_refs("r-references.bib")
 ```
@@ -259,6 +261,7 @@ Participants' beliefs about the replicabilty of results in psychological science
 
 # Results
 
+ \@ref(tab:chunk-name)
 
 ```{r, difference between norm and counternorm}
 
@@ -342,12 +345,62 @@ diff_fun = function(x, y){
   (norms - cnorms)
 }
 
-diff_fun(x = norms, y = cnorms)
+diff_fun(x = norms, y = cnorms) #throws error non-numeric argument to binary operator
 
 df$diff <- apply(X = df[, ], MARGIN = 1, FUN = miss_fun)
 
 ```
 
+```{r correlation_matrix}
+#pairs.panel etc. won't really work because there are too many variables
+#And we only need corrs between matched pairs
+#So doing this a bit more manually
+layout(matrix(1:8, ncol = 4))
+
+plot(df$critical_norm ~ jitter(df$critical_cnorm), xlab = "Critical counternorm", ylab = "Critical norm")
+abline(lm(df$critical_norm ~ df$critical_cnorm), col = "blue")
+legend(x='bottomright', legend=paste('Cor =', round(cor(df$critical_norm, df$critical_cnorm),2)))
+
+plot(df$prereg_norm ~ jitter(df$prereg_cnorm), ylab = "Prereg norm", xlab = "Prereg counternorm")
+abline(lm(df$prereg_norm ~ df$prereg_cnorm), col = "blue")
+legend(x='bottomright', legend=paste('Cor =', round(cor(df$prereg_norm, df$prereg_cnorm),2)))
+
+plot(df$reg_report_norm ~ jitter(df$reg_report_cnorm), ylab = "Reg Reports norm", xlab = "Reg Reports counternorm")
+abline(lm(df$reg_report_norm ~ df$reg_report_cnorm), col = "blue")
+legend(x='bottomleft', legend=paste('Cor =', round(cor(df$reg_report_norm, df$reg_report_cnorm),2)))
+
+plot(df$phack_norm ~ jitter(df$phack_cnorm), ylab = "p-hacking rnorm", xlab = "p-hacking counternorm")
+#potential confusion here about direction of phrasing (pro p-hacking = counternorm?)
+abline(lm(df$phack_norm ~ df$phack_cnorm), col = "blue")
+legend(x='bottomleft', legend=paste('Cor =', round(cor(df$phack_cnorm, df$phack_norm),2)))
+
+plot(df$hark_norm ~ jitter(df$hark_cnorm), ylab = "HARKing norm", xlab = "HARKing counternorm")
+abline(lm(df$hark_norm ~ df$hark_cnorm), col = "blue")
+legend(x='bottomright', legend=paste('Cor =', round(cor(df$hark_cnorm, df$hark_norm),2)))
+
+plot(df$info_for_rep_norm ~ jitter(df$info_for_rep_cnorm), ylab = "Replicability norm", xlab = "Replicability counternorm")
+abline(lm(df$info_for_rep_norm ~ df$info_for_rep_cnorm), col = "blue")
+legend(x='right', legend=paste('Cor =', round(cor(df$info_for_rep_norm, df$info_for_rep_cnorm),2)))
+
+plot(df$preprint_norm ~ jitter(df$preprint_cnorm), ylab = "Preprints norm", xlab = "Preprints counternorm")
+abline(lm(df$preprint_norm ~ df$preprint_cnorm), col = "blue")
+legend(x='bottomleft', legend=paste('Cor =', round(cor(df$preprint_norm, df$preprint_cnorm,
+                                                       use = "pairwise.complete.obs"),2)))
+
+plot(df$open_materials_norm ~ jitter(df$open_materials_cnorm), ylab = "Open materials norm", xlab = "Open materials counternorm")
+abline(lm(df$open_materials_norm ~ df$open_materials_cnorm), col = "blue")
+legend(x='bottomleft', legend=paste('Cor =', round(cor(df$open_materials_norm, df$open_materials_cnorm, use = "pairwise.complete.obs"),2)))
+
+plot(df$open_data_norm ~ jitter(df$open_data_cnorm), ylab = "Open data norm", xlab = "Open data counternorm")
+abline(lm(df$open_data_norm ~ df$open_data_cnorm), col = "blue")
+legend(x='bottomleft', legend=paste('Cor =', round(cor(df$open_data_norm, df$open_data_cnorm),2)))
+
+plot(df$open_access_norm ~ jitter(df$open_access_cnorm), ylab = "Open access norm", xlab = "Open access counternorm")
+abline(lm(df$open_access_norm ~ df$open_access_cnorm), col = "blue")
+legend(x='bottomright', legend=paste('Cor =', round(cor(df$open_access_norm, df$open_access_cnorm),2)))
+
+
+```
 
 
 # Discussion
