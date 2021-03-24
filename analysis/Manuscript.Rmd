@@ -63,7 +63,12 @@ papaja and its many dependencies.
 library(papaja)
 library(here)
 library(tidyverse)
+<<<<<<< HEAD
 library(finalfit) # to keep trailing zeros
+=======
+library(psych) #for correlation matrices
+library(tidyselect) 
+>>>>>>> 9f66935b323290cf8338281f81fabe8e81d2460c
 
 r_refs("r-references.bib")
 ```
@@ -237,20 +242,44 @@ attended university (*n* = `r first_gen[2,2]`).
 ```
 
 
+<<<<<<< HEAD
 
 ## Material
+=======
+Our approach to measuring norms and counternorms focussed on participants' evaluation of ten specific open science practices that reflected diverse open science norms rather than trying to measure endorsement of the more abstract Mertonian norms (cf. Anderson et al., 2007). <!-- Mention here our discussions workshopping of common open science norms at SIPs? ! -->
+The open science practices assessed in our survey included: critical thinking, preregistration, registered reports, p-hacking, hypothesising after the results are known (HARKing), providing sufficent information of replicability, preprints, open materials, open data, and open access publishing. Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario, "Imagine that Deborah is a psychology researcher who has designed a study to test a specific hypothesis." There were 20 scenarios in total.
+For example, the practice of posting article preprints was evaluated with the pro-open science item: "Deborah should post a manuscript describing the Findings of her study openly online as soon as it is complete, even if the manuscript has not yet been checked by experts (peer reviewed) and accepted for publication in a journal." The counter-open preprint item read: "Deborah should not post a manuscript describing the findings of her study online until after it has been checked by experts (peer reviewed) and accepted for publication in a journal." Participants rated their agreement with each prescriptive statement on a 1 (strongly disagree) to 5 (strongly agree) scale.
+
+### Norms in Practice
+
+We also sought to measure participants' normative beliefs about how psychological science was actually conducted by researchers around the world. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" The ten characteristics explicitly described each of the ten open science practices named above. For example, "A manuscript describing the findings of the study is posted openly online as soon as it is complete, even if the manuscript has not yet been checked by experts (peer reviewed) and accepted for publication in a journal." Participants were given a slider bar ranging from 0% to 100% to record their estimate. 
+
+### Beliefs About Replications
+
+Participants' beliefs about the replicabilty of results in psychological science were indexed by two questions. The first asked participants to, 
+> "Imagine that a set of researchers selected 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a 'replication study.' At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?”
+
+Estimates were recorded using a slider bar ranging from 0% to 100%. 
+A second question asked participants whether they had heard of the replication crisis. Those who had heard of the replication crisis were asked two additional open-ended questions. First, they were asked to describe what the replication crisis is. Second, they were asked which scientific disciplines were most affected by the replication crisis. 
+>>>>>>> 9f66935b323290cf8338281f81fabe8e81d2460c
 
 ## Procedure
+
+Collaborators/Contributors/Colleagues from ## tertiary institutions in Australia (n=), New Zealand (n=), the UK (n=), and the USA (n=) invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics (CITE?). An invitation was sent to participants via email or a course website 1-2 weeks before their course began. After completing demographic information, participants completed measures of Open Science Norms and Counternorms, Norms in Practice, and Beliefs about Replications in that order. At the conclusion of the study participants were invited to share any comments about the survey before they were thanked for their participation and provided an informative debriefing about the aims of the study and links to further reading about open science practices in psychology. The survey took most participants approximately #-# minutes to complete.
 
 ## Data analysis
 
 # Results
 
+<<<<<<< HEAD
 In line with our preregisterd analysis plan, we cacluated the difference in means
 between responses to each norm item and its accompanying counternorm, along with 
 95% confidence intervals. For this analysis, we removed three cases with missing values. 
 Table XX displays the means and standard deviations for each norm, counternorm, 
 and the difference values. 
+=======
+ \@ref(tab:chunk-name)
+>>>>>>> 9f66935b323290cf8338281f81fabe8e81d2460c
 
 ```{r, difference between norm and counternorm}
 
@@ -373,12 +402,62 @@ diff_fun = function(x, y){
   (norms - cnorms)
 }
 
-diff_fun(x = norms, y = cnorms)
+diff_fun(x = norms, y = cnorms) #throws error non-numeric argument to binary operator
 
 df$diff <- apply(X = df[, ], MARGIN = 1, FUN = miss_fun)
 
 ```
 
+```{r correlation_matrix}
+#pairs.panel etc. won't really work because there are too many variables
+#And we only need corrs between matched pairs
+#So doing this a bit more manually
+layout(matrix(1:8, ncol = 4))
+
+plot(df$critical_norm ~ jitter(df$critical_cnorm), xlab = "Critical counternorm", ylab = "Critical norm")
+abline(lm(df$critical_norm ~ df$critical_cnorm), col = "blue")
+legend(x='bottomright', legend=paste('Cor =', round(cor(df$critical_norm, df$critical_cnorm),2)))
+
+plot(df$prereg_norm ~ jitter(df$prereg_cnorm), ylab = "Prereg norm", xlab = "Prereg counternorm")
+abline(lm(df$prereg_norm ~ df$prereg_cnorm), col = "blue")
+legend(x='bottomright', legend=paste('Cor =', round(cor(df$prereg_norm, df$prereg_cnorm),2)))
+
+plot(df$reg_report_norm ~ jitter(df$reg_report_cnorm), ylab = "Reg Reports norm", xlab = "Reg Reports counternorm")
+abline(lm(df$reg_report_norm ~ df$reg_report_cnorm), col = "blue")
+legend(x='bottomleft', legend=paste('Cor =', round(cor(df$reg_report_norm, df$reg_report_cnorm),2)))
+
+plot(df$phack_norm ~ jitter(df$phack_cnorm), ylab = "p-hacking rnorm", xlab = "p-hacking counternorm")
+#potential confusion here about direction of phrasing (pro p-hacking = counternorm?)
+abline(lm(df$phack_norm ~ df$phack_cnorm), col = "blue")
+legend(x='bottomleft', legend=paste('Cor =', round(cor(df$phack_cnorm, df$phack_norm),2)))
+
+plot(df$hark_norm ~ jitter(df$hark_cnorm), ylab = "HARKing norm", xlab = "HARKing counternorm")
+abline(lm(df$hark_norm ~ df$hark_cnorm), col = "blue")
+legend(x='bottomright', legend=paste('Cor =', round(cor(df$hark_cnorm, df$hark_norm),2)))
+
+plot(df$info_for_rep_norm ~ jitter(df$info_for_rep_cnorm), ylab = "Replicability norm", xlab = "Replicability counternorm")
+abline(lm(df$info_for_rep_norm ~ df$info_for_rep_cnorm), col = "blue")
+legend(x='right', legend=paste('Cor =', round(cor(df$info_for_rep_norm, df$info_for_rep_cnorm),2)))
+
+plot(df$preprint_norm ~ jitter(df$preprint_cnorm), ylab = "Preprints norm", xlab = "Preprints counternorm")
+abline(lm(df$preprint_norm ~ df$preprint_cnorm), col = "blue")
+legend(x='bottomleft', legend=paste('Cor =', round(cor(df$preprint_norm, df$preprint_cnorm,
+                                                       use = "pairwise.complete.obs"),2)))
+
+plot(df$open_materials_norm ~ jitter(df$open_materials_cnorm), ylab = "Open materials norm", xlab = "Open materials counternorm")
+abline(lm(df$open_materials_norm ~ df$open_materials_cnorm), col = "blue")
+legend(x='bottomleft', legend=paste('Cor =', round(cor(df$open_materials_norm, df$open_materials_cnorm, use = "pairwise.complete.obs"),2)))
+
+plot(df$open_data_norm ~ jitter(df$open_data_cnorm), ylab = "Open data norm", xlab = "Open data counternorm")
+abline(lm(df$open_data_norm ~ df$open_data_cnorm), col = "blue")
+legend(x='bottomleft', legend=paste('Cor =', round(cor(df$open_data_norm, df$open_data_cnorm),2)))
+
+plot(df$open_access_norm ~ jitter(df$open_access_cnorm), ylab = "Open access norm", xlab = "Open access counternorm")
+abline(lm(df$open_access_norm ~ df$open_access_cnorm), col = "blue")
+legend(x='bottomright', legend=paste('Cor =', round(cor(df$open_access_norm, df$open_access_cnorm),2)))
+
+
+```
 
 
 # Discussion
