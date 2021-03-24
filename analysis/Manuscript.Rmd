@@ -243,9 +243,9 @@ attended university (*n* = `r first_gen[2,2]`).
 
 ### Open Science Norms and Counternorms
 
-Our approach to measuring norms and counternorms focussed on participants' evaluation of ten specific open science practices that reflected open science norms rather than trying to measure endorsement of the more abstract Mertonian norms (cf. Anderson et al., 2007). 
+Our approach to measuring norms and counternorms focussed on participants' evaluation of ten specific open science practices that reflected diverse open science norms rather than trying to measure endorsement of the more abstract Mertonian norms (cf. Anderson et al., 2007). <!-- Mention here our discussions workshopping of common open science norms at SIPs? ! -->
 The open science practices assessed in our survey included: critical thinking, preregistration, registered reports, p-hacking, hypothesising after the results are known (HARKing), providing sufficent information of replicability, preprints, open materials, open data, and open access publishing. Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario, "Imagine that Deborah is a psychology researcher who has designed a study to test a specific hypothesis." There were 20 scenarios in total.
-For example, the practice of posting article preprints was evaluated with the pro-open science item, "Deborah should post a manuscript describing the Findings of her study openly online as soon as it is complete, even if the manuscript has not yet been checked by experts (peer reviewed) and accepted for publication in a journal." The counter-open preprint item read, "Deborah should not post a manuscript describing the findings of her study online until after it has been checked by experts (peer reviewed) and accepted for publication in a journal." Participants rated their agreement with each prescriptive statement on a 1 (strongly disagree) to 5 (strongly agree) scale.
+For example, the practice of posting article preprints was evaluated with the pro-open science item: "Deborah should post a manuscript describing the Findings of her study openly online as soon as it is complete, even if the manuscript has not yet been checked by experts (peer reviewed) and accepted for publication in a journal." The counter-open preprint item read: "Deborah should not post a manuscript describing the findings of her study online until after it has been checked by experts (peer reviewed) and accepted for publication in a journal." Participants rated their agreement with each prescriptive statement on a 1 (strongly disagree) to 5 (strongly agree) scale.
 
 ### Norms in Practice
 
@@ -253,9 +253,15 @@ We also sought to measure participants' normative beliefs about how psychologica
 
 ### Beliefs About Replications
 
-Participants' beliefs about the replicabilty of results in psychological science were indexed by two questions. The first asked participants to "Imagine that a set of researchers selected 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a “replication study”. At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?” Estimates were recorded using a slider bar ranging from 0% to 100%. The second question asked participants whether they had heard of the replication crisis. For those who said they had, two open-ended 
+Participants' beliefs about the replicabilty of results in psychological science were indexed by two questions. The first asked participants to, 
+> "Imagine that a set of researchers selected 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a 'replication study.' At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?”
+
+Estimates were recorded using a slider bar ranging from 0% to 100%. 
+A second question asked participants whether they had heard of the replication crisis. Those who had heard of the replication crisis were asked two additional open-ended questions. First, they were asked to describe what the replication crisis is. Second, they were asked which scientific disciplines were most affected by the replication crisis. 
 
 ## Procedure
+
+Collaborators/Contributors/Colleagues from ## tertiary institutions in Australia (n=), New Zealand (n=), the UK (n=), and the USA (n=) invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics (CITE?). An invitation was sent to participants via email or a course website 1-2 weeks before their course began. After completing demographic information, participants completed measures of Open Science Norms and Counternorms, Norms in Practice, and Beliefs about Replications in that order. At the conclusion of the study participants were invited to share any comments about the survey before they were thanked for their participation and provided an informative debriefing about the aims of the study and links to further reading about open science practices in psychology. The survey took most participants approximately #-# minutes to complete.
 
 ## Data analysis
 
