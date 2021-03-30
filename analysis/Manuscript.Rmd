@@ -239,10 +239,8 @@ attended university (*n* = `r first_gen[2,2]`).
 ```
 
 
-<<<<<<< HEAD
-
 ## Material
-=======
+
 Our approach to measuring norms and counternorms focussed on participants' evaluation of ten specific open science practices that reflected diverse open science norms rather than trying to measure endorsement of the more abstract Mertonian norms (cf. Anderson et al., 2007). <!-- Mention here our discussions workshopping of common open science norms at SIPs? ! -->
 The open science practices assessed in our survey included: critical thinking, preregistration, registered reports, p-hacking, hypothesising after the results are known (HARKing), providing sufficent information of replicability, preprints, open materials, open data, and open access publishing. Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario, "Imagine that Deborah is a psychology researcher who has designed a study to test a specific hypothesis." There were 20 scenarios in total.
 For example, the practice of posting article preprints was evaluated with the pro-open science item: "Deborah should post a manuscript describing the Findings of her study openly online as soon as it is complete, even if the manuscript has not yet been checked by experts (peer reviewed) and accepted for publication in a journal." The counter-open preprint item read: "Deborah should not post a manuscript describing the findings of her study online until after it has been checked by experts (peer reviewed) and accepted for publication in a journal." Participants rated their agreement with each prescriptive statement on a 1 (strongly disagree) to 5 (strongly agree) scale.
