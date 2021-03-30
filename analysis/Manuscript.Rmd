@@ -66,6 +66,7 @@ library(tidyverse)
 library(finalfit) # to keep trailing zeros
 library(psych) #for correlation matrices
 library(tidyselect) 
+library(psychometric) # for correlation confidence intervals
 
 r_refs("r-references.bib")
 ```
@@ -273,10 +274,13 @@ between responses to each norm item and its accompanying counternorm, along with
 Table XX displays the means and standard deviations for each norm, counternorm, 
 and the difference values. 
 
- \@ref(tab:chunk-name)
+
 
 
 ```{r, difference between norm and counternorm}
+
+ # \@ref(tab:chunk-name)  [JB removed this from the text above to see if that solves
+  # our table caption issue]
 
 # select columns that relate to norms & pivot it long
 norm_long <- df %>% 
@@ -355,10 +359,69 @@ prac_means$Difference <- paste0(round_tidy(prac_means$diff_mean,2),
 practice_means <- prac_means %>% 
   select(practice,Norm, Counternorm, Difference)
 
+# ADD CORRELATIONS (per participant, use df)
 
-# breadcrumb: I need to use apa_tables.... (in line with papaja)
+critical_corr <- round(cor(df$critical_norm, df$critical_cnorm),2)
+
+
+# I'm sure there's a way to automate it, but I can't figure it out...just hard code it
+# all_cnorms <- df %>% 
+#     select(ends_with("_cnorm"))
+#   
+# corr <- round(cor(all_), ends_with("_cnorm"),2)))
+# 
+# 
+#   all_norms %>% 
+#     cor(ends_with("_norm"), ends_with("_cnorm"))
+#   
+#  
+#   cor(all_norms, method = "pearson") %>% 
+#   as.tibble()
+# 
+# all_correlation <- df %>% 
+#     select(c(ends_with("_norm"), ends_with("_cnorm"))) %>% 
+#   mutate(item = row.names(.)) %>% 
+#   select(item, everything())
+
+# this code works, but I must be able to do this all at once...
+
+# breadcrumbs: when I come back to this, I need to combine these in a tibble
+  # and then join it with the existing table...
+critical_corr <- round(cor(df$critical_norm, df$critical_cnorm),2)
+critical_CI <- round(CIr(r = critical_corr, n = nrow(df), level = 0.95),2)
+
+hark_corr <- round(cor(df$hark_norm, df$hark_cnorm),2)
+hark_CI <- round(CIr(r = hark_corr, n = nrow(df), level = 0.95),2)
+
+info_for_rep_corr <- round(cor(df$info_for_rep_norm, df$info_for_rep_cnorm),2)
+info_for_rep_CI <- round(CIr(r = info_for_rep_corr, n = nrow(df), level = 0.95),2)
+
+open_access_corr <- round(cor(df$open_access_norm, df$open_access_cnorm),2)
+open_access_CI <- round(CIr(r = open_access_corr, n = nrow(df), level = 0.95),2)
+
+open_data_corr <- round(cor(df$open_data_norm, df$open_data_cnorm),2)
+open_data_CI <- round(CIr(r = open_data_corr, n = nrow(df), level = 0.95),2)
+
+open_materials_corr <- round(cor(df$open_materials_norm, df$open_materials_cnorm),2)
+open_materials_CI <- round(CIr(r = open_materials_corr, n = nrow(df), level = 0.95),2)
+
+phack_corr <- round(cor(df$phack_norm, df$phack_cnorm),2)
+phack_CI <- round(CIr(r = phack_corr, n = nrow(df), level = 0.95),2)
+
+preprint_corr <- round(cor(df$preprint_norm, df$preprint_cnorm),2)
+preprint_CI <- round(CIr(r = preprint_corr, n = nrow(df), level = 0.95),2)
+
+prereg_corr <- round(cor(df$prereg_norm, df$prereg_cnorm),2)
+prereg_CI <- round(CIr(r = prereg_corr, n = nrow(df), level = 0.95),2)
+
+rbind()
+
+# breadcrumbs: 
+# I need to use apa_tables.... (in line with papaja)
 # pull means & sd into the same column with (sd) in parentheses [done!]
 # headings should then be norm, counternorm, difference [done!]
+# add correlations with 95% CIs 
+# update practice descriptions so they make sense to readers
 
   
 knitr::kable(practice_means,
@@ -366,7 +429,6 @@ knitr::kable(practice_means,
              digits = 2,
              align = c('lccc'))
   
-# breadcrumbs: rename the practices so it's easier to read
 
 ```
 
@@ -377,7 +439,7 @@ knitr::kable(practice_means,
 #So doing this a bit more manually
 layout(matrix(1:8, ncol = 4))
 
-plot(df$critical_norm ~ jitter(df$critical_cnorm), xlab = "Critical counternorm", ylab = "Critical norm")
+plot(df$critical_norm ~ jitter(df$critical_cnorm), xlab = "critical counternorm", ylab = "critical norm")
 abline(lm(df$critical_norm ~ df$critical_cnorm), col = "blue")
 legend(x='bottomright', legend=paste('Cor =', round(cor(df$critical_norm, df$critical_cnorm),2)))
 
