@@ -283,7 +283,12 @@ between responses to each norm item and its accompanying counternorm, along with
 Table XX displays the means and standard deviations for each norm, counternorm, 
 and the difference values. 
 
+
 \@ref(tab:chunk-name)
+
+In general, the students seemed to endorse open science practices: For seven of the ten open science practices, agreement with the norm item was stronger than for the corresponding counternorm. However, the extent to which participants endorsed open science norms varied very substantially across different practices. Participants tended to agree or strongly agree that p-hacking should be avoided, and that researchers should provide sufficient information about studies to permit replicability. On the other hand, they were very skeptical of the practice of sharing preprints prior to peer review, and to a lesser extent about sharing open data. There also a degree of equivocation about registered reports, with very similar levels of agreement with both norm and counternorm for this item. This may be relatively unsurprising, given that the registered reports are perhaps the most recent innovation in the list of practices.
+
+Unsurprisingly, there were fairly substantial negative correlations between the norm and counternorm pairs, although this was not the case for all pairs: For the norm and counternorm items relating to preregistrations, the correlation was `r sprintf('%.2f', cor(df$prereg_norm, df$prereg_cnorm))`. Similarly for the norm and counternorm items relating to HARKing, the correlation was negative but very small.
 
 
 ```{r, difference between norm and counternorm}
@@ -526,6 +531,14 @@ legend(x='bottomright', legend=paste('Cor =', round(cor(df$open_access_norm, df$
 
 ```
 
+
+## Norms in practice
+Participants were also asked to estimate the proportion of psychology studies estimated globally which apply ten practices (corresponding to the ten norm-counternorm pairs) . For many of these practices, participants estimates were near the midpoint of 50%. This said, participants perceived some practices as being applied relatively infrequently: For example, the mean esitmate of the prevalence of HARKing, preprint sharing before publication, and open data sharing were all near 30%. Participants seemed to perceived that the most common practice was providing enough information in written reports to permit replication without asking any questions of the original researchers. It is perhaps fair to say that participants mean estimate that `r paste(round(mean(df$detailed_methodology, na.rm = TRUE), 2), "%", sep = "")` of studies have this characteristic represents a rather optimistic projection.
+
+<!-- There's a key point for the discussion here, I think, in that the fact that many participants guessed near 50% for these practices suggests that students may have little idea of the prevalence of these practices in reality, and certainly education is needed on that point. --> 
+
+## The replication crisis
+Interestingly, the vast majority of participants had not heard of "the replication crisis". Participants' estimates of the replicability of psychological studies was also near the midpoint of the possible range (ABOUT 56%). Interestingly, this estimate is fairly consistent (albeit perhaps slightly more optimistic) than empirical estimates from large-scale studies. However, it could plausibly simply reflect a great deal of uncertainty on the part of participants.
 
 # Discussion
 
