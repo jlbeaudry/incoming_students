@@ -403,65 +403,34 @@ corr <- norm_cnorm_long %>%
 # round the corr & CI
 # join with the practice_means tibble & turn into a table
 
-
-
-
-# I'm sure there's a way to automate it, but I can't figure it out...just hard code it
-# all_cnorms <- df %>% 
-#     select(ends_with("_cnorm"))
-#   
-# corr <- round(cor(all_), ends_with("_cnorm"),2)))
+# just keeping this here for now, but will be able to delete
+# critical_corr <- round(cor(df$critical_norm, df$critical_cnorm),2)
+# critical_CI <- round(CIr(r = critical_corr, n = nrow(df), level = 0.95),2)
 # 
+# hark_corr <- round(cor(df$hark_norm, df$hark_cnorm),2)
+# hark_CI <- round(CIr(r = hark_corr, n = nrow(df), level = 0.95),2)
 # 
-#   all_norms %>% 
-#     cor(ends_with("_norm"), ends_with("_cnorm"))
-#   
-#  
-#   cor(all_norms, method = "pearson") %>% 
-#   as.tibble()
+# info_for_rep_corr <- round(cor(df$info_for_rep_norm, df$info_for_rep_cnorm),2)
+# info_for_rep_CI <- round(CIr(r = info_for_rep_corr, n = nrow(df), level = 0.95),2)
 # 
-# all_correlation <- df %>% 
-#     select(c(ends_with("_norm"), ends_with("_cnorm"))) %>% 
-#   mutate(item = row.names(.)) %>% 
-#   select(item, everything())
+# open_access_corr <- round(cor(df$open_access_norm, df$open_access_cnorm),2)
+# open_access_CI <- round(CIr(r = open_access_corr, n = nrow(df), level = 0.95),2)
+# 
+# open_data_corr <- round(cor(df$open_data_norm, df$open_data_cnorm),2)
+# open_data_CI <- round(CIr(r = open_data_corr, n = nrow(df), level = 0.95),2)
+# 
+# open_materials_corr <- round(cor(df$open_materials_norm, df$open_materials_cnorm),2)
+# open_materials_CI <- round(CIr(r = open_materials_corr, n = nrow(df), level = 0.95),2)
+# 
+# phack_corr <- round(cor(df$phack_norm, df$phack_cnorm),2)
+# phack_CI <- round(CIr(r = phack_corr, n = nrow(df), level = 0.95),2)
+# 
+# preprint_corr <- round(cor(df$preprint_norm, df$preprint_cnorm),2)
+# preprint_CI <- round(CIr(r = preprint_corr, n = nrow(df), level = 0.95),2)
+# 
+# prereg_corr <- round(cor(df$prereg_norm, df$prereg_cnorm),2)
+# prereg_CI <- round(CIr(r = prereg_corr, n = nrow(df), level = 0.95),2)
 
-# this code works, but I must be able to do this all at once...
-
-# breadcrumbs: when I come back to this, I need to combine these in a tibble
-  # and then join it with the existing table...I probably need to mutate, but I 
-  # need to sort out how to do this...
-
-# practice_corr <- practice_means %>% 
-  # mutate() 
-
-critical_corr <- round(cor(df$critical_norm, df$critical_cnorm),2)
-critical_CI <- round(CIr(r = critical_corr, n = nrow(df), level = 0.95),2)
-
-hark_corr <- round(cor(df$hark_norm, df$hark_cnorm),2)
-hark_CI <- round(CIr(r = hark_corr, n = nrow(df), level = 0.95),2)
-
-info_for_rep_corr <- round(cor(df$info_for_rep_norm, df$info_for_rep_cnorm),2)
-info_for_rep_CI <- round(CIr(r = info_for_rep_corr, n = nrow(df), level = 0.95),2)
-
-open_access_corr <- round(cor(df$open_access_norm, df$open_access_cnorm),2)
-open_access_CI <- round(CIr(r = open_access_corr, n = nrow(df), level = 0.95),2)
-
-open_data_corr <- round(cor(df$open_data_norm, df$open_data_cnorm),2)
-open_data_CI <- round(CIr(r = open_data_corr, n = nrow(df), level = 0.95),2)
-
-open_materials_corr <- round(cor(df$open_materials_norm, df$open_materials_cnorm),2)
-open_materials_CI <- round(CIr(r = open_materials_corr, n = nrow(df), level = 0.95),2)
-
-phack_corr <- round(cor(df$phack_norm, df$phack_cnorm),2)
-phack_CI <- round(CIr(r = phack_corr, n = nrow(df), level = 0.95),2)
-
-preprint_corr <- round(cor(df$preprint_norm, df$preprint_cnorm),2)
-preprint_CI <- round(CIr(r = preprint_corr, n = nrow(df), level = 0.95),2)
-
-prereg_corr <- round(cor(df$prereg_norm, df$prereg_cnorm),2)
-prereg_CI <- round(CIr(r = prereg_corr, n = nrow(df), level = 0.95),2)
-
-rbind()
 
 # breadcrumbs: 
 # I need to use apa_tables.... (in line with papaja)
