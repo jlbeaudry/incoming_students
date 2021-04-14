@@ -16,8 +16,8 @@ author:
   role: null
 shorttitle: Psychology students' beliefs about open science
 output:
-  papaja::apa6_pdf: default
   papaja::apa6_word: default
+  papaja::apa6_pdf: default
 authornote: |
   Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
   Enter author note here.
@@ -252,6 +252,39 @@ The open science practices assessed in our survey included: critical thinking, p
 
 <!-- Add Table X of norms and counternorms statements that map to each practice -->
 
+```{r norm_counternorm_items}
+norm_items = data.frame(
+  "Practice" = c("critical", "critical", "HARKing", "HARKing", "Info for replicability", "Info for replicability",
+                 "Open access", "open access", "Open data", "Open data", "Open materials", "Open materials",
+                 "p-hacking", "p-hacking", "Preprints", "Preprints", "Pregistration", "Preregistration",
+                 "Registered reports", "Registered reports"),
+  "Category" = rep(c("Norm", "Counternorm"), times = 10),
+  "Item" = c("Deborah used previously published research to inform her research study. Deborah should be critical of the findings published in journals because published research can be wrong.",
+             "Deborah used previously published research to inform her research study. Deborah should accept the findings published in journals because journals would not publish research with errors.",
+             "Deborah should only describe her study as a test of a hypothesis if she decided on her hypothesis and how she would test it before she started collecting data.",
+             "Once Deborah has analysed her results, it would be good scientific practice for her to write her manuscript as if she predicted those results from the beginning.",
+             "When reporting the findings of her study, Deborah should describe how she completed the study in enough detail that another researcher could repeat her entire study without having to check any details with her - even if this means including lots of “boring” practical details in her report, or in an appendix.",
+             "When reporting the findings of her study, it would be good scientific practice for Deborah to gloss over some of the practical details so she can tell a good story.",
+             "Once her study is complete, Deborah should publish her findings in a journal that is free for others to access.",
+             "Once her study is complete, Deborah should publish the findings in the most prestigious journal she can, even if that journal charges others a fee to access the report.",
+             "When Deborah publishes her study, she should post the anonymous responses from participants online so that anyone can access and use the responses in their own research.",
+             "Deborah should keep the participants’ responses from her study protected, so that only she and her research team can access them.",
+             "Deborah should share the written materials and measures for her study openly online so that other researchers and members of the public can access and use them.",
+             "Deborah should keep the written materials and measures for her study protected, so that only she and her research team can access them.",
+             "Deborah should report the findings of all analyses of her data that she conducts.",
+             "It would be good scientific practice for Deborah to run many different analyses of her data, and report only those that produce interesting findings.",
+             "Deborah should post a manuscript describing the findings of her study openly online as soon as it is complete, even if the manuscript has not yet been checked by experts (peer reviewed) and accepted for publication in a journal.",
+             "Deborah should not post a manuscript describing the findings of her study online until after it has been checked by experts (peer reviewed) and accepted for publication in a journal.",
+             "Before collecting her data, Deborah should write down what her hypotheses are and how she plans to collect and analyse data. She should then save her plan in an online registry so others can tell what methods and analyses she will use to test her hypotheses after collecting data.",
+             "Deborah should decide which data analyses are suitable to test her hypotheses only after looking at her data.",
+             "Deborah should submit a plan for her study to a journal to be checked by experts (peer reviewed) before she collects and analyses data.",
+             "Deborah should submit her study to a journal to be checked by experts (peer reviewed) only after she has finished collecting and analysing her data."))
+  
+knitr::kable(norm_items,
+             caption = "Norm and counternorm items",
+             align = c('lll'))
+```
+
 
 ### Beliefs About the Practice of Psychological Science
 
@@ -259,10 +292,40 @@ We also sought to measure participants' normative beliefs about how psychologica
 
 <!-- Add Table XX of 10 belief statements -->
 
+```{r norms_in_practice_items}
+practice_items = data.frame(
+  "Practice" = c("Preregistration", "Registered reports", "p-hacking", "HARKing", "Info for replicability",
+                 "Preprint", "open materials", "Open data", "Data on request", "Open access"),
+  "Item" = c("The plan for collecting and analysing data for the study is posted in an online registry before data collection starts",
+             "A plan for the study is submitted to a journal to be checked by experts (peer reviewed) before the data is collected and analysed",
+             "The researchers run many different analyses of the data, and report only those that produce interesting findings",
+             "The researchers describe their results as if they predicted those results from the beginning, even if that isn’t actually true",
+             "The researchers provide enough practical detail in their written report that another researcher could fully repeat (replicate) their study without needing to ask any questions of the original researchers",
+             "A manuscript describing the findings of the study is posted openly online as soon as it is complete, even if the manuscript has not yet been checked by experts (peer reviewed) and accepted for publication in a journal",
+             "The written materials and measures for the study are posted openly online so that other researchers and members of the public can access and use them",
+             "Once the study is published, the anonymous responses from participants are posted openly online so that anyone can access and use the responses in their own research",
+             "Once the study is published, the anonymous responses from participants are available to other researchers on request",
+             "The research report describing the study and its findings is published in a journal that is free for anyone to access")
+)
+
+  
+knitr::kable(practice_items,
+             caption = "Norms in practice items",
+             align = c('ll'))
+
+#Note to selves: The norm in practice items map fairly closely to norms and counternorms, but not exactly
+#I.e., there is no norm in practice item about critically evaluating published literature, but there is one about sharing
+#data on request (which isn't in the norms/counternorms)
+#I can't remember why we did this, but so it goes.
+#The ordering of this table also doesn't match the one above, which I'm leaving for the moment since we probably want to set
+#an order of items/norms and stick to it consistently throughout
+
+```
+
 
 ### Beliefs About Replications
 
-Participants' beliefs about the replicabilty of results in psychological science were indexed by two questions. The first asked participants to, 
+Participants' beliefs about the replicability of results in psychological science were indexed by two questions. The first asked participants to, 
 > "Imagine that a set of researchers selected 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a 'replication study.' At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?”
 
 Estimates were recorded using a slider bar ranging from 0% to 100%. 
@@ -287,7 +350,7 @@ and the difference values.
 
 \@ref(tab:chunk-name)
 
-In general, the students seemed to endorse open science practices: For seven of the ten open science practices, agreement with the norm item was stronger than for the corresponding counternorm. However, the extent to which participants endorsed open science norms varied very substantially across different practices. Participants tended to agree or strongly agree that p-hacking should be avoided, and that researchers should provide sufficient information about studies to permit replicability. On the other hand, they were very skeptical of the practice of sharing preprints prior to peer review, and to a lesser extent about sharing open data. There also a degree of equivocation about registered reports, with very similar levels of agreement with both norm and counternorm for this item. This may be relatively unsurprising, given that the registered reports are perhaps the most recent innovation in the list of practices.
+In general, the students seemed to endorse open science practices: For seven of the ten open science practices, agreement with the norm item was stronger than for the corresponding counternorm. However, the extent to which participants endorsed open science norms varied very substantially across different practices. In terms of open science norms, participants most strongly endorsed the idea that researchers should provide sufficient information about studies to permit replicability, be critical of published findings, and avoid p-hacking (means > 4). They also tended to agree that researchers should avoid HARKing, share papers as open access, share open materials, and preregister their studies; the means for these items were all between 3.5 and 4 (4 representing 'agree'). On the other hand, they tended to disagree with the practice of sharing preprints prior to peer review, and to a lesser extent with sharing open data. The practice of registered reports was the one about which participants were most equivocal, with very similar levels of agreement (near the midpoint of 3) with both norm and counternorm for this item. This may be relatively unsurprising, given that the registered reports are perhaps the most recent innovation in the list of practices.
 
 Unsurprisingly, there were fairly substantial negative correlations between the norm and counternorm pairs, although this was not the case for all pairs: For the norm and counternorm items relating to preregistrations, the correlation was `r sprintf('%.2f', cor(df$prereg_norm, df$prereg_cnorm))`. Similarly for the norm and counternorm items relating to HARKing, the correlation was negative but very small.
 
@@ -500,14 +563,38 @@ legend(x='bottomright', legend=paste('Cor =', round(cor(df$open_access_norm, df$
 
 
 ## Norms in practice
-Participants were also asked to estimate the proportion of psychology studies estimated globally which apply ten practices (corresponding to the ten norm-counternorm pairs) . For many of these practices, participants estimates were near the midpoint of 50%. This said, participants perceived some practices as being applied relatively infrequently: For example, the mean esitmate of the prevalence of HARKing, preprint sharing before publication, and open data sharing were all near 30%. Participants seemed to perceived that the most common practice was providing enough information in written reports to permit replication without asking any questions of the original researchers. It is perhaps fair to say that participants mean estimate that `r paste(round(mean(df$detailed_methodology, na.rm = TRUE), 2), "%", sep = "")` of studies have this characteristic represents a rather optimistic projection.
+Participants were also asked to estimate the proportion of psychology studies estimated globally which apply ten practices. These practices corresponded approximately to the ten norm-counternorm pairs, albeit with one norm excluded on the basis of not referring to behaviour (critically evaluating published studies vs. accepting them), and one practice added out of interest (data sharing on request). For many of these practices, participants estimates were near the midpoint of 50%. This said, participants perceived some practices as being applied relatively infrequently: For example, the mean estimate of the prevalence of HARKing, preprint sharing before publication, and open data sharing were all near 30%. Participants seemed to perceived that the most common practice was providing enough information in written reports to permit replication without asking any questions of the original researchers. It is perhaps fair to say that participants mean estimate that `r paste(round(mean(df$detailed_methodology, na.rm = TRUE), 2), "%", sep = "")` of studies have this characteristic represents a rather optimistic projection.
 
-<!-- There's a key point for the discussion here, I think, in that the fact that many participants guessed near 50% for these practices suggests that students may have little idea of the prevalence of these practices in reality, and certainly education is needed on that point. --> 
+<!-- There's a key point for the discussion here, I think, in that the fact that many participants guessed near 50% for these practices suggests that students may have little idea of the prevalence of these practices in reality, and certainly education is needed on that point. 
+
+We can add a table here with descriptive statistics (means? more?) for the norms in practice items.
+
+--> 
 
 ## The replication crisis
-Interestingly, the vast majority of participants had not heard of "the replication crisis". Participants' estimates of the replicability of psychological studies was also near the midpoint of the possible range (ABOUT 56%). Interestingly, this estimate is fairly consistent (albeit perhaps slightly more optimistic) than empirical estimates from large-scale studies. However, it could plausibly simply reflect a great deal of uncertainty on the part of participants.
+Interestingly, the vast majority of participants had not heard of "the replication crisis". Participants' estimates of the replicability of psychological studies was also near the midpoint of the possible range <!-- about 56% - need to code this in--> . 
+
+<!-- Something about what they thought the replication crisis was... There were a couple of open-ended follow-up items
+
+Point for discussion: Interestingly, this estimate is fairly consistent (albeit perhaps slightly more optimistic) than empirical estimates from large-scale studies. However, it could plausibly simply reflect a great deal of uncertainty on the part of participants.
+-->
 
 # Discussion
+
+Our findings suggest that despite fairly significant media attention, most incoming psychology students are unaware of the replication crisis in psychology. In our study they tended to agree more with open science norms than they did counternorms, although this wasn't the case for all open science practices (and especially not sharing of preprints). 
+
+Participants' estimates of the proportion of psychological studies published each which apply each of a set of ten open science practices mostly tended to hover near 50%. Although this could be read as implying literally that participants believe these practices are roughly as commonly applied as they are not, it could also be read as implying a great deal of uncertainty on the part of participants [might need to unpack this idea - i.e., that if people have no idea they'll probably pick 50%].
+
+Overall these findings suggest that while incoming psychology students may have a degree of enthusiasm for open science norms, they know relatively little about replicability and open science. 
+
+
+<!--
+Obviously more to say - just starting with a very rough summary.
+-->
+
+## Strengths and limitations
+
+## Directions for future research
 
 
 \newpage
