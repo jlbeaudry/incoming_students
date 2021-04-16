@@ -63,7 +63,7 @@ papaja and its many dependencies.
 library(papaja)
 library(here)
 library(tidyverse)
-library(finalfit) # to keep trailing zeros
+library(finalfit) # to keep trailing zeros & round_tidy
 library(psych) #for correlation matrices
 library(tidyselect) 
 library(psychometric) # for correlation confidence intervals - might not need...
@@ -79,6 +79,18 @@ knitr::opts_chunk$set(
   cache.extra = knitr::rand_seed,
   results = 'as.is')
 ```
+
+```{r functions}
+
+p_tidy <- function (x, digits, prefix = "= ") {
+    x.out = paste0(prefix, round_tidy(x, digits))
+    all_zeros = paste0(prefix, round_tidy(0, digits))
+    less_than = paste0("< ", format(10^-digits, scientific = FALSE))
+    x.out[x.out == all_zeros] = less_than
+    return(x.out)
+}
+```
+
 
 ```{r import data}
 
@@ -102,6 +114,8 @@ df$major <- as.character(df$major)
 #   read_csv(col_names = TRUE, skip_empty_rows = TRUE) %>% 
 #   filter(!is.na(OldVariable))
 ```
+
+
 
 The last decade has seen unprecedented change in methodological and reporting practices in psychology. These changes were partly precipitated by what is popularly known as the "replication crisis": The discovery that close replications of published psychological studies are often unable to replicate the original findings[@kleinInvestigatingVariationReplicability2014; @kleinManyLabsInvestigating2018]. These apparent problems with replication have lead to a variety of potential solutions to make research practices more transparent, including more frequent publication of replication studies [see @brandtReplicationRecipeWhat2014], more thorough reporting of methods and results [@simmons21WordSolution2012], open sharing of data [see @meyerPracticalTipsEthical2018], and preregistration of data collection and analysis plans [@nosekPreregistrationRevolution2018]. These calls for more transparent research practices prompted the discipline to reflect on the norms and beliefs that underpin its practice of research. Many studies have polled researchers' understandings of and adherence to open science norms, beliefs, and practices [e.g., @baker500ScientistsLift2016; @openscienceworkinggroup2017SurveyOpen2018, @harrisUseReproducibleResearch2018). In turn, initiatives have been directed toward training undergraduate students in the adoption of an open science ethos [e.g., @chopikHowWhetherTeach2018; @graheHarnessingUndiscoveredResource2012, @jekelHowTeachOpen2020, @schonbrodtTrainingStudentsOpen2019].  These initiatives help ingrain open science norms and change attitudes about research practices, but we know little about what these students know or believe about open science research practices prior to entering the university classroom.
 
@@ -355,7 +369,7 @@ In general, the students seemed to endorse open science practices: For seven of 
 Unsurprisingly, there were fairly substantial negative correlations between the norm and counternorm pairs, although this was not the case for all pairs: For the norm and counternorm items relating to preregistrations, the correlation was `r sprintf('%.2f', cor(df$prereg_norm, df$prereg_cnorm))`. Similarly for the norm and counternorm items relating to HARKing, the correlation was negative but very small.
 
 
-```{r, difference between norm and counternorm}
+```{r difference between norm and counternorm}
 
 # select columns that relate to norms & pivot it long
 norm_long <- df %>% 
@@ -413,7 +427,6 @@ prac_means$upper <- prac_means$diff_mean + error
 
 
 # combine means & SDs
-prac_means$Practice <- prac_means$practice
 prac_means$Norm <- paste0(round_tidy(prac_means$norm_mean,2),
                           " (", 
                           round_tidy(prac_means$norm_sd,2), 
@@ -434,23 +447,23 @@ prac_means$Difference <- paste0(round_tidy(prac_means$diff_mean,2),
 
 # clean it up into a new dataframe with only the columns we need
 practice_means <- prac_means %>% 
-  dplyr::select(Practice, Norm, Counternorm, Difference)
+  dplyr::select(practice, Norm, Counternorm, Difference)
 
 # ADD CORRELATIONS (per participant, use df)
 
 # notes for the correlations....
 # just the correlation with CI
-critical_corr <- round(cor(df$critical_norm, df$critical_cnorm),2)
-critical_CI <- round(CIr(r = critical_corr, n = nrow(df), level = 0.95),2)
+# critical_corr <- round(cor(df$critical_norm, df$critical_cnorm),2)
+# critical_CI <- round(CIr(r = critical_corr, n = nrow(df), level = 0.95),2)
 
 #correlation test with CI and p-values in a clean tibble
-critical_corr_test <- cor.test(df$critical_norm, df$critical_cnorm)
+# critical_corr_test <- cor.test(df$critical_norm, df$critical_cnorm)
 # tidy(critical_corr_test)
 
 # use this tutorial to try to get the correlations for each practice (using the long data)
 # https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html
 
-# this will create a tibble for each practice and then calculate 
+# this will create a tibble for each practice
 
 # calculates the correlation test for each tibble & then tidies it up
 corr <- norm_cnorm_long %>% 
@@ -459,10 +472,40 @@ corr <- norm_cnorm_long %>%
           tidied = map(test,tidy)) %>% # run the corr & tidy it
   unnest(tidied) # unnest it to look at the results
 
+# remove unnecessary columns, round the values, and move columns
+corr <- corr %>% 
+  dplyr::select(-c(data, test, statistic, parameter, method, alternative))  %>% 
+  mutate(p.value = p_tidy(p.value, 3, prefix = "")) %>% 
+  mutate(estimate = round_tidy(estimate,2), 
+         conf.low = round_tidy(conf.low, 2), 
+         conf.high = round_tidy(conf.high, 2)) %>% 
+  dplyr::relocate(estimate, .before = conf.low) %>%  
+    dplyr::relocate(p.value, .after = last_col())
+
+# join the corr tibble with the means tibble 
+practice_means_corr <- practice_means %>% inner_join(corr, by = "practice")
+
+# combine the confidence intervals into one column
+practice_means_corr$Correlation <- paste0(practice_means_corr$estimate, 
+                            " [",
+                            practice_means_corr$conf.low,
+                            ", ", 
+                            practice_means_corr$conf.high,
+                            "]")
+
+# clean up the tibble                          
+practice_means_corr <- practice_means_corr %>% 
+  mutate(Practice = practice) %>% 
+  dplyr::select(-c(practice,estimate, conf.low, conf.high)) %>% 
+  relocate (Practice, .before = Norm) %>% 
+  relocate (p.value, .after = last_col())
+
+
 # breadcrumbs: keep the values that I need from this tibble
-# use p_tidy? to clean up the pvalues
-# round the corr & CI
-# join with the practice_means tibble & turn into a table
+# use p_tidy? to clean up the pvalues {done!}
+# round the corr & CI {done!}
+# join with the practice_means tibble & turn into a table {done!}
+# need to figure out whether I can rotate a page in papaja
 
 # just keeping this here for now, but will be able to delete
 # critical_corr <- round(cor(df$critical_norm, df$critical_cnorm),2)
@@ -501,14 +544,15 @@ corr <- norm_cnorm_long %>%
 # update practice descriptions so they make sense to readers
 
   
-knitr::kable(practice_means,
-             caption = "Means (sd) for norms, counternorms, and the difference between the two for each of the practices",
+knitr::kable(practice_means_corr,
+             caption = "Means (sd) for norms, counternorms, the difference between norms and counternorms, and correlations between norms and counternorms",
              digits = 2,
              align = c('lccc'))
   
 
 ```
 
+<!-- I imagine we will remove the p.value column, but we might want this for now.  -->
 
 ```{r correlation_matrix}
 #pairs.panel etc. won't really work because there are too many variables
