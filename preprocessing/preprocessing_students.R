@@ -9,6 +9,7 @@
 library(tidyverse)
 library(here)
 library(tools)
+library(gendercoder)
 
 
 ####### FUNCTIONS ############
@@ -55,20 +56,20 @@ df_lab <- here::here("data", "students_raw_data_with_labels.csv") %>%
 
 # load metadata
 metadata <- read_csv(here::here("data", "students_metadata.csv")) %>%
-  select(-c(X10,"note:")) %>%  # delete unnecessary columns
+  dplyr::select(-c(X10,"note:")) %>%  # delete unnecessary columns
   filter(old_variable != "NA", old_variable != "exclude") # remove the instruction variables
 
 #### CLEAN DATA ####
 
 df_num <- df_num %>%
   relocate(id) %>% # move the ID variable to the first column
-  select(-c(v1:consent,scenario_remind)) %>%  # remove extraneous columns
-  select(-c(uni_country:nationality))  # remove Qualtrics-coded variables [use label dataset for these]
+  dplyr::select(-c(v1:consent,scenario_remind)) %>%  # remove extraneous columns
+  dplyr::select(-c(uni_country:nationality))  # remove Qualtrics-coded variables [use label dataset for these]
 
 df_lab <- df_lab %>%
   relocate(id) %>% # move the ID variable to the first column
-  select(-c(start_date, end_date, progress:consent)) %>%  # remove extraneous columns
-  select(-c(uni:major,
+  dplyr::select(-c(start_date, end_date, progress:consent)) %>%  # remove extraneous columns
+  dplyr::select(-c(uni:major,
             gender,
             q54,
             practices_1:rep_perc_1,
@@ -101,7 +102,18 @@ df <- df %>%
 
 ######### RECODE GENDER ##########
 
-# gender --> need to run through gendercoder [breadcrumb!]
+######### RECODE GENDER ##########
+
+custom_dictionary <- list(
+  `female.` = "female",
+  `femamle` = "female",
+  `-` = NA_character_,
+  `gender no longer has a place in modern society. sex is male.` = "male",
+  `queer man` = "queer man"
+)
+
+df <- df %>%
+  mutate(gender  = recode_gender(gender, dictionary = c(broad, custom_dictionary), fill = TRUE))
 
 ########## EXCLUSION CRITERIA ############
 
