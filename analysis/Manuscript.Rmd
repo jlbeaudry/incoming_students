@@ -247,9 +247,7 @@ participants reported that they were Australian (*n* = `r nationality[3,2]`),
 from the United Kingdom (*n* = `r nationality[24,2]`), or Chinese 
 (*n* = `r nationality[6,2]`). In terms of where the participants were attending 
 university, most reported that they were in Australia (*n* = `r uni_country[1,2]`), 
-the United Kingdom (*n* = `r uni_country[5,2]`), or New Zealand (*n* = `r uni_country[4,2]`). 
-Finally, about 2/3rds of participants reported that at least one of their parents 
-attended university (*n* = `r first_gen[2,2]`). 
+the United Kingdom (*n* = `r uni_country[5,2]`), or New Zealand (*n* = `r uni_country[4,2]`). About 2/3rds of participants reported that at least one of their parents attended university (*n* = `r first_gen[2,2]`). Students were recruited from nine universities, with the largest number of responses recorded from participants enrolled at the University of Queensland (*n* = `r nrow(filter(df, university_recoded == "University of Queensland"))`), University of Adelaide (*n* = `r nrow(filter(df, university_recoded == "University of Adelaide"))`), and the University of Bath (*n* = `r nrow(filter(df, university_recoded == "University of Bath"))`). While, the majority of participants (*n* = `r nrow(filter(df, degree_type == "Non-psychology"))`) indicated that they were enrolled in a non-psychology degree such as a Bachelor of Science or Bachelor of Arts (*n* = `r nrow(filter(df, degree_recoded == "Bachelor of Science"))`, *n* = `r nrow(filter(df, degree_recoded == "Bachelor of Arts"))` respectively), most were completing a psychology major (*n* = `r nrow(filter(df, major_recoded == "Psychology"))`).
 
 
 ```{r qual responses}
@@ -599,7 +597,7 @@ We can add a table here with descriptive statistics (means? more?) for the norms
 ## The replication crisis
 Interestingly, only `r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% of participants indicated they had heard of "the replication crisis", with `r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`% indicating that they had not heard of the crisis and `r round(sum(is.na(df$crisis))/length(df$crisis)*100, 0)`% missing.
 
-```{r include = FALSE}
+```{r include = FALSE, evaluate = FALSE}
 write.csv(data.frame("crisis_text" = df$crisis_text[is.na(df$crisis_text)==FALSE]), "crisis_descriptions.csv")
 crisis_descriptions = read.csv("crisis_descriptions_marked.csv") #categorised as accurate or not
 ```

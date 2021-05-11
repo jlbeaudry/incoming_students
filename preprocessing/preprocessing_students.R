@@ -203,8 +203,6 @@ df <- df %>%
 # when done preprocessing, write the data to a new file
 # row.names gets rid of the first column from the dataframe.
 
-write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
-
 ################### CODING QUALITATIVE RESPONSES #############
 
 # Breadcrumbs: We will need to code their qualitative responses (university, degree,
@@ -217,7 +215,7 @@ write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
 
 qual <- df %>%
   filter(exclude %in% "include") %>%
-  select(c(id,university, degree, major))
+  dplyr::select(c(id,university, degree, major))
 
 # force the responses to title case & then group those that are similar
   # use the id number to count how many responses matched
@@ -521,7 +519,20 @@ df <- df %>%
       major == 'Sociology' ~ 'Not psychology',
       major == 'Speech Pathology' ~ 'Not psychology',
       major == 'Sport Studies' ~ 'Not psychology',
+      major == "Biology, Anatomy, Psychology, Physiotherapy"  ~ 'Not psychology',
+      major == "blank"  ~ 'Not psychology',
+      major == "International Relations"  ~ 'Not psychology',
+      major == "Marketing"  ~ 'Not psychology',
+      major == "Medical science"  ~ 'Not psychology',
+      major == "psychological science and law" ~ "Psychology",
+      major == "Psychology Extended Major and Philosophy, Spanish" ~ "Psychology",
+      major == "PSYCHOLOGY/ENVIRONMENT AND SOCIETY" ~ "Psychology",
+      major == "Neuroscience" ~ "Psychology",
+      major == "-" ~ "Psychology",
       is.na(major_recoded) ~ NA_character_,
+      degree_type == "Psychology" ~ "Psychology",
       TRUE ~ "Uncoded"
     )
   )
+
+write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
