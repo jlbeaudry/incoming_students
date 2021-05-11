@@ -622,7 +622,7 @@ We can add a table here with descriptive statistics (means? more?) for the norms
 --> 
 
 ## The replication crisis
-Interestingly, the vast majority of participants had not heard of "the replication crisis" <!-- add numeric estimate-->.
+Interestingly, only (`r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% ) of participants had heard of "the replication crisis", with (`r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`% indicating that they had not heard of the crisis and %  ) <!-- add numeric estimate-->.
 
 <!-- For people who answered "yes" (they had heard the term) there were a couple of open-ended follow-up items: What do think the replication is? Which scientific disciplines do you think are most affected by the replication crisis? We could analyse these and try to give some indication of whether the students who *had* heard of it actually knew what the term refers to. -->
 
