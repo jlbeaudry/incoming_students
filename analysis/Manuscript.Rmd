@@ -501,52 +501,15 @@ practice_means_corr$Correlation <- paste0(practice_means_corr$estimate,
 
 # clean up the tibble                          
 practice_means_corr <- practice_means_corr %>% 
-  mutate(Practice = practice) %>% 
-  dplyr::select(-c(practice,estimate, conf.low, conf.high)) %>% 
+  rename(Practice = practice) %>% 
+  dplyr::select(-c(estimate, conf.low, conf.high)) %>% 
   relocate (Practice, .before = Norm) %>% 
   relocate (p.value, .after = last_col())
 
 
-# breadcrumbs: keep the values that I need from this tibble
-# use p_tidy? to clean up the pvalues {done!}
-# round the corr & CI {done!}
-# join with the practice_means tibble & turn into a table {done!}
+# breadcrumbs:
 # need to figure out whether I can rotate a page in papaja
-
-# just keeping this here for now, but will be able to delete
-# critical_corr <- round(cor(df$critical_norm, df$critical_cnorm),2)
-# critical_CI <- round(CIr(r = critical_corr, n = nrow(df), level = 0.95),2)
-# 
-# hark_corr <- round(cor(df$hark_norm, df$hark_cnorm),2)
-# hark_CI <- round(CIr(r = hark_corr, n = nrow(df), level = 0.95),2)
-# 
-# info_for_rep_corr <- round(cor(df$info_for_rep_norm, df$info_for_rep_cnorm),2)
-# info_for_rep_CI <- round(CIr(r = info_for_rep_corr, n = nrow(df), level = 0.95),2)
-# 
-# open_access_corr <- round(cor(df$open_access_norm, df$open_access_cnorm),2)
-# open_access_CI <- round(CIr(r = open_access_corr, n = nrow(df), level = 0.95),2)
-# 
-# open_data_corr <- round(cor(df$open_data_norm, df$open_data_cnorm),2)
-# open_data_CI <- round(CIr(r = open_data_corr, n = nrow(df), level = 0.95),2)
-# 
-# open_materials_corr <- round(cor(df$open_materials_norm, df$open_materials_cnorm),2)
-# open_materials_CI <- round(CIr(r = open_materials_corr, n = nrow(df), level = 0.95),2)
-# 
-# phack_corr <- round(cor(df$phack_norm, df$phack_cnorm),2)
-# phack_CI <- round(CIr(r = phack_corr, n = nrow(df), level = 0.95),2)
-# 
-# preprint_corr <- round(cor(df$preprint_norm, df$preprint_cnorm),2)
-# preprint_CI <- round(CIr(r = preprint_corr, n = nrow(df), level = 0.95),2)
-# 
-# prereg_corr <- round(cor(df$prereg_norm, df$prereg_cnorm),2)
-# prereg_CI <- round(CIr(r = prereg_corr, n = nrow(df), level = 0.95),2)
-
-
-# breadcrumbs: 
 # I need to use apa_tables.... (in line with papaja)
-# pull means & sd into the same column with (sd) in parentheses [done!]
-# headings should then be norm, counternorm, difference [done!]
-# add correlations with 95% CIs 
 # update practice descriptions so they make sense to readers
 
   
@@ -561,7 +524,71 @@ knitr::kable(practice_means_corr,
 <!-- I imagine we will remove the p.value column, but we might want this for now.  -->
 
 ## Norms in practice
-Participants were also asked to estimate the proportion of psychology studies estimated globally which apply ten practices. These practices corresponded approximately to the ten norm-counternorm pairs, albeit with one norm excluded on the basis of not referring to behaviour (critically evaluating published studies vs. accepting them), and one practice added out of interest (data sharing on request). For many of these practices, participants estimates were near the midpoint of 50%. This said, participants perceived some practices as being applied relatively infrequently: For example, the mean estimate of the prevalence of HARKing, preprint sharing before publication, and open data sharing were all near 30%. Participants seemed to perceived that the most common practice was providing enough information in written reports to permit replication without asking any questions of the original researchers. It is perhaps fair to say that participants mean estimate that `r paste(round(mean(df$detailed_methodology, na.rm = TRUE), 2), "%", sep = "")` of studies have this characteristic represents a rather optimistic projection.
+Participants were also asked to estimate the proportion of psychology studies estimated globally which apply ten practices. These practices corresponded approximately to the ten norm-counternorm pairs, albeit with one norm excluded on the basis of not referring to behaviour (critically evaluating published studies vs. accepting them), and one practice added out of interest (data sharing on request). For many of these practices, participants estimates were near the midpoint of 50%. This said, participants perceived some practices as being applied relatively infrequently: For example, the mean estimate of the prevalence of HARKing, preprint sharing before publication, and open data sharing were all near 30%. Participants seemed to perceive that the most common practice was providing enough information in written reports to permit replication without asking any questions of the original researchers. It is perhaps fair to say that participants' mean estimate that `r paste(round(mean(df$detailed_methodology, na.rm = TRUE), 2), "%", sep = "")` of studies have this characteristic represents a rather optimistic projection.
+
+
+```{r norms in practice}
+
+# select columns that relate to norms in practice & pivot it long & drop the na values
+in_prac_long <- df %>% 
+  dplyr::select(c(id,preregistration:open_access)) %>% 
+      pivot_longer (cols = -id,
+                names_to = "practice",
+                values_to = "prevalence rating") %>% 
+  drop_na()
+
+# get the n values for each of the practices
+in_prac_counts <- in_prac_long %>% 
+  dplyr::group_by(practice) %>% 
+  count() %>% 
+  ungroup()
+
+# calculate means
+in_prac_ms_sds <- in_prac_long %>%
+  dplyr::group_by(practice) %>%
+  summarise(mean = mean(`prevalence rating`),
+            sd = sd(`prevalence rating`)) %>%
+  ungroup()
+
+# join the n values with the means
+in_prac_means <- in_prac_counts %>% inner_join(in_prac_ms_sds)
+  
+# calculate 95% CIs
+error <- qnorm(0.975) * in_prac_means$sd/sqrt(in_prac_means$n)
+in_prac_means$lower <- in_prac_means$mean - error
+in_prac_means$upper <- in_prac_means$mean + error
+
+
+# combine means & SDs
+in_prac_means$`Prevalence Ratings` <- paste0(round_tidy(in_prac_means$mean,2),
+                          " (", 
+                          round_tidy(in_prac_means$sd,2),
+                            ")", 
+                            " [",
+                            round_tidy(in_prac_means$lower,2),
+                            ", ", 
+                            round_tidy(in_prac_means$upper,2),
+                            "]")
+
+# clean it up into a new dataframe with only the columns we need
+in_practice_means <- in_prac_means %>% 
+  dplyr::select(practice, `Prevalence Ratings`) %>% 
+  rename(Practice = practice)
+
+# breadcrumbs:
+# I need to use apa_tables.... (in line with papaja)
+# update practice descriptions so they make sense to readers
+
+  
+knitr::kable(in_practice_means,
+             caption = "Means, standard deviations, and 95% confidence intervals for the prevalence ratings for each research practice",
+             digits = 2,
+             align = c('lc'))
+  
+
+
+```
+
 
 <!-- There's a key point for the discussion here, I think, in that the fact that many participants guessed near 50% for these practices suggests that students may have little idea of the prevalence of these practices in reality, and certainly education is needed on that point. 
 
