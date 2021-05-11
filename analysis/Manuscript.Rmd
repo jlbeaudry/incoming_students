@@ -560,58 +560,6 @@ knitr::kable(practice_means_corr,
 
 <!-- I imagine we will remove the p.value column, but we might want this for now.  -->
 
-```{r correlation_matrix}
-#pairs.panel etc. won't really work because there are too many variables
-#And we only need corrs between matched pairs
-#So doing this a bit more manually
-layout(matrix(1:8, ncol = 4))
-
-plot(df$critical_norm ~ jitter(df$critical_cnorm), xlab = "critical counternorm", ylab = "critical norm")
-abline(lm(df$critical_norm ~ df$critical_cnorm), col = "blue")
-legend(x='bottomright', legend=paste('Cor =', round(cor(df$critical_norm, df$critical_cnorm),2)))
-
-plot(df$prereg_norm ~ jitter(df$prereg_cnorm), ylab = "Prereg norm", xlab = "Prereg counternorm")
-abline(lm(df$prereg_norm ~ df$prereg_cnorm), col = "blue")
-legend(x='bottomright', legend=paste('Cor =', round(cor(df$prereg_norm, df$prereg_cnorm),2)))
-
-plot(df$reg_report_norm ~ jitter(df$reg_report_cnorm), ylab = "Reg Reports norm", xlab = "Reg Reports counternorm")
-abline(lm(df$reg_report_norm ~ df$reg_report_cnorm), col = "blue")
-legend(x='bottomleft', legend=paste('Cor =', round(cor(df$reg_report_norm, df$reg_report_cnorm),2)))
-
-plot(df$phack_norm ~ jitter(df$phack_cnorm), ylab = "p-hacking rnorm", xlab = "p-hacking counternorm")
-#potential confusion here about direction of phrasing (pro p-hacking = counternorm?)
-abline(lm(df$phack_norm ~ df$phack_cnorm), col = "blue")
-legend(x='bottomleft', legend=paste('Cor =', round(cor(df$phack_cnorm, df$phack_norm),2)))
-
-plot(df$hark_norm ~ jitter(df$hark_cnorm), ylab = "HARKing norm", xlab = "HARKing counternorm")
-abline(lm(df$hark_norm ~ df$hark_cnorm), col = "blue")
-legend(x='bottomright', legend=paste('Cor =', round(cor(df$hark_cnorm, df$hark_norm),2)))
-
-plot(df$info_for_rep_norm ~ jitter(df$info_for_rep_cnorm), ylab = "Replicability norm", xlab = "Replicability counternorm")
-abline(lm(df$info_for_rep_norm ~ df$info_for_rep_cnorm), col = "blue")
-legend(x='right', legend=paste('Cor =', round(cor(df$info_for_rep_norm, df$info_for_rep_cnorm),2)))
-
-plot(df$preprint_norm ~ jitter(df$preprint_cnorm), ylab = "Preprints norm", xlab = "Preprints counternorm")
-abline(lm(df$preprint_norm ~ df$preprint_cnorm), col = "blue")
-legend(x='bottomleft', legend=paste('Cor =', round(cor(df$preprint_norm, df$preprint_cnorm,
-                                                       use = "pairwise.complete.obs"),2)))
-
-plot(df$open_materials_norm ~ jitter(df$open_materials_cnorm), ylab = "Open materials norm", xlab = "Open materials counternorm")
-abline(lm(df$open_materials_norm ~ df$open_materials_cnorm), col = "blue")
-legend(x='bottomleft', legend=paste('Cor =', round(cor(df$open_materials_norm, df$open_materials_cnorm, use = "pairwise.complete.obs"),2)))
-
-plot(df$open_data_norm ~ jitter(df$open_data_cnorm), ylab = "Open data norm", xlab = "Open data counternorm")
-abline(lm(df$open_data_norm ~ df$open_data_cnorm), col = "blue")
-legend(x='bottomleft', legend=paste('Cor =', round(cor(df$open_data_norm, df$open_data_cnorm),2)))
-
-plot(df$open_access_norm ~ jitter(df$open_access_cnorm), ylab = "Open access norm", xlab = "Open access counternorm")
-abline(lm(df$open_access_norm ~ df$open_access_cnorm), col = "blue")
-legend(x='bottomright', legend=paste('Cor =', round(cor(df$open_access_norm, df$open_access_cnorm),2)))
-
-
-```
-
-
 ## Norms in practice
 Participants were also asked to estimate the proportion of psychology studies estimated globally which apply ten practices. These practices corresponded approximately to the ten norm-counternorm pairs, albeit with one norm excluded on the basis of not referring to behaviour (critically evaluating published studies vs. accepting them), and one practice added out of interest (data sharing on request). For many of these practices, participants estimates were near the midpoint of 50%. This said, participants perceived some practices as being applied relatively infrequently: For example, the mean estimate of the prevalence of HARKing, preprint sharing before publication, and open data sharing were all near 30%. Participants seemed to perceived that the most common practice was providing enough information in written reports to permit replication without asking any questions of the original researchers. It is perhaps fair to say that participants mean estimate that `r paste(round(mean(df$detailed_methodology, na.rm = TRUE), 2), "%", sep = "")` of studies have this characteristic represents a rather optimistic projection.
 
@@ -622,14 +570,23 @@ We can add a table here with descriptive statistics (means? more?) for the norms
 --> 
 
 ## The replication crisis
-Interestingly, only (`r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% ) of participants had heard of "the replication crisis", with (`r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`% indicating that they had not heard of the crisis and %  ) <!-- add numeric estimate-->.
+Interestingly, only `r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% of participants indicated they had heard of "the replication crisis", with `r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`% indicating that they had not heard of the crisis and `r round(sum(is.na(df$crisis))/length(df$crisis)*100, 0)`% missing.
 
-<!-- For people who answered "yes" (they had heard the term) there were a couple of open-ended follow-up items: What do think the replication is? Which scientific disciplines do you think are most affected by the replication crisis? We could analyse these and try to give some indication of whether the students who *had* heard of it actually knew what the term refers to. -->
+```{r include = FALSE}
+write.csv(data.frame("crisis_text" = df$crisis_text[is.na(df$crisis_text)==FALSE]), "crisis_descriptions.csv")
+crisis_descriptions = read.csv("crisis_descriptions_marked.csv") #categorised as accurate or not
+```
+Participants who indicated they had heard of the replication crisis were asked what "What do you think 'the replication crisis' is"? Of the `r length(df$crisis_text[is.na(df$crisis_text)==FALSE])` participants who answered this question, most provided responses roughly consistent with the conventional interpretation of the term. Example responses included "The crisis where most studies were unable to be replicated when researchers decided to replicate previously done studies" and "Where previously trusted studies have been replicated the results were not able to be replicated". Just `r sum(crisis_descriptions$Accurate == "n")` responses were suggestive of a misunderstanding of the term (e.g., "Plagiaris[m]", "only same results being published").
 
-Participants' estimates of the replicability of psychological studies was near the midpoint of the possible range <!-- about 56% - need to code this in--> . 
+Participants' estimates of the replicability of psychological studies were variable. The mean, _M_ =`r mean(df$rep_perc, na.rm = TRUE)` was near the midpoint of 50%, but with substantial variability around this estimate, _SD_ = `r sd(df$rep_perc, na.rm = TRUE)`, minimum = `r min(df$rep_perc, na.rm = TRUE)`,  maximum = `r max(df$rep_perc, na.rm = TRUE)`. A histogram of participants' responses is provided in Figure X.
 
-<!--Point for discussion: Interestingly, this estimate is fairly consistent (albeit perhaps slightly more optimistic) than empirical estimates from large-scale studies. However, it could plausibly simply reflect a great deal of uncertainty on the part of participants.
--->
+```{r rep_perc_histogram}
+hist(df$rep_perc, main = NULL, xlab = "Percentage")
+```
+_Figure X_. Histogram of participants' responses to the question: "Imagine that a set of researchers select 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a “replication study”. At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?" Responses provided on a visual slider.
+
+<!-- Participants were also asked "Which scientific disciplines do you think are most affected by the replication crisis?" As we discussed, I'm not sure this response will really be useful to look at given that we have "primed" them to think of psychology as being most affected (and indeed that's what the responses largely indicate).-->
+
 
 # Discussion
 
