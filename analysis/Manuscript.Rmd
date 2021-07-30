@@ -60,7 +60,7 @@ papaja and its many dependencies.
 <!-- The .bib file is now just from our shared library -->
 
 ```{r setup, include = FALSE}
-library(papaja)
+library(papaja) #install with devtools1
 library(here)
 library(tidyverse)
 library(finalfit) # to keep trailing zeros & round_tidy
@@ -248,18 +248,6 @@ from the United Kingdom (*n* = `r nationality[24,2]`), or Chinese
 (*n* = `r nationality[6,2]`). In terms of where the participants were attending 
 university, most reported that they were in Australia (*n* = `r uni_country[1,2]`), 
 the United Kingdom (*n* = `r uni_country[5,2]`), or New Zealand (*n* = `r uni_country[4,2]`). About 2/3rds of participants reported that at least one of their parents attended university (*n* = `r first_gen[2,2]`). Students were recruited from nine universities, with the largest number of responses recorded from participants enrolled at the University of Queensland (*n* = `r nrow(filter(df, university_recoded == "University of Queensland"))`), University of Adelaide (*n* = `r nrow(filter(df, university_recoded == "University of Adelaide"))`), and the University of Bath (*n* = `r nrow(filter(df, university_recoded == "University of Bath"))`). While, the majority of participants (*n* = `r nrow(filter(df, degree_type == "Non-psychology"))`) indicated that they were enrolled in a non-psychology degree such as a Bachelor of Science or Bachelor of Arts (*n* = `r nrow(filter(df, degree_recoded == "Bachelor of Science"))`, *n* = `r nrow(filter(df, degree_recoded == "Bachelor of Arts"))` respectively), most were completing a psychology major (*n* = `r nrow(filter(df, major_recoded == "Psychology"))`).
-
-
-```{r qual responses}
-
-# [breadcrumbs] 
- # once qual responses are coded, I will need to return here to 
- # include details about which univrsity the participant is enrolled in
- # name of qualification
- # major [how many are majoring in psyc; NAs; will decide later?]
-
-```
-
 
 ## Material
 
@@ -597,10 +585,13 @@ We can add a table here with descriptive statistics (means? more?) for the norms
 ## The replication crisis
 Interestingly, only `r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% of participants indicated they had heard of "the replication crisis", with `r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`% indicating that they had not heard of the crisis and `r round(sum(is.na(df$crisis))/length(df$crisis)*100, 0)`% missing.
 
-```{r include = FALSE, evaluate = FALSE}
+```{r crisis descriptions, eval=FALSE, include=FALSE}
 write.csv(data.frame("crisis_text" = df$crisis_text[is.na(df$crisis_text)==FALSE]), "crisis_descriptions.csv")
 crisis_descriptions = read.csv("crisis_descriptions_marked.csv") #categorised as accurate or not
 ```
+
+<!-- This needs another csv file in order to run the code above. Also, revise where the csv file is written to and loaded from.  -->
+
 Participants who indicated they had heard of the replication crisis were asked what "What do you think 'the replication crisis' is"? Of the `r length(df$crisis_text[is.na(df$crisis_text)==FALSE])` participants who answered this question, most provided responses roughly consistent with the conventional interpretation of the term. Example responses included "The crisis where most studies were unable to be replicated when researchers decided to replicate previously done studies" and "Where previously trusted studies have been replicated the results were not able to be replicated". Just `r sum(crisis_descriptions$Accurate == "n")` responses were suggestive of a misunderstanding of the term (e.g., "Plagiaris[m]", "only same results being published").
 
 Participants' estimates of the replicability of psychological studies were variable. The mean, _M_ =`r mean(df$rep_perc, na.rm = TRUE)` was near the midpoint of 50%, but with substantial variability around this estimate, _SD_ = `r sd(df$rep_perc, na.rm = TRUE)`, minimum = `r min(df$rep_perc, na.rm = TRUE)`,  maximum = `r max(df$rep_perc, na.rm = TRUE)`. A histogram of participants' responses is provided in Figure X.

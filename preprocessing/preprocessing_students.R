@@ -9,7 +9,7 @@
 library(tidyverse)
 library(here)
 library(tools)
-library(gendercoder)
+library(gendercoder) #devtools::install_github("ropenscilabs/gendercoder")
 
 
 ####### FUNCTIONS ############
@@ -44,13 +44,13 @@ miss_fun = function(x){
 ##### LOAD DATA #####
 
 # raw data without labels
-df_num <- here::here("data", "students_raw_data.csv") %>%
+df_num <- here::here("survey", "data", "students_raw_data.csv") %>%
   read_qualtrics(legacy = TRUE) %>%
   mutate(id = 1:n())
 
 
 # raw data with labels
-df_lab <- here::here("data", "students_raw_data_with_labels.csv") %>%
+df_lab <- here::here("survey", "data", "students_raw_data_with_labels.csv") %>%
   read_qualtrics(legacy = FALSE) %>%
   mutate(id = 1:n())
 
@@ -238,7 +238,6 @@ qual_maj <- qual %>%
   group_by(major) %>%
   summarise(n_distinct(id)) %>%
   rename(`frequency` = `n_distinct(id)`)
-
 
 
 # write each of them to csv files
