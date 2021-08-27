@@ -94,8 +94,11 @@ p_tidy <- function (x, digits, prefix = "= ") {
 
 ```{r import data}
 
-# import the data 
+# import the main data 
 df <- read.csv (here::here("data", "students_processed.csv"))
+
+# upload the replication crisis responses, marked as accurate and inaccurate (outside of R)
+crisis_descriptions = read.csv(here::here ("data", "crisis_descriptions_marked.csv"))
 
 # convert variables to factors as needed
 df$age <- as_factor(df$age)
@@ -117,7 +120,7 @@ df$major <- as.character(df$major)
 
 The last decade has seen unprecedented change in methodological and reporting practices in psychology. These changes were partly precipitated by what is popularly known as the "replication crisis": The discovery that close replications of published psychological studies are often unable to replicate the original findings [@kleinInvestigatingVariationReplicability2014; @kleinManyLabsInvestigating2018]. These apparent problems with replication have lead to a variety of potential solutions to make research practices more transparent, including more frequent publication of replication studies [see @brandtReplicationRecipeWhat2014], more thorough reporting of methods and results [@simmons21WordSolution2012], open sharing of data [see @meyerPracticalTipsEthical2018], and preregistration of data collection and analysis plans [@nosekPreregistrationRevolution2018]. These calls for more transparent research practices prompted the discipline to reflect on the norms and beliefs that underpin its practice of research. Many studies have polled researchers' understandings of and adherence to open science norms, beliefs, and practices [e.g., @baker500ScientistsLift2016; @openscienceworkinggroup2017SurveyOpen2018; @harrisUseReproducibleResearch2018]. In turn, initiatives have been directed toward training undergraduate students in the adoption of an open science ethos [e.g., @chopikHowWhetherTeach2018; @graheHarnessingUndiscoveredResource2012; @jekelHowTeachOpen2020; @schonbrodtTrainingStudentsOpen2019].  These initiatives help ingrain open science norms and change attitudes about research practices, but we know little about what these students know or believe about open science research practices prior to entering the university classroom.
 
-The most comprehensive set of principles for how science *ought* to be practiced are Merton's norms of science [@mertonNoteScienceDemocracy1942]. Scientists [@Anderson2000] and graduate students [@andersonGraduateStudentExperience1994] alike have historically endorsed the normative value of Merton's principles. Furthermore, many of the recent practices designed to make science more transparent and open reflect Mertonian norms. For example, the practice of sharing open source software directly corresponds to the Mertonian norm of *communism*: Scientists should have common ownership of scientific goods. Similarly, the practices of sharing of preprints for open peer review and open data for checking of reproducibility corresponds to the norm of communality, but also to that of *organised skepticism*: Scientific claims should be subjected to critical scrutiny. Preregistration can be connected to the norm of *disinterestedness*: By making (and preregistering) decisions about how to analyse data before results are produced, a researcher can limit the degree to which the substantive results produced by different analytic strategies affect their decisions regarding which analyses to report. In this sense, the ongoing reform in psychological research can partly be understood as simultaneously a set of new practices and a re-affirmation of established norms.<!--Should we consider citing someone for these links? Personally I have seen Simine draw these parallels between norms and open science practices and would favour crediting her here, however I'm sure that others have made similar analyses and so would be happy to cite others or to see this as such a commonly held set of beliefs that no citations are required--->
+The most comprehensive set of principles for how science *ought* to be practiced are Merton's norms of science [@mertonNoteScienceDemocracy1942]. Scientists [@andersonExtendingMertonianNorms2010] and graduate students [@andersonGraduateStudentExperience1994] alike have historically endorsed the normative value of Merton's principles. Furthermore, many of the recent practices designed to make science more transparent and open reflect Mertonian norms. For example, the practice of sharing open source software directly corresponds to the Mertonian norm of *communism*: Scientists should have common ownership of scientific goods. Similarly, the practices of sharing of preprints for open peer review and open data for checking of reproducibility corresponds to the norm of communality, but also to that of *organised skepticism*: Scientific claims should be subjected to critical scrutiny. Preregistration can be connected to the norm of *disinterestedness*: By making (and preregistering) decisions about how to analyse data before results are produced, a researcher can limit the degree to which the substantive results produced by different analytic strategies affect their decisions regarding which analyses to report. In this sense, the ongoing reform in psychological research can partly be understood as simultaneously a set of new practices and a re-affirmation of established norms.<!--Should we consider citing someone for these links? Personally I have seen Simine draw these parallels between norms and open science practices and would favour crediting her here, however I'm sure that others have made similar analyses and so would be happy to cite others or to see this as such a commonly held set of beliefs that no citations are required--->
 
 Nevertheless, rapid changes in methodological practice and empirical findings present significant pedagogical challenges for the teacher of psychology. Keeping textbooks and other instructional materials up to date is difficult when supposedly well-established findings are contradicted by new replications emerging at a rapid pace. Furthermore, training in emerging methodological practices is crucial for graduate students who may go on to apply psychological research methods themselves, so that they may produce research that is even more replicable than that of previous generations. Even for students who do not go on to conduct research themselves, an understanding of contemporary methodological practices - and problems with methodological practices in psychology - is essential for becoming informed and critical consumers of psychological knowledge. However, how we best provide this understanding is no trivial task. Indeed, there are several reasons why it might be unwise to assume a simple knowledge deficit, where the teacher's only role is to dispense an understanding of open science and transparent research practices. 
 
@@ -261,8 +264,8 @@ The open science practices assessed in our survey included: critical thinking, p
 ```{r norm_counternorm_items}
 norm_items = data.frame(
   "Practice" = c("critical", "critical", "HARKing", "HARKing", "Info for replicability", "Info for replicability",
-                 "Open access", "open access", "Open data", "Open data", "Open materials", "Open materials",
-                 "p-hacking", "p-hacking", "Preprints", "Preprints", "Pregistration", "Preregistration",
+                 "Open access", "Open access", "Open data", "Open data", "Open materials", "Open materials",
+                 "p-hacking", "p-hacking", "Preprints", "Preprints", "Preregistration", "Preregistration",
                  "Registered reports", "Registered reports"),
   "Category" = rep(c("Norm", "Counternorm"), times = 10),
   "Item" = c("Deborah used previously published research to inform her research study. Deborah should be critical of the findings published in journals because published research can be wrong.",
@@ -285,8 +288,13 @@ norm_items = data.frame(
              "Deborah should decide which data analyses are suitable to test her hypotheses only after looking at her data.",
              "Deborah should submit a plan for her study to a journal to be checked by experts (peer reviewed) before she collects and analyses data.",
              "Deborah should submit her study to a journal to be checked by experts (peer reviewed) only after she has finished collecting and analysing her data."))
-  
-knitr::kable(norm_items,
+
+norm_items_wide <- pivot_wider(
+  norm_items,
+  names_from = Category,
+  values_from = Item)
+
+knitr::kable(norm_items_wide,
              caption = "Norm and counternorm items",
              align = c('lll'))
 ```
@@ -585,14 +593,7 @@ We can add a table here with descriptive statistics (means? more?) for the norms
 ## The replication crisis
 Interestingly, only `r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% of participants indicated they had heard of "the replication crisis", with `r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`% indicating that they had not heard of the crisis and `r round(sum(is.na(df$crisis))/length(df$crisis)*100, 0)`% missing.
 
-```{r crisis descriptions, eval=FALSE, include=FALSE}
-write.csv(data.frame("crisis_text" = df$crisis_text[is.na(df$crisis_text)==FALSE]), "crisis_descriptions.csv")
-crisis_descriptions = read.csv("crisis_descriptions_marked.csv") #categorised as accurate or not
-```
-
-<!-- This needs another csv file in order to run the code above. Also, revise where the csv file is written to and loaded from.  -->
-
-Participants who indicated they had heard of the replication crisis were asked what "What do you think 'the replication crisis' is"? Of the `r length(df$crisis_text[is.na(df$crisis_text)==FALSE])` participants who answered this question, most provided responses roughly consistent with the conventional interpretation of the term. Example responses included "The crisis where most studies were unable to be replicated when researchers decided to replicate previously done studies" and "Where previously trusted studies have been replicated the results were not able to be replicated". Just `r sum(crisis_descriptions$Accurate == "n")` responses were suggestive of a misunderstanding of the term (e.g., "Plagiaris[m]", "only same results being published").
+Participants who indicated they had heard of the replication crisis were asked what "What do you think 'the replication crisis' is"? Of the `r length(df$crisis_text[is.na(df$crisis_text)==FALSE])` participants who answered this question, most provided responses roughly consistent with the conventional interpretation of the term. Example responses included "The crisis where most studies were unable to be replicated when researchers decided to replicate previously done studies" and "Where previously trusted studies have been replicated the results were not able to be replicated". Only `r sum(crisis_descriptions$Accurate == "n")` responses were suggestive of a misunderstanding of the term (e.g., "Plagiaris[m]", "only same results being published").
 
 Participants' estimates of the replicability of psychological studies were variable. The mean, _M_ =`r mean(df$rep_perc, na.rm = TRUE)` was near the midpoint of 50%, but with substantial variability around this estimate, _SD_ = `r sd(df$rep_perc, na.rm = TRUE)`, minimum = `r min(df$rep_perc, na.rm = TRUE)`,  maximum = `r max(df$rep_perc, na.rm = TRUE)`. A histogram of participants' responses is provided in Figure X.
 
