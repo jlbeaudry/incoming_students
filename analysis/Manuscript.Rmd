@@ -583,6 +583,19 @@ knitr::kable(in_practice_means,
 
 ```
 
+```{r norms in practice histogram}
+
+p <- in_prac_long %>%
+  ggplot(aes(x = `prevalence rating`)) +
+  geom_histogram(aes(y=stat(count)), binwidth = 10) +
+    xlab("Prevalence Ratings (%)") +
+    ylab("Frequency") +
+    facet_wrap(~practice)
+p
+
+[breadcrumb: need to update the theme & the practice names]
+
+```
 
 <!-- There's a key point for the discussion here, I think, in that the fact that many participants guessed near 50% for these practices suggests that students may have little idea of the prevalence of these practices in reality, and certainly education is needed on that point. 
 
