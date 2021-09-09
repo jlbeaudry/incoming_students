@@ -47,6 +47,8 @@ affiliation:
   institution: Swinburne University of Technology
 - id: '2'
   institution: Massey University
+editor_options: 
+  chunk_output_type: console
 ---
 <!-- I've only partially entered authorship deets for the moment and set it to mask authorship info when knitting
 It's set to default to knit to .docx, but can also knit to pdf (if you have a tex distro installed)
@@ -593,7 +595,7 @@ p <- in_prac_long %>%
     facet_wrap(~practice)
 p
 
-[breadcrumb: need to update the theme & the practice names]
+#[breadcrumb: need to update the theme & the practice names]
 
 ```
 
