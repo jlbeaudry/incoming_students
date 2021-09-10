@@ -114,10 +114,11 @@ df$major <- as.character(df$major)
 # df$uni_country <- as.character(df$uni_country)
 # df$nationality <- as.character(df$nationality) [i think these should be factors]
 
-# # import the metadata [check if I need it for these analyses?]
-# metadata <- here::here("survey", "data", "os_metadata_raw_data.csv") %>% 
-#   read_csv(col_names = TRUE, skip_empty_rows = TRUE) %>% 
-#   filter(!is.na(OldVariable))
+# import the metadata 
+metadata <- here::here("survey", "data", "students_metadata.csv") %>% 
+ read_csv(col_names = TRUE, skip_empty_rows = TRUE) %>% 
+ filter(!is.na(old_variable)) %>% 
+ dplyr::select (-c("...10", "note:"))
 ```
 
 The last decade has seen unprecedented change in methodological and reporting practices in psychology. These changes were partly precipitated by what is popularly known as the "replication crisis": The discovery that close replications of published psychological studies are often unable to replicate the original findings [@kleinInvestigatingVariationReplicability2014; @kleinManyLabsInvestigating2018]. These apparent problems with replication have lead to a variety of potential solutions to make research practices more transparent, including more frequent publication of replication studies [see @brandtReplicationRecipeWhat2014], more thorough reporting of methods and results [@simmons21WordSolution2012], open sharing of data [see @meyerPracticalTipsEthical2018], and preregistration of data collection and analysis plans [@nosekPreregistrationRevolution2018]. These calls for more transparent research practices prompted the discipline to reflect on the norms and beliefs that underpin its practice of research. Many studies have polled researchers' understandings of and adherence to open science norms, beliefs, and practices [e.g., @baker500ScientistsLift2016; @openscienceworkinggroup2017SurveyOpen2018; @harrisUseReproducibleResearch2018]. In turn, initiatives have been directed toward training undergraduate students in the adoption of an open science ethos [e.g., @chopikHowWhetherTeach2018; @graheHarnessingUndiscoveredResource2012; @jekelHowTeachOpen2020; @schonbrodtTrainingStudentsOpen2019].  These initiatives help ingrain open science norms and change attitudes about research practices, but we know little about what these students know or believe about open science research practices prior to entering the university classroom.
@@ -190,7 +191,6 @@ nmiss <- df_all %>%
 age <- df %>% dplyr::count(age_lab)
 
 # gender --> need to summarise once we've recoded it in preprocessing script
-  # [breadcrumb]
 gender <- df %>% dplyr::count(gender)
 
 # high school status
@@ -290,6 +290,18 @@ norm_items = data.frame(
              "Deborah should decide which data analyses are suitable to test her hypotheses only after looking at her data.",
              "Deborah should submit a plan for her study to a journal to be checked by experts (peer reviewed) before she collects and analyses data.",
              "Deborah should submit her study to a journal to be checked by experts (peer reviewed) only after she has finished collecting and analysing her data."))
+
+# [breadcrumb Sept 10: pull in this info from the meta data]
+
+# recode the data so the response options have proper labels
+
+# c <- metadata %>% 
+#     filter(Scale == "OSmost") %>% 
+#     filter(NewVariable != "OSmost_text") #remove this value from metadata
+# 
+# d <- full_join(OSmost_long, c, by = c("OSmost" = "NewVariable")) %>% 
+#   rename ("OSmost_label" = "ItemText")
+
 
 norm_items_wide <- pivot_wider(
   norm_items,
@@ -585,19 +597,6 @@ knitr::kable(in_practice_means,
 
 ```
 
-```{r norms in practice histogram}
-
-p <- in_prac_long %>%
-  ggplot(aes(x = `prevalence rating`)) +
-  geom_histogram(aes(y=stat(count)), binwidth = 10) +
-    xlab("Prevalence Ratings (%)") +
-    ylab("Frequency") +
-    facet_wrap(~practice)
-p
-
-#[breadcrumb: need to update the theme & the practice names]
-
-```
 
 <!-- There's a key point for the discussion here, I think, in that the fact that many participants guessed near 50% for these practices suggests that students may have little idea of the prevalence of these practices in reality, and certainly education is needed on that point. 
 
@@ -642,6 +641,26 @@ More to say here.
 
 ## Directions for future research
 
+
+# Supplemental Materials
+
+Figure XX displays the histograms for each of the norms in practice items. 
+
+```{r norms in practice histogram}
+
+p <- in_prac_long %>%
+  ggplot(aes(x = `prevalence rating`)) +
+  geom_histogram(aes(y=stat(count)), binwidth = 10) +
+    xlab("Prevalence Ratings (%)") +
+    ylab("Frequency") +
+    theme_classic () +
+    theme(axis.text = element_text(size = 9), axis.title = element_text(size = 9)) +
+    facet_wrap(~practice, nrow = 2)
+p
+
+#[breadcrumb: need to update the theme & the practice names]
+
+```
 
 \newpage
 # Reproducible Code Statement
