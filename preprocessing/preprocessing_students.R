@@ -56,7 +56,7 @@ df_lab <- here::here("survey", "data", "students_raw_data_with_labels.csv") %>%
 
 # load metadata
 metadata <- read_csv(here::here("data", "students_metadata.csv")) %>%
-  dplyr::select(-c(X10,"note:")) %>%  # delete unnecessary columns
+  #dplyr::select(-c(X10,"note:")) %>%  # delete unnecessary columns
   filter(old_variable != "NA", old_variable != "exclude") # remove the instruction variables
 
 #### CLEAN DATA ####
