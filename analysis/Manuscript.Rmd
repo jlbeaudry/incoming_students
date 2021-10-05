@@ -26,12 +26,14 @@ authornote: |
   2 Massey University, New Zealand
   3 Deakin University, Australia
 abstract: |
-## BACKGROUND: Rapid changes to methodological best practices present significant challenges for educating students new to the field of psychology. Some students may have existing knowledge about recent methodological reforms (e.g., preregistration, replication). Yet, where knowledge is lacking, overemphasizing the problems that precipitate these reforms (e.g., p-hacking, HARKing) may lead students to de-value scientific methods as a credible means for generating knowledge. 
-## OBJECTIVE: Understanding students’ naive conceptions about how science works and the norms that guide scientific best practice is important so that teachers can adapt their teaching to the students’ existing understandings. 
-## METHOD: This study examined ### incoming undergraduate psychology students’ understandings of how research *should* be conducted (norms) and how they believed research *is* conducted (practice) using an online survey. 
-## RESULTS: We found that XXX. . .
-## CONCLUSION:
-  
+## BACKGROUND: Understanding students’ naive conceptions about how science works and the norms that guide scientific best practice is important so that teachers can adapt their teaching to the students’ existing understandings. 
+## OBJECTIVE: To describe what incoming undergraduate students of psychology believe about reproducibility and open science practices in psychology. 
+## METHOD: International online survey with participants who were about to start their first course in psychology (N = 239) .
+## RESULTS: When asked about how research *should* be done, most students endorsed most (but not all) of ten open science practices. When asked to estimate the proportion of published psychological studies that apply each of a set of 10 open science practices, participants' estimates tended to average near 50%. Only 18% of participants had heard of the term "replication crisis".
+## CONCLUSION: Despite relatively significant media attention on the replication crisis, few incoming psychology students are familiar with the term. Incoming students nevertheless appear to be sympathetic toward most open science practices, although they may overestimate the prevalence of these practices in psychology.
+## TEACHING IMPLICATIONS: Teaching materials aimed at incoming psychology students should not assume pre-existing knowledge about open science or replicability.
+
+
 keywords: open science, psychology, teaching, reproducibility, replication
 wordcount: X
 bibliography: ['r-references.bib','Undergrads & Open Science (public).bib']
@@ -55,6 +57,7 @@ editor_options:
 
 <!--
 Teaching in Psychology ask for structured abstracts - 'For these types of article submissions, please include (in this order) a section on the background, objective(s), method, results, conclusion, and teaching implications.' 200 word limit
+Abstract currently includes hand-typed numbers because it's hard to get them to knit up here since data processing is further below.
 The abstract also doesn't currently knit into the final document for some reason?
 
 -->
@@ -135,26 +138,23 @@ df$major <- as.character(df$major)
 
 The last decade has seen unprecedented change in methodological and reporting practices in psychology. These changes were partly precipitated by what is popularly known as the "replication crisis": The discovery that close replications of published psychological studies are often unable to replicate the original findings [@kleinInvestigatingVariationReplicability2014; @kleinManyLabsInvestigating2018]. These apparent problems with replication have lead to a variety of potential solutions to make research practices more reproducible and transparent, including more frequent publication of replication studies [see @brandtReplicationRecipeWhat2014], more thorough reporting of methods and results [@simmons21WordSolution2012], open sharing of data [see @meyerPracticalTipsEthical2018], and preregistration of data collection and analysis plans [@nosekPreregistrationRevolution2018]. These calls for more reproducible and transparent research practices prompted the discipline to reflect on the norms and beliefs that underpin its practice of research. Many studies have polled researchers' understandings of and adherence to open science norms, beliefs, and practices [e.g., @baker500ScientistsLift2016; @openscienceworkinggroup2017SurveyOpen2018; @harrisUseReproducibleResearch2018].
 
-The most comprehensive set of principles for how science *ought* to be practiced are Merton's norms of science [@mertonNoteScienceDemocracy1942]. Scientists [@andersonExtendingMertonianNorms2010] and graduate students [@andersonGraduateStudentExperience1994] alike have historically endorsed the normative value of Merton's principles. Furthermore, many of the recent practices designed to make science more transparent and open reflect Mertonian norms [see @vazireWeWantBe2019; @vazireWhereAreSelfcorrecting2020]. For example, the practice of sharing open source software corresponds to the Mertonian norm of *communism*: Scientists should have common ownership of scientific goods. Similarly, the practices of sharing of preprints for open peer review and open data for checking of reproducibility corresponds to the norm of communality, and also to that of *organised skepticism*: Scientific claims should be subjected to critical scrutiny. Preregistration can be connected to the norm of *disinterestedness*: By making (and preregistering) decisions about how to analyse data before results are produced, a researcher can limit the degree to which the substantive results produced by different analytic strategies affect their decisions regarding which analyses to report. In this sense, the ongoing reform in psychological research can partly be understood as simultaneously a set of new practices and a re-affirmation of established norms.
+The most comprehensive set of principles for how science *ought* to be practiced are Merton's norms of science [@mertonNoteScienceDemocracy1942]. Scientists [@andersonExtendingMertonianNorms2010] and graduate students [@andersonGraduateStudentExperience1994] alike have historically endorsed the normative value of Merton's principles. Furthermore, many of the recent practices designed to make science more transparent and open reflect Mertonian norms [see @vazireWeWantBe2019; @vazireWhereAreSelfcorrecting2020]. For example, the practices of sharing of preprints for open peer review and open data for checking of reproducibility corresponds to the norm of communality, and also to that of *organised skepticism*: Scientific claims should be subjected to critical scrutiny. Preregistration can be connected to the norm of *disinterestedness*: By making (and preregistering) decisions about how to analyse data before results are produced, a researcher can limit the degree to which the substantive results produced by different analytic strategies affect their decisions regarding which analyses to report.
 
 Rapid changes in methodological practice and empirical findings present significant pedagogical challenges for the teacher of psychology. Keeping textbooks and other instructional materials up to date is difficult when supposedly well-established findings are contradicted by new replications emerging at a rapid pace. Furthermore, training in emerging methodological practices is crucial for graduate students who may go on to apply psychological research methods themselves. Even for students who do not go on to conduct research themselves, an understanding of contemporary methodological practices - and problems with methodological practices in psychology - is essential for becoming informed and critical consumers of psychological knowledge. Studies have therefore begun to explore strategies for educating psychology students about replicability and open science practices [e.g., @chopikHowWhetherTeach2018; @graheHarnessingUndiscoveredResource2012; @jekelHowTeachOpen2020; @schonbrodtTrainingStudentsOpen2019]. These initiatives may help ingrain open science norms and change attitudes about research practices, but we know little about what these students know or believe about open science research practices prior to entering the university classroom. There are several reasons why this knowledge could be useful.
 
 First, unlike some psychological phenomena in undergraduate courses (e.g., models of working memory, or the internal workings of human senses), the replication crisis is frequently discussed in mainstream and social media [e.g., @ogradyPsychologyReplicationCrisis2020; @yongPsychologyReplicationCrisis2016; @yongPsychologyReplicationCrisis2018]. Students may plausibly have some knowledge about these issues obtained prior to (or independently of) their formal studies. Teaching methods should thus be informed by some understanding of what students' pre-existing levels of knowledge are. 
 
-Second, when psychology students are beginning their university studies, they are often learning for the first time about how and why it is useful to apply scientific methods to studying human behaviour (rather than only relying on alternative sources of knowledge such as intuition or anecdote or authority). An emphasis on problems with replicability could at least in principle leave these students unconvinced that scientific methods for studying human behaviour are valuable *at all*, leaving them to favour even less credible alternative sources of knowledge. For instance, @chopikHowWhetherTeach2018 found that undergraduate students tended to trust the results of psychological studies *less* after a one-hour educational lecture about the replication crisis. This said, the effect of the lecture on trust of psychological studies was relatively small (d = -.36), and mean trust levels remained fairly high after the lecture (M = 4.94 on a scale of 1 to 7). Knowledge about incoming students’ “baseline” perceptions of the replicability of psychological science could further inform teachers about the salience of this risk.
+Second, anecdotal evidence suggests that some students being taught about open science practices and reforms to improve reproducibility (such as open sharing of data and analysis code) are often surprised that these are not *already* standard practice. This could imply a need for educators to reinforce and build on students “naive” impressions rather than radically altering their understanding of how science should be done. On the other hand, other evidence suggests that undergraduate students may quickly begin to engage in practices that hamper reproducibility. For example, @moranKnowItBad2021 found that 26.5% of the undergraduate students in their Canadian sample admitted “Conducting multiple statistical analyses on the same dataset in an attempt to find a statistically significant result” (i.e., p-hacking), while 9.6% reported rounding down p-values. The extent to which incoming psychology students may - or may not - be “naive open scientists” is useful knowledge for guiding pedagogical approaches.
 
-Third, anecdotal evidence suggests that some students being taught about open science practices and reforms to improve reproducibility (such as open sharing of data and analysis code) are often surprised that these are not *already* standard practice [e.g. see tweets on this topic: @buraktuncaUygunTuncRmounce2021; @duyguuygun-tuncLastNightWas2021]. This could imply a need for educators to reinforce and build on students “naive” impressions rather than radically altering their understanding of how science should be done. On the other hand, other evidence suggests that undergraduate students may quickly begin to engage in practices that hamper reproducibility. For example, @moranKnowItBad2021 found that 26.5% of the undergraduate students in their Canadian sample admitted “Conducting multiple statistical analyses on the same dataset in an attempt to find a statistically significant result” (i.e., p-hacking), while 9.6% reported rounding down p-values. The extent to which incoming psychology students may - or may not - typically be “naive open scientists” is useful knowledge for guiding pedagogical approaches.
-
-<!--I feel like citing tweets is going to cause arguments with a reviewer, but not sure what else to do here.-->
-
-For these reasons, we aimed to conduct a study describing what incoming undergraduate students of psychology believe about reproducibility and open science practices in psychology. Our survey encompassed questions norms (how students felt research *should* be conducted), norms in practice (how students believe psychological research *is* conducted) and replicability (how replicable students believe psychological research is). In doing so we hope to provide knowledge which can inform the pedagogy of teaching about replication and open science practices. This study is exploratory [see @wagenmakersAgendaPurelyConfirmatory2012] and descriptive, and does not involve the specification or testing of hypotheses.
+We therefore aimed to conduct a study describing what incoming undergraduate students of psychology believe about reproducibility and open science practices in psychology. Our survey encompassed questions norms (how students felt research *should* be conducted), norms in practice (how students believe psychological research *is* conducted) and replicability (how replicable students believe psychological research is). Our study was exploratory [see @wagenmakersAgendaPurelyConfirmatory2012] and descriptive, and does not involve the specification or testing of hypotheses. We nevertheless preregistered our aims, sampling plan, exclusion criteria and data analysis plan at https://osf.io/6e2ux/?view_only=b5173ba3bf564bc495686cd0845e678b
 
 <!-- I wonder about saying something somewhere about how the items we developed (and openly shared) in this study could be useful for teachers who might wish to assess their own students' beliefs about open science practices in psychology?
-Also, if anyone else has any good citations on the value of exploratory research, can you let me know?
 -->
 
 # Methods
 We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+
+<!--MW: We need to include a link for accessing raw data and measures etc. -->
 
 ```{r inclusion}
 
@@ -217,10 +217,15 @@ nationality <- df %>% dplyr::count(nationality)
 first_gen <- df %>% dplyr::count(first_gen_lab)
 ```
 
+## Procedure
+
+Collaborators from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. An invitation was sent to participants via email or a course website 1-2 weeks before their course began. The invitation specified that student needed to be 18 years or older and starting their first course/unit of study in psychology at a university within the following month, and included a link to the survey.
+
+Ethical approval for this study was granted by (institution blinded).
+
+<!--MW: I've moved Procedure up above Participants - I think that works better for flow since otherwise we have to describe screening within the survey before we've introduced the survey itself. Hope this is ok.-->
 
 ## Participants
-
-<!-- It's common to put participants first, but might the description flow more smoothly if we put that short Procedure subsection first? That way they know how we recruited people before we get to thinks like exclusions and screening -->
 
 Of those who started the survey (*n* = `r n_all`), we screened out `r ex` 
 participants who were not eligible to participate based on the combination of our
@@ -237,8 +242,8 @@ in the study (*n* = `r nmiss`).
 
 The remaining `r n` participants were eligible based on starting their first unit 
 of study in psychology at a university within the next month. For those individuals 
-who were screened out, our Qualtrics program automatically directed them to the 
-debriefing form.  
+who were screened out, Qualtrics automatically directed them to a 
+debriefing  
 
 Most participants reported that they were
 18-24 years old (*n* = `r age[1,2]`), `r age [2,2]` 
@@ -271,8 +276,8 @@ MP: Seems like we are missing some nationalities here – US nationalities? NZ? 
 
 ### Open Science Norms and Counternorms
 
-Our approach to measuring norms and counternorms focussed on participants' evaluation of ten specific open science practices that reflected diverse open science norms rather than trying to measure endorsement of the more abstract Mertonian norms (cf. Anderson et al., 2007). <!-- Mention here our discussions workshopping of common open science norms at SIPs? ! -->
-The open science practices assessed in our survey included: critical thinking, preregistration, registered reports, p-hacking, hypothesising after the results are known (HARKing), providing sufficent information of replicability, preprints, open materials, open data, and open access publishing. Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario, "Imagine that Deborah is a psychology researcher who has designed a study to test a specific hypothesis." Although we acknowledge the existence of important debate about the merits of some of these practices [@TQMP16-4-376; @rubinWhenDoesHARKing2017; @szollosiPreregistrationWorthwhile2020], we selected the items to be emblematic of common concerns in the open science movement.
+Our approach to measuring norms and counternorms focussed on participants' evaluation of ten specific open science practices that reflected diverse open science norms rather than trying to measure endorsement of the more abstract Mertonian norms (cf. Anderson et al., 2007). <!-- Mention here our discussions workshopping of common open science norms at SIPs? -->
+The practices assessed in our survey included: critical thinking, preregistration, registered reports, p-hacking, hypothesising after the results are known (HARKing), providing sufficent information of replicability, preprints, open materials, open data, and open access publishing. Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario, "Imagine that Deborah is a psychology researcher who has designed a study to test a specific hypothesis." Although we acknowledge the existence of important debate about the merits of some of these practices [@TQMP16-4-376; @rubinWhenDoesHARKing2017; @szollosiPreregistrationWorthwhile2020], we selected the items to be emblematic of common concerns in the open science movement.
 
 There were 20 scenarios in total (see Table \@ref(tab:norm_counternorm_items)). Participants rated their agreement with each prescriptive statement on a 1 (strongly disagree) to 5 (strongly agree) scale.
 
@@ -333,7 +338,7 @@ knitr::kable(norm_items_wide,
 
 ### Beliefs About the Practice of Psychological Science
 
-We also sought to measure participants' normative beliefs about how psychological science was actually conducted by researchers around the world. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to the ten norm-counternorm pairs described above, albeit with one norm excluded on the basis of not referring to externally observable behaviour (critically evaluating published studies vs. accepting them), and one practice added out of interest (data sharing on request).  (see Table XX). Participants were given a slider bar ranging from 0% to 100% to record their estimate.
+We also sought to measure participants' normative beliefs about how psychological science is actually conducted by researchers around the world. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to the ten norm-counternorm pairs described above, albeit with one norm excluded on the basis of not referring to externally observable behaviour (critically evaluating published studies vs. accepting them), and one practice added out of interest (data sharing on request).  (see Table XX). Participants were given a slider bar ranging from 0% to 100% to record their estimate.
 
 <!-- Add Table XX of 10 belief statements -->
 
@@ -376,16 +381,6 @@ Participants' beliefs about the replicability of results in psychological scienc
 Estimates were recorded using a slider bar ranging from 0% to 100%. 
 A second question asked participants whether they had heard of the replication crisis. Those who had heard of the replication crisis were asked two additional open-ended questions. First, they were asked to describe what the replication crisis is. Second, they were asked which scientific disciplines were most affected by the replication crisis. 
 
-
-## Procedure
-
-Collaborators/Contributors/Colleagues from ## tertiary institutions in Australia (n=), New Zealand (n=), the UK (n=), and the USA (n=) invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics (CITE?). An invitation was sent to participants via email or a course website 1-2 weeks before their course began. After completing demographic information, participants completed measures of Open Science Norms and Counternorms, Norms in Practice, and Beliefs about Replications in that order. At the conclusion of the study participants were invited to share any comments about the survey before they were thanked for their participation and provided an informative debriefing about the aims of the study and links to further reading about open science practices in psychology. The survey took most participants approximately #-# minutes to complete.
-
-<!--MW: We need to add in the actual numbers of collaborators/institutions above - we should have a record somewhere in our Google Drive-->
-
-## Data analysis
-<!--MW: We had this subheading in here but might not need it? The analysis is pretty clear from the descripion below-->
-
 # Results
 
 
@@ -395,9 +390,7 @@ between responses to each norm item and its accompanying counternorm, along with
 Table XX displays the means and standard deviations for each norm, counternorm, 
 and the difference values. 
 
-In general, the students seemed to endorse open science practices: For seven of the ten open science practices, agreement with the norm item was stronger than for the corresponding counternorm. However, the extent to which participants endorsed open science norms varied very substantially across different practices. Participants most strongly endorsed norms that researchers should provide sufficient information about studies to permit replicability, be critical of published findings, and avoid p-hacking (means > 4; 4 representing 'agree'). They also tended to agree that researchers should avoid HARKing, share papers as open access, share open materials, and preregister their studies; the means for these items were all between 3.5 and 4. On the other hand, they tended to disagree with the practice of sharing preprints prior to peer review and, to a lesser extent, with sharing open data. The practice of registered reports was the one about which participants were most equivocal, with very similar levels of agreement (near the midpoint of 3) with both norm and counternorm for this item. This may be relatively unsurprising, given that the registered reports are perhaps the most recent innovation in the list of practices.
-
-Unsurprisingly, there were substantial negative correlations between most norm and counternorm pairs, with the exception of the norm and counternorm items relating to preregistrations and HARKing.
+In general, the students seemed to endorse open science practices: For seven of the ten open science practices, agreement with the norm item was stronger than for the corresponding counternorm. However, the extent to which participants endorsed open science norms varied very substantially across different practices. Participants most strongly endorsed norms that researchers should provide sufficient information about studies to permit replicability, be critical of published findings, and avoid p-hacking (means > 4; 4 representing 'agree'). They also tended to agree that researchers should avoid HARKing, share papers as open access, share open materials, and preregister their studies; the means for these items were all between 3.5 and 4. On the other hand, they tended to disagree with the practice of sharing preprints prior to peer review and, to a lesser extent, with sharing open data.
 
 <!--MW: The paragraphs above contain some numeric info that's written in manually rather than being R outputs (e.g., "three", "seven") 
 Not sure if that's a worry.
@@ -619,12 +612,6 @@ knitr::kable(in_practice_means,
 ```
 
 
-<!-- There's a key point for the discussion here, I think, in that the fact that many participants guessed near 50% for these practices suggests that students may have little idea of the prevalence of these practices in reality, and certainly education is needed on that point. 
-
-We can add a table here with descriptive statistics (means? more?) for the norms in practice items.
-
---> 
-
 ## The replication crisis
 Interestingly, only `r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% of participants indicated they had heard of "the replication crisis", with `r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`% indicating that they had not heard of the crisis and `r round(sum(is.na(df$crisis))/length(df$crisis)*100, 0)`% missing.
 
@@ -642,24 +629,21 @@ _Figure X_. Histogram of participants' responses to the question: "Imagine that 
 
 # Discussion
 
-Despite efforts to popularize the replicability of research the past decade, and despite popular media attention, most incoming psychology students in our sample were unaware of the replication crisis. Encouragingly, on the other hand, most tended to endorse open science norms more-so than counternorms. Notably this wasn't the case for all open science practices (namely sharing of pre-prints and avoiding HARKing). It may be interesting to consider whether student norms regarding the sharing of pre-prints would be expected to have shifted since this data was collected given the rapid increase in the dissemination of pre-prints related to COVID-19. On the other hand, it may well be that scientific training has enshrined the practices of peer review and generating hypotheses after analyses (e.g., Bem, 2004) as essential scientific practices that are robust to change.
+Despite efforts to improve the replicability of research the past decade, and corresponding media attention, most incoming psychology students in our sample were unaware of the replication crisis. Encouragingly, on the other hand, most tended to endorse open science norms more-so than counternorms. Notably this wasn't the case for all open science practices (namely sharing of pre-prints and open data). It may well be that scientific training has enshrined peer review as an essential practice that is robust to change.
 
-<!--Bem begins his guide for writing articles as, “There are two possible articles you can write: (a) the article you planned to write when you designed your study or (b) the article that makes the most sense now that you have seen the results. They are rarely the same, and the correct answer is (b).”-->
-
-Participants' estimates of the proportion of psychological studies published which apply each of a set of ten open science practices tended to hover around a mean of 50%. Although this could be read as implying literally that participants believe these practices are roughly as commonly applied as they are not, it could also be read as implying a great deal of uncertainty on the part of participants. Indeed, some practices, “open access publication”, “data availability”, and “incomplete results” had a modal response of 50%, indicating that many students either literally perceived that these practices are as commonly applied as not, or selected a respon as near 50% as an indicator of indifference or uncertainty. In contrast, other practices with a mean response near 50% (e.g. registered reports) were not normally distributed around the scale midpoint. Instead, participants demonstrated substantial lack of agreement about the frequency of this practice. While the modal values were 60% (n=13) and 80% (n=13), there was also frequent endorsement of 40% (n=12), 20% (n=11) and 70% (n=11). As a result, it appears that there is substantial lack of consensus with regard to the practice of open access publication.  
-
-<!-- MW: Should that last bit say registered reports?
-There's also quite a bit of manually written numeric info here - we should probably convert that to R code?
+<!--Bem begins his guide for writing articles as, “There are two possible articles you can write: (a) the article you planned to write when you designed your study or (b) the article that makes the most sense now that you have seen the results. They are rarely the same, and the correct answer is (b).”
+MW: I think the Bem paper would work here if students tended to be pro-HARKing but they tended to be against it.
 -->
 
-Overall these findings suggest that while incoming psychology students may have a degree of sympathy for open science norms, they know relatively little about replicability and open science. 
+Participants' estimates of the proportion of psychological studies published which apply each of a set of ten open science practices tended to hover around a mean of 50%. Although this could be read as implying literally that participants believe these practices are roughly as commonly applied as not, it could imply that some participants provided responses near 50% as an indication of uncertainty or indifference. This said, 50% was the modal response for only a minority of practices (open access, data availability on request).
 
-<!-- Since the journal asks for a Teaching Implications subsection in the structured abstract, I'm thinking it'd make sense to have a Teaching Implications subsection in the discussion, about here? -->
+The fact that the mean estimated prevalence was no higher than 64% for any practice is inconsistent with the sometime-reported claim that incoming students tend to naively assume that science is *usually* conducted openly. Nevertheless, the students appear to have at least somewhat over-estimated the prevalence of some open science practices. For example, on average students estimated that nearly a third of published psychological studies share data openly and that nearly half of studies are preregistered. Although we have not conducted a systematic review it is safe to say the true figures are rather lower [see @wichertsPoorAvailabilityPsychological2006].
+
 
 ## Strengths and limitations
 Despite a relatively large sample size, our results provide an imperfect picture of new psychology students’ methodological understandings. Our use of convenience samples coupled with the imprecision of polling students’ impressions at one point in time suggest that we can make only very tentative generalisations to a wider population of incoming psychology students. However, collectively these results demonstrate some clear topics that might be targeted in our teaching: for example, emphasising the value of pre-prints and open-data to research practice.  
 
-Our questions focused primarily on attitudes and beliefs so that we could better document the implicit understanding that guided students’ thoughts about the research process. However, we did not probe students' factual knowledge of methodological findings or concepts. It’s quite possible that reform in secondary school instruction has improved students’ understandings of more fundamental statistical (e.g., confidence interval estimation) and design (e.g., direct replications) open science considerations without necessarily impacting their attitudes and beliefs. Yet, research at the tertiary level casts doubt that the disciplinary reform from the past 2 decades has had much impact on the content of our teaching [@friedrichReplicatingNationalSurvey2018].
+Our questions focused primarily on attitudes and beliefs so that we could better document the implicit understanding that guided students’ thoughts about the research process. However, we did not probe students' factual knowledge of methodological findings or concepts. It is quite possible that reform in secondary school instruction has improved students’ understandings of more fundamental statistical (e.g., confidence interval estimation) and design (e.g., direct replications) open science considerations without necessarily impacting their attitudes and beliefs. Yet, research at the tertiary level casts doubt that the disciplinary reform from the past two decades has had much impact on the content of our teaching [@friedrichReplicatingNationalSurvey2018].
 
 <!--
 MW: The bit from "It's quite possible..." is sensible, but if needed could possibly shave some words off by excluding? 
@@ -667,7 +651,15 @@ See how we go when we check full word count
 -->
 
 
-## Directions for future research
+<!-- ## Directions for future research
+
+MW: Do we need directions.. or just leave out to conserve word count?-->
+
+
+## Conclusion and teaching implications
+Overall these findings suggest that incoming psychology students have a degree of sympathy for open science norms. Nevertheless, despite significant media attention on the replication crisis, few have heard of this crisis. Similarly, students seemed to be relatively unfamiliar with responses to the replication crisis (e.g., open science practices). It is therefore important that teachers of psychology not assume pre-existing knowledge among incoming students.
+
+<!-- MW: I've added this subsection because it's signalled as a required heading in the abstract. Is there more to say here?-->
 
 
 # Supplemental Materials
