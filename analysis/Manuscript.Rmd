@@ -32,8 +32,6 @@ abstract: |
 ## RESULTS: When asked about how research *should* be done, most students endorsed most (but not all) of ten open science practices. When asked to estimate the proportion of published psychological studies that apply each of a set of 10 open science practices, participants' estimates tended to average near 50%. Only 18% of participants had heard of the term "replication crisis".
 ## CONCLUSION: Despite relatively significant media attention on the replication crisis, few incoming psychology students are familiar with the term. Incoming students nevertheless appear to be sympathetic toward most open science practices, although they may overestimate the prevalence of these practices in psychology.
 ## TEACHING IMPLICATIONS: Teaching materials aimed at incoming psychology students should not assume pre-existing knowledge about open science or replicability.
-
-
 keywords: open science, psychology, teaching, reproducibility, replication
 wordcount: X
 bibliography: ['r-references.bib','Undergrads & Open Science (public).bib']
@@ -51,8 +49,11 @@ affiliation:
   institution: Swinburne University of Technology
 - id: '2'
   institution: Massey University
+- id: '3'
+  institution: Deakin University, Geelong, Australia, Misinformation Lab, School of Psychology
 editor_options: 
   chunk_output_type: console
+csl               : "apa.csl" 
 ---
 
 <!--
@@ -140,7 +141,7 @@ The last decade has seen unprecedented change in methodological and reporting pr
 
 The most comprehensive set of principles for how science *ought* to be practiced are Merton's norms of science [@mertonNoteScienceDemocracy1942]. Scientists [@andersonExtendingMertonianNorms2010] and graduate students [@andersonGraduateStudentExperience1994] alike have historically endorsed the normative value of Merton's principles. Furthermore, many of the recent practices designed to make science more transparent and open reflect Mertonian norms [see @vazireWeWantBe2019; @vazireWhereAreSelfcorrecting2020]. For example, the practices of sharing of preprints for open peer review and open data for checking of reproducibility corresponds to the norm of communality, and also to that of *organised skepticism*: Scientific claims should be subjected to critical scrutiny. Preregistration can be connected to the norm of *disinterestedness*: By making (and preregistering) decisions about how to analyse data before results are produced, a researcher can limit the degree to which the substantive results produced by different analytic strategies affect their decisions regarding which analyses to report.
 
-Rapid changes in methodological practice and empirical findings present significant pedagogical challenges for the teacher of psychology. Keeping textbooks and other instructional materials up to date is difficult when supposedly well-established findings are contradicted by new replications emerging at a rapid pace. Furthermore, training in emerging methodological practices is crucial for graduate students who may go on to apply psychological research methods themselves. Even for students who do not go on to conduct research themselves, an understanding of contemporary methodological practices - and problems with methodological practices in psychology - is essential for becoming informed and critical consumers of psychological knowledge. Studies have therefore begun to explore strategies for educating psychology students about replicability and open science practices [e.g., @chopikHowWhetherTeach2018; @graheHarnessingUndiscoveredResource2012; @jekelHowTeachOpen2020; @schonbrodtTrainingStudentsOpen2019]. These initiatives may help ingrain open science norms and change attitudes about research practices, but we know little about what these students know or believe about open science research practices prior to entering the university classroom. There are several reasons why this knowledge could be useful.
+Rapid changes in methodological practice and empirical findings present significant pedagogical challenges for the teacher of psychology. Keeping textbooks and other instructional materials up to date is difficult when supposedly well-established findings are contradicted by new replications emerging at a rapid pace. Furthermore, training in emerging methodological practices is crucial for graduate students who may go on to apply psychological research methods themselves. Even for students who do not go on to conduct research themselves, an understanding of contemporary methodological practices – and problems with methodological practices in psychology – is essential for becoming informed and critical consumers of psychological knowledge. Studies have therefore begun to explore strategies for educating psychology students about replicability and open science practices [e.g., @chopikHowWhetherTeach2018; @graheHarnessingUndiscoveredResource2012; @jekelHowTeachOpen2020; @schonbrodtTrainingStudentsOpen2019]. These initiatives may help ingrain open science norms and change attitudes about research practices, but we know little about what these students know or believe about open science research practices prior to entering the university classroom. There are several reasons why this knowledge could be useful.
 
 First, unlike some psychological phenomena in undergraduate courses (e.g., models of working memory, or the internal workings of human senses), the replication crisis is frequently discussed in mainstream and social media [e.g., @ogradyPsychologyReplicationCrisis2020; @yongPsychologyReplicationCrisis2016; @yongPsychologyReplicationCrisis2018]. Students may plausibly have some knowledge about these issues obtained prior to (or independently of) their formal studies. Teaching methods should thus be informed by some understanding of what students' pre-existing levels of knowledge are. 
 
@@ -279,15 +280,17 @@ MP: Seems like we are missing some nationalities here – US nationalities? NZ? 
 Our approach to measuring norms and counternorms focussed on participants' evaluation of ten specific open science practices that reflected diverse open science norms rather than trying to measure endorsement of the more abstract Mertonian norms (cf. Anderson et al., 2007). <!-- Mention here our discussions workshopping of common open science norms at SIPs? -->
 The practices assessed in our survey included: critical thinking, preregistration, registered reports, p-hacking, hypothesising after the results are known (HARKing), providing sufficent information of replicability, preprints, open materials, open data, and open access publishing. Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario, "Imagine that Deborah is a psychology researcher who has designed a study to test a specific hypothesis." Although we acknowledge the existence of important debate about the merits of some of these practices [@TQMP16-4-376; @rubinWhenDoesHARKing2017; @szollosiPreregistrationWorthwhile2020], we selected the items to be emblematic of common concerns in the open science movement.
 
-There were 20 scenarios in total (see Table \@ref(tab:norm_counternorm_items)). Participants rated their agreement with each prescriptive statement on a 1 (strongly disagree) to 5 (strongly agree) scale.
+There were 20 scenarios in total (see Table \@ref(tab:normcounternormitems)). Participants rated their agreement with each prescriptive statement on a 1 (strongly disagree) to 5 (strongly agree) scale.
 
 <!-- Add Table X of norms and counternorms statements that map to each practice 
 MW: The table captions/crossreferences may not be working - see the compiled document.
+
+EK: for cross-referencing to work you can't have underscores in the chunk name
 -->
 
-```{r norm_counternorm_items}
+```{r normcounternormitems}
 norm_items = data.frame(
-  "Practice" = c("critical", "critical", "HARKing", "HARKing", "Info for replicability", "Info for replicability",
+  "Practice" = c("Critical thinking", "Critical thinking", "HARKing", "HARKing", "Info for replicability", "Info for replicability",
                  "Open access", "Open access", "Open data", "Open data", "Open materials", "Open materials",
                  "p-hacking", "p-hacking", "Preprints", "Preprints", "Preregistration", "Preregistration",
                  "Registered reports", "Registered reports"),
@@ -335,14 +338,15 @@ knitr::kable(norm_items_wide,
              align = c('lll'))
 ```
 
+\ 
 
 ### Beliefs About the Practice of Psychological Science
 
-We also sought to measure participants' normative beliefs about how psychological science is actually conducted by researchers around the world. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to the ten norm-counternorm pairs described above, albeit with one norm excluded on the basis of not referring to externally observable behaviour (critically evaluating published studies vs. accepting them), and one practice added out of interest (data sharing on request).  (see Table XX). Participants were given a slider bar ranging from 0% to 100% to record their estimate.
+We also sought to measure participants' normative beliefs about how psychological science is actually conducted by researchers around the world. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to the ten norm-counternorm pairs described above, albeit with one norm excluded on the basis of not referring to externally observable behaviour (critically evaluating published studies vs. accepting them), and one practice added out of interest (data sharing on request).  (see Table \@ref(tab:normsinpracticeitems)). Participants were given a slider bar ranging from 0% to 100% to record their estimate.
 
 <!-- Add Table XX of 10 belief statements -->
 
-```{r norms_in_practice_items}
+```{r normsinpracticeitems}
 practice_items = data.frame(
   "Practice" = c("Preregistration", "Registered reports", "p-hacking", "HARKing", "Info for replicability",
                  "Preprint", "open materials", "Open data", "Data on request", "Open access"),
@@ -372,10 +376,12 @@ knitr::kable(practice_items,
 
 ```
 
+\ 
 
 ### Beliefs About Replications
 
 Participants' beliefs about the replicability of results in psychological science were indexed by two questions. The first asked participants to, 
+
 > "Imagine that a set of researchers selected 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a 'replication study.' At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?”
 
 Estimates were recorded using a slider bar ranging from 0% to 100%. 
@@ -387,8 +393,7 @@ A second question asked participants whether they had heard of the replication c
 In line with our preregistered analysis plan, we calculated the difference in means
 between responses to each norm item and its accompanying counternorm, along with 
 95% confidence intervals. For this analysis, we removed three cases with missing values. 
-Table XX displays the means and standard deviations for each norm, counternorm, 
-and the difference values. 
+Table \@ref(tab:differencebetweennormandcounternorm) displays the means and standard deviations for each norm, counternorm, and the difference values. 
 
 In general, the students seemed to endorse open science practices: For seven of the ten open science practices, agreement with the norm item was stronger than for the corresponding counternorm. However, the extent to which participants endorsed open science norms varied very substantially across different practices. Participants most strongly endorsed norms that researchers should provide sufficient information about studies to permit replicability, be critical of published findings, and avoid p-hacking (means > 4; 4 representing 'agree'). They also tended to agree that researchers should avoid HARKing, share papers as open access, share open materials, and preregister their studies; the means for these items were all between 3.5 and 4. On the other hand, they tended to disagree with the practice of sharing preprints prior to peer review and, to a lesser extent, with sharing open data.
 
@@ -397,7 +402,7 @@ Not sure if that's a worry.
 -->
 
 
-```{r difference between norm and counternorm}
+```{r differencebetweennormandcounternorm}
 
 # select columns that relate to norms & pivot it long
 norm_long <- df %>% 
@@ -528,11 +533,15 @@ practice_means_corr <- practice_means_corr %>%
   relocate (Practice, .before = Norm) %>% 
   relocate (p.value, .after = last_col())
 
+practice_means_corr$Practice <- c("Critical thinking", "HARKing", "Info for replicability", "Open access", "Open data", "Open materials", "p-hacking", "Preprint", "Preregistration", "Registered reports")
+
 
 # breadcrumbs:
 # need to figure out whether I can rotate a page in papaja
 # I need to use apa_tables.... (in line with papaja)
-# update practice descriptions so they make sense to readers
+# EK - You can rotate the table, but I don't think it will rotate the page and it won't
+# carry over into word
+
 
   
 knitr::kable(practice_means_corr,
@@ -544,12 +553,13 @@ knitr::kable(practice_means_corr,
 ```
 
 <!-- I imagine we will remove the p.value column, but we might want this for now.  -->
+<!-- It's not clear which stat the pvalue relates to, I would support removing it  -->
 
 ## Norms in practice
-Participants were also asked to estimate the proportion of psychology studies globally that apply each of ten practices. For many of these practices, participants’ estimates were near the midpoint of 50%. This said, participants perceived some practices as being applied relatively infrequently: For example, the mean estimate of the prevalence of HARKing, preprint sharing before publication, and open data sharing were all near 30%. Participants perceived the most common practice was providing enough information in written reports to permit replication without asking any questions of the original researchers.
+Participants were also asked to estimate the proportion of psychology studies globally that apply each of ten practices (see Table \@ref(tab:normsinpractice)). For many of these practices, participants’ estimates were near the midpoint of 50%. This said, participants perceived some practices as being applied relatively infrequently: For example, the mean estimate of the prevalence of HARKing, preprint sharing before publication, and open data sharing were all near 30%. Participants perceived the most common practice was providing enough information in written reports to permit replication without asking any questions of the original researchers.
 
 
-```{r norms in practice}
+```{r normsinpractice}
 
 # select columns that relate to norms in practice & pivot it long & drop the na values
 in_prac_long <- df %>% 
@@ -601,6 +611,8 @@ in_practice_means <- in_prac_means %>%
 # I need to use apa_tables.... (in line with papaja)
 # update practice descriptions so they make sense to readers
 
+in_practice_means$Practice <- c("Data on request", "Info for replicability", "HARKing", "p-hacking", "Open access", "Open data", "Open materials", "Preprint", "Pre-registration", "Registered report")
+
   
 knitr::kable(in_practice_means,
              caption = "Means, standard deviations, and 95% confidence intervals for the prevalence ratings for each research practice",
@@ -617,12 +629,11 @@ Interestingly, only `r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*1
 
 Participants who indicated they had heard of the replication crisis were asked what "What do you think 'the replication crisis' is"? Of the `r length(df$crisis_text[is.na(df$crisis_text)==FALSE])` participants who answered this question, most provided responses roughly consistent with the conventional interpretation of the term. Example responses included "The crisis where most studies were unable to be replicated when researchers decided to replicate previously done studies" and "Where previously trusted studies have been replicated the results were not able to be replicated". Only `r sum(crisis_descriptions$Accurate == "n")` responses were suggestive of a misunderstanding of the term (e.g., "Plagiaris[m]", "only same results being published").
 
-Participants' estimates of the replicability of psychological studies were variable. The mean, _M_ =`r mean(df$rep_perc, na.rm = TRUE)` was near the midpoint of 50%, but with substantial variability around this estimate, _SD_ = `r sd(df$rep_perc, na.rm = TRUE)`, minimum = `r min(df$rep_perc, na.rm = TRUE)`,  maximum = `r max(df$rep_perc, na.rm = TRUE)`. A histogram of participants' responses is provided in Figure X.
+Participants' estimates of the replicability of psychological studies were variable. The mean, _M_ =`r mean(df$rep_perc, na.rm = TRUE)` was near the midpoint of 50%, but with substantial variability around this estimate, _SD_ = `r sd(df$rep_perc, na.rm = TRUE)`, minimum = `r min(df$rep_perc, na.rm = TRUE)`,  maximum = `r max(df$rep_perc, na.rm = TRUE)`. A histogram of participants' responses is provided in Figure \@ref(fig:repperchistogram).
 
-```{r rep_perc_histogram}
+```{r repperchistogram, fig.cap="Histogram of participants' responses to the question: \"Imagine that a set of researchers select 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a \"replication study\". At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?\" Responses provided on a visual slider."}
 hist(df$rep_perc, main = NULL, xlab = "Percentage")
 ```
-_Figure X_. Histogram of participants' responses to the question: "Imagine that a set of researchers select 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a “replication study”. At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?" Responses provided on a visual slider.
 
 <!-- Participants were also asked "Which scientific disciplines do you think are most affected by the replication crisis?" As we discussed, I'm not sure this response will really be useful to look at given that we have "primed" them to think of psychology as being most affected (and indeed that's what the responses largely indicate).-->
 
@@ -664,23 +675,39 @@ Overall these findings suggest that incoming psychology students have a degree o
 
 # Supplemental Materials
 
-Figure XX displays the histograms for each of the norms in practice items. 
+Figure A displays the histograms for each of the norms in practice items. 
 
-```{r norms in practice histogram}
+```{r normsinpracticehistogram}
 
-p <- in_prac_long %>%
+practice_labels <- c(
+  available_data = "Data on\nrequest",
+  detailed_methodology = "Info\nrequired\nfor replication",
+  harking = "HARKing",
+  incomplete_results = "p-hacking",
+  open_access = "Open access",
+  registered_reports = "Registered reports",
+  open_data = "Open data",
+  open_materials = "Open\nmaterials",
+  preprint_pre = "Preprints",
+  preregistration = "Preregistration",
+  registered_report = "Registered\nreport"
+)
+
+in_prac_long %>%
   ggplot(aes(x = `prevalence rating`)) +
   geom_histogram(aes(y=stat(count)), binwidth = 10) +
     xlab("Prevalence Ratings (%)") +
     ylab("Frequency") +
     theme_classic () +
     theme(axis.text = element_text(size = 9), axis.title = element_text(size = 9)) +
-    facet_wrap(~practice, nrow = 2)
-p
+    facet_wrap(~practice, nrow = 2, labeller = labeller(practice = practice_labels))
 
-#[breadcrumb: need to update the theme & the practice names]
+
+
+#[breadcrumb: need to update the theme]
 
 ```
+*Figure A*
 
 \newpage
 # Reproducible Code Statement
@@ -688,6 +715,8 @@ p
 We used `r cite_r("r-references.bib")` for all our analyses.
 
 <!-- This is nice to do, but it generate a 150+ word paragraph of citations to packages, including citations to packages our code doesn't directly use (e.g. nlme, multilevel, etc.). We might need to cut it down manually to a more concise list?
+
+EK: You can edit the r-refs bib directly to remove the packages that are just dependencies
 -->
 
 \newpage
