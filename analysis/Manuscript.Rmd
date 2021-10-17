@@ -135,10 +135,9 @@ df$uni_country <- as.character(df$uni_country)
 df$nationality <- as.character(df$nationality)
 
 # import the metadata [if using]
-#metadata <- here::here("survey", "data", "students_metadata.csv") %>% 
- #read_csv(col_names = TRUE, skip_empty_rows = TRUE) %>% 
- #filter(!is.na(old_variable)) %>% 
- #dplyr::select (-c("...10", "note:"))
+# metadata <- here::here("survey", "data", "students_metadata.csv") %>%
+# read_csv(col_names = TRUE, skip_empty_rows = TRUE) %>%
+# filter(!is.na(old_variable))
 
 ```
 
@@ -152,17 +151,18 @@ Rapid changes in methodological practice and empirical findings present signific
 
 First, unlike some psychological phenomena in undergraduate courses (e.g., models of working memory, or the internal workings of human senses), the replication crisis is frequently discussed in mainstream and social media [e.g., @ogradyPsychologyReplicationCrisis2020; @yongPsychologyReplicationCrisis2016; @yongPsychologyReplicationCrisis2018]. Students may have plausibly obtained some knowledge about these issues prior to (or independently of) their formal studies. Teaching methods should thus be informed by some understanding of students' pre-existing levels of knowledge. 
 
-Second, anecdotal evidence suggests that some students being taught about open science practices and reforms to improve reproducibility (such as open sharing of data and analysis code) are often surprised that these are not *already* standard practice. This could imply a need for educators to reinforce and build on students' “naive” impressions rather than radically altering their understanding of how science should be done. On the other hand, some evidence suggests that undergraduate students may quickly begin to engage in practices that hamper reproducibility. For example, @moranKnowItBad2021 found that 26.5% of the undergraduate students in their Canadian sample admitted “Conducting multiple statistical analyses on the same dataset in an attempt to find a statistically significant result” (i.e., p-hacking), while 9.6% reported rounding down p-values. The extent to which incoming psychology students may – or may not – be “naive open scientists” is useful knowledge for guiding pedagogical approaches.
+Second, anecdotal evidence suggests that some students being taught about open science practices and reforms to improve reproducibility (such as open sharing of data and analysis code) are often surprised that these are not *already* standard practice. This could imply a need for educators to reinforce and build on students' “naive” impressions rather than radically altering their understanding of how science should be done. On the other hand, some evidence suggests that undergraduate students may quickly begin to engage in practices that hamper reproducibility. For example, @moranKnowItBad2021 found that 26.5% of the undergraduate students in their Canadian sample admitted, with regard to their own analyses, “Conducting multiple statistical analyses on the same dataset in an attempt to find a statistically significant result” (i.e., p-hacking), while 9.6% reported rounding down p-values. The extent to which incoming psychology students may – or may not – be “naive open scientists” is useful knowledge for guiding pedagogical approaches.
 
-We conducted a descriptive study examining the beliefs of incoming undergraduate students in a first-year psychology unit about reproducibility and open science practices in psychology. Our survey encompassed questions about norms (how students felt research *should* be conducted), norms in practice (how students believe psychological research *is* conducted) and replicability (how replicable students believe psychological research is). Our study was exploratory [see @wagenmakersAgendaPurelyConfirmatory2012] and descriptive, and does not involve the specification or testing of hypotheses. We nevertheless preregistered our aims, sampling plan, exclusion criteria and data analysis plan at https://osf.io/6e2ux/?view_only=b5173ba3bf564bc495686cd0845e678b
+We conducted a descriptive study examining the beliefs of incoming undergraduate students in a first-year psychology unit about reproducibility and open science practices in psychology. Our survey encompassed questions about norms (how students felt research *should* be conducted), norms in practice (how students believe psychological research *is* conducted) and replicability (how replicable students believe psychological research is). Our study was exploratory [see @wagenmakersAgendaPurelyConfirmatory2012] and descriptive, and does not involve the specification or testing of hypotheses. We preregistered the exploratory nature of this study at https://tinyurl.com/4p64mvwp.
 
-<!-- I wonder about saying something somewhere about how the items we developed (and openly shared) in this study could be useful for teachers who might wish to assess their own students' beliefs about open science practices in psychology?
+<!-- I wonder about saying something somewhere about how the items we developed (and openly shared) in this study could be useful for teachers who might wish to assess their own students' beliefs about open science practices in psychology? JB: That'd be great in the 
+abstract and discussion?
 -->
 
 # Methods
-We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+We report how we determined our sample size, all data exclusions, all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) --> Our materials, data, and analysis script are available at https://tinyurl.com/yz76f4s6. 
 
-<!--MW: We need to include a link for accessing raw data and measures etc. -->
+<!-- JB: Is there are a reason we aren't including Simmons et al as a cite? -->
 
 ```{r inclusion}
 
@@ -227,18 +227,19 @@ first_gen <- df %>% dplyr::count(first_gen_lab)
 
 ## Procedure
 
-Collaborators from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. An invitation was sent to participants via email or a course website 1-2 weeks before their course began. The invitation specified that student needed to be 18 years or older and starting their first course/unit of study in psychology at a university within the following month, and included a link to the survey.
+Contacts from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. An invitation was sent to participants via email or a course website 1–2 weeks before their course began. The invitation specified that student needed to be 18 years or older and starting their first course/unit of study in psychology at a university within the following month, and included a link to the survey.
 
 Ethical approval for this study was granted by (institution blinded).
 
-<!--MW: I've moved Procedure up above Participants - I think that works better for flow since otherwise we have to describe screening within the survey before we've introduced the survey itself. Hope this is ok.-->
+<!-- JB: I've renamed collaborators to contacts because they aren't on this paper and aren't necessarily people that we've previously collaborated with. -->
+
+<!--MW: I've moved Procedure up above Participants - I think that works better for flow since otherwise we have to describe screening within the survey before we've introduced the survey itself. Hope this is ok. JB: Fine with me. If it's an issue, we can describe the final sample of participants first and then describe the inclusion criteria later.-->
 
 ## Participants
 
 Of those who started the survey (*n* = `r n_all`), we screened out `r ex` 
 participants who were not eligible to participate based on the combination of our
-preregistered exclusion criteria. Specifically, we screened out people who were younger than 
-18 years (*n* = `r age_ex`). We also screened out individuals who had already 
+preregistered exclusion criteria. Specifically, we screened out people who were younger than 18 years (*n* = `r age_ex`). We also screened out individuals who had already 
 started a psychology unit at a university, regardless of whether they had 
 completed it (*n* = `r el[1,2] + el[3,2] + el[4,2]`); were not enrolled in a 
 psychology unit at a university (*n* = `r el[2,2]`); or did not answer this 
@@ -249,14 +250,11 @@ eligibility criteria, but did not respond to any of the main items
 in the study (*n* = `r nmiss`). 
 
 The remaining `r n` participants were eligible based on starting their first unit 
-of study in psychology at a university within the next month. For those individuals 
-who were screened out, Qualtrics automatically directed them to a 
-debriefing  
-
-Most participants reported that they were
-18-24 years old (*n* = `r age[1,2]`), `r age [2,2]` 
-reported that they were 25-34 years old, `r age [3,2]` were 35-44 years old,
-`r age [4,2]` were 45-54 years old, and `r age [5,2]` was 55-64 years old. The majority of participants (*n* = `r gender[1,2]`) reported that they were female, 
+of study in psychology at a university within the next month. Of the eligible 
+participants, most reported that they were 18–24 years old (*n* = `r age[1,2]`);
+`r age [2,2]` reported that they were 25–34 years old, `r age [3,2]` were 35–44 
+years old, `r age [4,2]` were 45–54 years old, and `r age [5,2]` was 55–64 years old. 
+The majority of participants (*n* = `r gender[1,2]`) reported that they were female, 
 `r gender[2,2]` reported that they were male, `r gender[3,2]` participant reported 
 their gender identity as "queer man", and `r gender[3,2]` participant reported 
 non-binary gender.
@@ -270,30 +268,25 @@ response in order to provide a faithful representation of the participant's
 self-reported gender.] -->
 
 Most participants reported attending university in Australia (*n* = `r uni_country[1,2]`), 
-the United Kingdom (*n* = `r uni_country[5,2]`), or New Zealand (*n* = `r uni_country[4,2]`). Nearly all reported graduating from high
-school or secondary school (*n* = `r hs_status[3,2]`). Of those participants who 
-attended high school, fewer than half completed psychology courses in 
-high school (*n* = `r hs_psyc[2,2]`). Most reported their nationality as being from Australia (*n* = `r nationality[3,2]`), the United Kingdom (*n* = `r nationality[24,2]`), or China
-(*n* = `r nationality[6,2]`). About 2/3rds of participants reported that at least one of their parents attended university (*n* = `r first_gen[2,2]`). 
-
-<!--
-MP: Seems like we are missing some nationalities here – US nationalities? NZ? Or is this just the top 3?
--->
+the United Kingdom (*n* = `r uni_country[5,2]`), or New Zealand (*n* = 
+`r uni_country[4,2]`). Nearly all reported graduating from high school or secondary 
+school (*n* = `r hs_status[3,2]`). Of those participants who attended high school, 
+fewer than half completed psychology courses in high school (*n* = `r hs_psyc[2,2]`).
+Participants reported `r nrow(nationality)` different nationalities; the most 
+common were Australia (*n* = `r nationality[3,2]`), the United Kingdom (*n* = 
+`r nationality[24,2]`), and China (*n* = `r nationality[6,2]`). About two-thirds of 
+participants reported that at least one of their parents attended university 
+(*n* = `r first_gen[2,2]`). 
 
 ## Material
 
 ### Open Science Norms and Counternorms
 
-Our approach to measuring norms and counternorms focussed on participants' evaluation of ten specific open science practices that reflected diverse open science norms rather than trying to measure endorsement of the more abstract Mertonian norms (cf. Anderson et al., 2007). <!-- Mention here our discussions workshopping of common open science norms at SIPs? -->
+Our approach to measuring norms and counternorms focussed on participants' evaluation of ten specific open science practices that reflected diverse open science norms rather than trying to measure endorsement of the more abstract Mertonian norms (cf. Anderson et al., 2007). <!-- Mention here our discussions workshopping of common open science norms at SIPs? JB: I think we have to, don't we?-->
 The practices assessed in our survey included: critical thinking, preregistration, registered reports, p-hacking, hypothesising after the results are known (HARKing), providing sufficent information of replicability, preprints, open materials, open data, and open access publishing. Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario, "Imagine that Deborah is a psychology researcher who has designed a study to test a specific hypothesis." Although we acknowledge the existence of important debate about the merits of some of these practices [@TQMP16-4-376; @rubinWhenDoesHARKing2017; @szollosiPreregistrationWorthwhile2020], we selected the items to be emblematic of common concerns in the open science movement.
 
-There were 20 scenarios in total (see Table \@ref(tab:normcounternormitems)). Participants rated their agreement with each prescriptive statement on a 1 (strongly disagree) to 5 (strongly agree) scale.
+We presented 20 scenarios (see Table \@ref(tab:normcounternormitems)). Participants rated their agreement with each prescriptive statement on a 1 (strongly disagree) to 5 (strongly agree) scale.
 
-<!-- Add Table X of norms and counternorms statements that map to each practice 
-MW: The table captions/crossreferences may not be working - see the compiled document.
-
-EK: for cross-referencing to work you can't have underscores in the chunk name
--->
 
 ```{r normcounternormitems}
 norm_items = data.frame(
@@ -325,13 +318,14 @@ norm_items = data.frame(
 
 # [breadcrumb Sept 10: pull in this info from the meta data]
 
-# recode the data so the response options have proper labels
 
-# c <- metadata %>% 
-#     filter(Scale == "OSmost") %>% 
-#     filter(NewVariable != "OSmost_text") #remove this value from metadata
-# 
-# d <- full_join(OSmost_long, c, by = c("OSmost" = "NewVariable")) %>% 
+# c <- metadata %>%
+#     filter(scale == "norms")
+
+# add a practice column in metadata
+
+# update this text  
+# d <- full_join(OSmost_long, c, by = c("OSmost" = "NewVariable")) %>%
 #   rename ("OSmost_label" = "ItemText")
 
 
@@ -349,14 +343,13 @@ knitr::kable(norm_items_wide,
 
 ### Beliefs About the Practice of Psychological Science
 
-We also sought to measure participants' normative beliefs about how psychological science is actually conducted by researchers around the world. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to the ten norm-counternorm pairs described above, albeit with one norm excluded on the basis of not referring to externally observable behaviour (critically evaluating published studies vs. accepting them), and one practice added out of interest (data sharing on request).  (see Table \@ref(tab:normsinpracticeitems)). Participants were given a slider bar ranging from 0% to 100% to record their estimate.
+We also sought to measure participants' normative beliefs about how psychological science is actually conducted by researchers around the world. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to the ten norm–counternorm pairs described above, with two exceptions (see Table \@ref(tab:normsinpracticeitems)). We excluded one norm because it did not refer to externally observable behaviour (critically evaluating published studies vs. accepting them), and we included one practice out of interest (data sharing on request). Participants indicated their estimate on a slider bar ranging from 0% to 100%.
 
-<!-- Add Table XX of 10 belief statements -->
 
 ```{r normsinpracticeitems}
 practice_items = data.frame(
   "Practice" = c("Preregistration", "Registered reports", "p-hacking", "HARKing", "Info for replicability",
-                 "Preprint", "open materials", "Open data", "Data on request", "Open access"),
+                 "Preprint", "Open materials", "Open data", "Data on request", "Open access"),
   "Item" = c("The plan for collecting and analysing data for the study is posted in an online registry before data collection starts",
              "A plan for the study is submitted to a journal to be checked by experts (peer reviewed) before the data is collected and analysed",
              "The researchers run many different analyses of the data, and report only those that produce interesting findings",
@@ -374,10 +367,6 @@ knitr::kable(practice_items,
              caption = "Norms in practice items",
              align = c('ll'))
 
-#Note to selves: The norm in practice items map fairly closely to norms and counternorms, but not exactly
-#I.e., there is no norm in practice item about critically evaluating published literature, but there is one about sharing
-#data on request (which isn't in the norms/counternorms)
-#I can't remember why we did this, but so it goes.
 #The ordering of this table also doesn't match the one above, which I'm leaving for the moment since we probably want to set
 #an order of items/norms and stick to it consistently throughout
 
