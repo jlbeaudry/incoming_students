@@ -71,8 +71,8 @@ JB: Yes, that makes sense.
 To knit to RMarkdown you will probably need the papaja package installed, and to knit to .pdf you will need a tex distro (e.g., TinyTex).
 However, it is possible to run all the R code (without knitting to .docx or .pdf) by clicking Run > Run All Chunks Below.
 This could be useful in future for readers interested in reproducing results but who don't have or wish to install 
-papaja and its many dependencies. J
-B: Yes, that's a good note to include for folks.
+papaja and its many dependencies. 
+JB: Yes, that's a good note to include for folks.
 -->
 
 <!-- The .bib file is now just from our shared library -->
