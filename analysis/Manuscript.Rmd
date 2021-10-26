@@ -60,9 +60,6 @@ csl               : "apa.csl"
 <!--
 Teaching in Psychology ask for structured abstracts - 'For these types of article submissions, please include (in this order) a section on the background, objective(s), method, results, conclusion, and teaching implications.' 200 word limit
 Abstract currently includes hand-typed numbers because it's hard to get them to knit up here since data processing is further below.
-The abstract also doesn't currently knit into the final document for some reason?
-JB: I tried to fix this too and looked at all sorts of troubleshooting guides, but no luck. 
-
 -->
 
 <!-- I've only partially entered authorship deets for the moment and set it to mask authorship info when knitting. JB: We'll need to discuss authorship order. I would 
