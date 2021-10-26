@@ -26,12 +26,12 @@ authornote: |
   2 Massey University, New Zealand
   3 Deakin University, Australia
 abstract: |
-BACKGROUND: Understanding students’ naive conceptions about how science works and the norms that guide scientific best practice is important so that teachers can adapt their teaching to the students’ existing understandings.
-OBJECTIVE: To describe what incoming undergraduate students of psychology believe about reproducibility and open science practices in spsychology.
-METHOD: International online survey with participants who were about to start their first course in psychology at a university (N = 239) .
-RESULTS: When asked about how research *should* be done, most students endorsed most (but not all) of ten open science practices. When asked to estimate the proportion of published psychological studies that apply each of a set of 10 open science practices, participants' estimates tended to average near 50%. Only 18% of participants had heard of the term "replication crisis".
-CONCLUSION: Despite relatively significant media attention on the replication crisis, few incoming psychology students are familiar with the term. Incoming students nevertheless appear to be sympathetic toward most open science practices, although they may overestimate the prevalence of these practices in psychology.
-TEACHING IMPLICATIONS: Teaching materials aimed at incoming psychology students should not assume pre-existing knowledge about open science or replicability.
+ BACKGROUND: Understanding students’ naive conceptions about how science works and the norms that guide scientific best practice is important so that teachers can adapt their teaching to the students’ existing understandings.
+ OBJECTIVE: To describe what incoming undergraduate students of psychology believe about reproducibility and open science practices in spsychology.
+ METHOD: International online survey with participants who were about to start their first course in psychology at a university (N = 239) .
+ RESULTS: When asked about how research *should* be done, most students endorsed most (but not all) of ten open science practices. When asked to estimate the proportion of published psychological studies that apply each of a set of 10 open science practices, participants' estimates tended to average near 50%. Only 18% of participants had heard of the term "replication crisis".
+ CONCLUSION: Despite relatively significant media attention on the replication crisis, few incoming psychology students are familiar with the term. Incoming students nevertheless appear to be sympathetic toward most open science practices, although they may overestimate the prevalence of these practices in psychology.
+ TEACHING IMPLICATIONS: Teaching materials aimed at incoming psychology students should not assume pre-existing knowledge about open science or replicability.
 
 keywords: open science, psychology, teaching, reproducibility, replication
 wordcount: X
