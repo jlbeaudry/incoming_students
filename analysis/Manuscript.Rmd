@@ -542,7 +542,7 @@ practice_means_corr$Practice <- c("Critical thinking", "HARKing", "Info for repl
 # need to figure out whether I can rotate a page in papaja
 # EK - You can rotate the table, but I don't think it will rotate the page and it won't
 # carry over into word. 
-# JB: Moving correlations to a supplement will sove the problem I'm trying to resolve anyway...
+# JB: Moving correlations to a supplement will solve the problem I'm trying to resolve anyway...
   
 knitr::kable(practice_means_corr,
              caption = "Means (sd) for norms, counternorms, the difference between norms and counternorms, and correlations between norms and counternorms",
@@ -558,7 +558,7 @@ knitr::kable(practice_means_corr,
 into a new table in the supplemental material, then we will want the p-value with it. -->
 
 ## Norms in practice
-Participants were also asked to estimate the proportion of psychology studies globally that apply each of ten practices (see Table \@ref(tab:normsinpractice)). For many of these practices, participants’ estimates were near the midpoint of 50%. This said, participants perceived some practices as being applied relatively infrequently: For example, the mean estimate of the prevalence of HARKing, preprint sharing before publication, and open data sharing were all near 30%. Participants perceived the most common practice was providing enough information in written reports to permit replication without asking any questions of the original researchers.
+Participants were also asked to estimate the proportion of psychology studies globally that apply each of ten practices (see Table \@ref(tab:normsinpractice)). For many of these practices, participants’ estimates were near the midpoint of 50%. This said, participants perceived some practices as being applied relatively infrequently: For example, the mean estimate of the prevalence of HARKing, preprint sharing before publication, and open data sharing were all near 30%. See Figure A in Supplemental Materials to see the distribution for each item. Participants perceived the most common practice was providing enough information in written reports to permit replication without asking any questions of the original researchers.
 
 
 ```{r normsinpractice}
