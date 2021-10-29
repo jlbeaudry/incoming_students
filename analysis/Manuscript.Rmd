@@ -2,29 +2,63 @@
 title: What do incoming university students believe about open science practices in
   psychology?
 author:
-- name: Jennifer L. Beaudry
-  affiliation: '1'
-  corresponding: yes
-  address: Postal address
-  email: jbeaudry@swin.edu.au
-  role: null
-- name: Michael C. Philipp
-  affiliation: '2'
-  role: null
-- name: Matt N. Williams
-  affiliation: '2'
-  role: null
-- name: Emily Kothe
-  affiliation: '3'
-  role: null
+  - name: Jennifer L. Beaudry
+    affiliation: '1,4'
+    role:
+      - Conceptualization
+      - Data curation
+      - Formal analysis
+      - Investigation
+      - Methodology
+      - Project administration
+      - Validation
+      - Visualization
+      - Writing - original draft
+      - Writing - review & editing
+    corresponding: yes
+    email: jen.beaudry@flinders.edu.au
+    address: Enter postal address here
+  - name: Matt N. Williams
+    affiliation: '2'
+    role:
+      - Investigation
+      - Methodology
+      - Validation
+      - Writing - original draft
+    email: m.n.williams@massey.ac.nz
+  - name: Michael C. Philipp
+    affiliation: '2'
+    role:
+      - Conceptualization
+      - Investigation
+      - Methodology
+      - Project administration
+      - Writing - original draft
+    email: m.philipp@massey.ac.nz
+  - name: Emily J. Kothe
+    affiliation: '3'
+    role:
+      - Conceptualization
+      - Data curation
+      - Validation
+      - Visualization
+      - Writing - review & editing
+    email: emily.kothe@deakin.edu.au
+
+affiliation:
+  - id: '1'
+    institution: Flinders University
+  - id: '2'
+    institution: Massey University, New Zealand
+  - id: '3'
+    institution: Deakin University
+  - id: '4'
+    institution: Swinburne University of Technology
+
 shorttitle: Psychology students' beliefs about open science
 output:
   papaja::apa6_word: default
   papaja::apa6_pdf: default
-authornote: |
-  1 Flinders University, Australia
-  2 Massey University, New Zealand
-  3 Deakin University, Australia
 abstract: |
  BACKGROUND: Understanding students’ naive conceptions about how science works and the norms that guide scientific best practice is important so that teachers can adapt their teaching to the students’ existing understandings.
  OBJECTIVE: To describe what incoming undergraduate students of psychology believe about reproducibility and open science practices in spsychology.
@@ -34,27 +68,20 @@ abstract: |
  TEACHING IMPLICATIONS: Teaching materials aimed at incoming psychology students should not assume pre-existing knowledge about open science or replicability.
 
 keywords: open science, psychology, teaching, reproducibility, replication
-wordcount:
+wordcount:  3161 (need to update)
 bibliography: ['r-references.bib','Undergrads & Open Science (public).bib']
 floatsintext: yes
 figurelist: no
 tablelist: no
 footnotelist: no
 linenumbers: yes
-mask: yes
+mask: no
 draft: no
 documentclass: apa6
 classoption: man
-affiliation:
-- id: '1'
-  institution: Swinburne University of Technology
-- id: '2'
-  institution: Massey University
-- id: '3'
-  institution: Deakin University, Geelong, Australia, Misinformation Lab, School of Psychology
 editor_options: 
   chunk_output_type: console
-csl               : "apa.csl" 
+csl: "apa.csl" 
 ---
 
 <!--
@@ -62,29 +89,14 @@ Teaching in Psychology ask for structured abstracts - 'For these types of articl
 Abstract currently includes hand-typed numbers because it's hard to get them to knit up here since data processing is further below.
 -->
 
-<!-- I've only partially entered authorship deets for the moment and set it to mask authorship info when knitting. JB: We'll need to discuss authorship order. I would 
-like to use CREDIT for our contributions. 
-It's set to default to knit to .docx, but can also knit to pdf (if you have a tex distro installed)
-The pdf looks nicer and might be good for a preprint but .docx probably easiest to use for journal submissions. 
-JB: Yes, that makes sense. 
-
-To knit to RMarkdown you will probably need the papaja package installed, and to knit to .pdf you will need a tex distro (e.g., TinyTex).
-However, it is possible to run all the R code (without knitting to .docx or .pdf) by clicking Run > Run All Chunks Below.
-This could be useful in future for readers interested in reproducing results but who don't have or wish to install 
-papaja and its many dependencies. 
-JB: Yes, that's a good note to include for folks.
--->
-
-<!-- The .bib file is now just from our shared library -->
+<!-- To knit to RMarkdown you will probably need the papaja package installed, and to knit to .pdf you will need a tex distro (e.g., TinyTex). However, it is possible to run all the R code (without knitting to .docx or .pdf) by clicking Run > Run All Chunks Below. This could be useful in future for readers interested in reproducing results but who don't have or wish to install papaja and its many dependencies. -->
 
 ```{r setup, include = FALSE}
 library(papaja) #install with devtools1
 library(here)
 library(tidyverse)
 library(finalfit) # to keep trailing zeros & round_tidy
-library(psych) #for correlation matrices
 library(tidyselect) 
-#library(psychometric) # for correlation confidence intervals - might not need...
 library(broom)
 
 r_refs("r-references.bib")
@@ -364,8 +376,6 @@ knitr::kable(practice_items,
              caption = "Norms in practice items",
              align = c('ll'))
 
-#The ordering of this table also doesn't match the one above, which I'm leaving for the moment since we probably want to set
-#an order of items/norms and stick to it consistently throughout
 
 ```
 
@@ -640,7 +650,6 @@ MW: I think the Bem paper would work here if students tended to be pro-HARKing b
 
 Participants' estimates of the proportion of psychological studies published which apply each of a set of ten open science practices tended to hover around a mean of 50%. Although this could be read as implying literally that participants believe these practices are roughly as commonly applied as not, it could imply that some participants provided responses near 50% as an indication of uncertainty or indifference. This said, 50% was the modal response for only a minority of practices (open access, data availability on request). 
 
-<!-- do the histograms change our interpretation here? -->
 
 The fact that the mean estimated prevalence was no higher than 64% for any practice is inconsistent with the sometime-reported claim that incoming students tend to naively assume that science is *usually* conducted openly. Nevertheless, the students appear to have at least somewhat over-estimated the prevalence of some open science practices. For example, on average students estimated that nearly a third of published psychological studies share data openly and that nearly half of studies are preregistered. Although we have not conducted a systematic review it is safe to say the true figures are rather lower [see @wichertsPoorAvailabilityPsychological2006]. 
 
@@ -660,15 +669,9 @@ See how we go when we check full word count
 -->
 
 
-<!-- ## Directions for future research
-
-MW: Do we need directions.. or just leave out to conserve word count?-->
-
 
 ## Conclusion and teaching implications
 Overall these findings suggest that incoming psychology students have a degree of sympathy for open science norms. Nevertheless, despite significant media attention on the replication crisis, few have heard of this crisis. Similarly, students seemed to be relatively unfamiliar with responses to the replication crisis (e.g., open science practices). It is therefore important that teachers of psychology not assume pre-existing knowledge among incoming students.
-
-<!-- MW: I've added this subsection because it's signalled as a required heading in the abstract. Is there more to say here?-->
 
 
 # Supplemental Materials
@@ -679,7 +682,7 @@ Figure A displays the histograms for each of the norms in practice items.
 
 practice_labels <- c(
   available_data = "Data on\nrequest",
-  detailed_methodology = "Info\nrequired\nfor replication",
+  detailed_methodology = "Information\nfor replication",
   harking = "HARKing",
   incomplete_results = "p-hacking",
   open_access = "Open access",
@@ -701,21 +704,13 @@ in_prac_long %>%
     facet_wrap(~practice, nrow = 2, labeller = labeller(practice = practice_labels))
 
 
-
-#[breadcrumb: need to update the theme]
-
 ```
 *Figure A*
 
 \newpage
 # Reproducible Code Statement
 
-We used `r cite_r("r-references.bib")` for all our analyses.
-
-<!-- This is nice to do, but it generate a 150+ word paragraph of citations to packages, including citations to packages our code doesn't directly use (e.g. nlme, multilevel, etc.). We might need to cut it down manually to a more concise list?
-
-EK: You can edit the r-refs bib directly to remove the packages that are just dependencies
--->
+We used `r cite_r(file = "r-references.bib", pkgs = c("broom", "finalfit", "gendercoder", "here", "papaja", "tidyverse"), withhold = FALSE)` for our analyses.
 
 \newpage
 
