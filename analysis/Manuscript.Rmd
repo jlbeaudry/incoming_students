@@ -34,7 +34,7 @@ abstract: |
  TEACHING IMPLICATIONS: Teaching materials aimed at incoming psychology students should not assume pre-existing knowledge about open science or replicability.
 
 keywords: open science, psychology, teaching, reproducibility, replication
-wordcount: X
+wordcount:
 bibliography: ['r-references.bib','Undergrads & Open Science (public).bib']
 floatsintext: yes
 figurelist: no
@@ -84,7 +84,7 @@ library(tidyverse)
 library(finalfit) # to keep trailing zeros & round_tidy
 library(psych) #for correlation matrices
 library(tidyselect) 
-library(psychometric) # for correlation confidence intervals - might not need...
+#library(psychometric) # for correlation confidence intervals - might not need...
 library(broom)
 
 r_refs("r-references.bib")
@@ -389,16 +389,6 @@ between responses to each norm item and its accompanying counternorm, along with
 Table \@ref(tab:differencebetweennormandcounternorm) displays the means and standard deviations for each norm, counternorm, and the difference values. 
 
 In general, the students seemed to endorse open science practices: For seven of the ten open science practices, agreement with the norm item was stronger than for the corresponding counternorm. However, the extent to which participants endorsed open science norms varied substantially across different practices. Participants most strongly endorsed norms that researchers should provide sufficient information about studies to permit replicability, be critical of published findings, and avoid p-hacking (means > 4; 4 representing 'agree'). They also tended to agree that researchers should avoid HARKing, share papers as open access, share open materials, and preregister their studies; the means for these items varied between 3.5 and 4. On the other hand, they tended to disagree with the practice of sharing preprints prior to peer review and, to a lesser extent, with sharing open data.
-
-<!--MW: The paragraphs above contain some numeric info that's written in manually rather than being R outputs (e.g., "three", "seven") 
-Not sure if that's a worry. JB: It sort of has to be because a) it's a holistic summary
-and b) APA requires numbers below 10 to written out.
--->
-
-<!-- JB: More of a concern for me is that we don't say anything about the 
-correlations. If we aren't going to say anything about them at all, we can 
-include them as a supplemental material? We preregistered them, so we have to 
-include them, but we don't really have to say anything about them.-->
 
 
 ```{r differencebetweennormandcounternorm}
