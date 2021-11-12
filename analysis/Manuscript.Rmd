@@ -145,8 +145,8 @@ metadata <- here::here("data", "students_metadata.csv") %>%
 read_csv(col_names = TRUE, skip_empty_rows = TRUE, lazy = FALSE) %>%
 filter(!is.na(old_variable))
 
-# relabel the variable names
-df <- meta_rename(df, metadata = metadata, old = old_variable, new = new_variable)
+# relabel the variable names [completed in preprocessing]
+# df <- meta_rename(df, metadata = metadata, old = old_variable, new = new_variable)
 
 # convert variables to factors as needed
 df$age <- as_factor(df$age)
