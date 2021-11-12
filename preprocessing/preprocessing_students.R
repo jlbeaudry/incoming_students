@@ -115,8 +115,8 @@ custom_dictionary <- list(
   # mutate(gender  = recode_gender(gender, dictionary = c(broad, custom_dictionary), fill = TRUE))
 
 # new recode gender (which still doesn't work)
-# df <- df %>%
-#   mutate(gender  = recode_gender(gender, dictionary = c(manylevels_en, custom_dictionary)))
+df <- df %>%
+   mutate(gender  = recode_gender(gender, dictionary = c(manylevels_en, custom_dictionary), fill = TRUE))
 
 ########## EXCLUSION CRITERIA ############
 
