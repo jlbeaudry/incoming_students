@@ -41,6 +41,7 @@ miss_fun = function(x){
   sum(is.na(x))
 }
 
+
 ##### LOAD DATA #####
 
 # raw data without labels
@@ -77,8 +78,9 @@ df_lab <- df_lab %>%
   rename_all(paste0, "_lab") %>% # add "_num" to differentiate the columns with numbers vs. labels
   rename(id = id_lab) # except for the id column because we need that for the join!
 
-# join the two tibbles
+# join the two tibbles and delete columns that we don't need
 df <- df_num %>% inner_join(df_lab, by = "id")
+
 
 
 ##### RECODE VARIABLE NAMES #####
@@ -86,8 +88,6 @@ df <- df_num %>% inner_join(df_lab, by = "id")
 # recode variable labels according to metadata
 
 df <- meta_rename(df, metadata, old = old_variable, new = new_variable)
-
-# Breadcrumbs finish working on the metadata!
 
 
 #### CONVERT VARIABLES INTO FACTORS ####
@@ -102,8 +102,6 @@ df <- df %>%
 
 ######### RECODE GENDER ##########
 
-######### RECODE GENDER ##########
-
 custom_dictionary <- list(
   `female.` = "female",
   `femamle` = "female",
@@ -112,8 +110,13 @@ custom_dictionary <- list(
   `queer man` = "queer man"
 )
 
-df <- df %>%
-  mutate(gender  = recode_gender(gender, dictionary = c(broad, custom_dictionary), fill = TRUE))
+# original recode gender
+# df <- df %>%
+  # mutate(gender  = recode_gender(gender, dictionary = c(broad, custom_dictionary), fill = TRUE))
+
+# new recode gender (which still doesn't work)
+# df <- df %>%
+#   mutate(gender  = recode_gender(gender, dictionary = c(manylevels_en, custom_dictionary)))
 
 ########## EXCLUSION CRITERIA ############
 
