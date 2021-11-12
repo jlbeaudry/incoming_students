@@ -274,7 +274,7 @@ years old, `r age [4,2]` were 45–54 years old, and `r age [5,2]` was 55–64 y
 Most participants (*n* = `r gender[1,2]`) reported that they were female, 
 `r gender[2,2]` reported that they were male, `r gender[3,2]` participant reported 
 their gender identity as "queer man", and `r gender[3,2]` participant reported 
-non-binary gender.
+non-binary gender. *We still need to fix this...see email from Nov 12th*
 
 <!--We had a footnote here (below) but given the word limit it might be safely left out unless a reviewer queries it...
 
@@ -299,8 +299,8 @@ participants reported that at least one of their parents attended university
 
 ### Open Science Norms and Counternorms
 
-Our approach to measuring norms and counternorms focussed on participants' evaluation of ten specific open science practices that reflected diverse open science norms rather than trying to measure endorsement of the more abstract Mertonian norms (cf. Anderson et al., 2007). <!-- Mention here our discussions workshopping of common open science norms at SIPs? JB: I think we have to, don't we?-->
-The practices assessed in our survey included: critical thinking, preregistration, registered reports, p-hacking, hypothesising after the results are known (HARKing), providing sufficent information of replicability, preprints, open materials, open data, and open access publishing. Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario, "Imagine that Deborah is a psychology researcher who has designed a study to test a specific hypothesis." Although we acknowledge the existence of important debate about the merits of some of these practices [@TQMP16-4-376; @rubinWhenDoesHARKing2017; @szollosiPreregistrationWorthwhile2020], we selected the items to be emblematic of common concerns in the open science movement.
+Our approach to measuring norms and counternorms focussed on participants' evaluations of ten specific open science practices that reflected diverse open science norms rather than trying to measure endorsement of the more abstract Mertonian norms (cf. Anderson et al., 2007). <!-- Mention here our discussions workshopping of common open science norms at SIPs? JB: I think we have to, don't we?-->
+The practices assessed in our survey included: critical thinking, preregistration, registered reports, p-hacking, hypothesising after the results are known (HARKing), providing sufficient information of replicability, preprints, open materials, open data, and open access publishing. Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario, "Imagine that Deborah is a psychology researcher who has designed a study to test a specific hypothesis." Although we acknowledge the merits of some of these practices are debatable [@TQMP16-4-376; @rubinWhenDoesHARKing2017; @szollosiPreregistrationWorthwhile2020], we selected the items to be emblematic of common concerns in the open science movement.
 
 We presented 20 scenarios (see Table \@ref(tab:normcounternormitems)). Participants rated their agreement with each prescriptive statement on a 1 (strongly disagree) to 5 (strongly agree) scale.
 
@@ -360,7 +360,7 @@ knitr::kable(norm_items_wide,
 
 ### Beliefs About the Practice of Psychological Science
 
-We also sought to measure participants' normative beliefs about how psychological science is actually conducted by researchers around the world. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to the ten norm–counternorm pairs described above, with two exceptions (see Table \@ref(tab:normsinpracticeitems)). We excluded one norm because it did not refer to externally observable behaviour (critically evaluating published studies vs. accepting them), and we included one practice out of interest (data sharing on request). Participants indicated their estimate on a slider bar ranging from 0% to 100%.
+We also sought to measure participants' normative beliefs about how researchers actually conduct psychological science. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to the ten norm–counternorm pairs described above, with two exceptions (see Table \@ref(tab:normsinpracticeitems)). We excluded one norm because it did not refer to externally observable behaviour (critically evaluating published studies vs. accepting them), and we included one practice out of interest (data sharing on request). Participants indicated their estimate on a slider bar ranging from 0% to 100%.
 
 
 ```{r normsinpracticeitems}
@@ -487,83 +487,22 @@ prac_means$Difference <- paste0(round_tidy(prac_means$diff_mean,2),
 
 # clean it up into a new dataframe with only the columns we need
 practice_means <- prac_means %>% 
-  dplyr::select(practice, Norm, Counternorm, Difference)
-
-# ADD CORRELATIONS (per participant, use df)
-
-# notes for the correlations....
-# just the correlation with CI
-# critical_corr <- round(cor(df$critical_norm, df$critical_cnorm),2)
-# critical_CI <- round(CIr(r = critical_corr, n = nrow(df), level = 0.95),2)
-
-#correlation test with CI and p-values in a clean tibble
-# critical_corr_test <- cor.test(df$critical_norm, df$critical_cnorm)
-# tidy(critical_corr_test)
-
-# use this tutorial to try to get the correlations for each practice (using the long data)
-# https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html
-
-# this will create a tibble for each practice
-
-# calculates the correlation test for each tibble & then tidies it up
-corr <- norm_cnorm_long %>% 
-  nest(data = -practice) %>% # create a tibble for each practice
-  mutate (test = map(data, ~ cor.test(.x$`norm rating`, .x$`cnorm rating`)), 
-          tidied = map(test,tidy)) %>% # run the corr & tidy it
-  unnest(tidied) # unnest it to look at the results
-
-# remove unnecessary columns, round the values, and move columns
-corr <- corr %>% 
-  dplyr::select(-c(data, test, statistic, parameter, method, alternative))  %>%
-  mutate(p.value = p_tidy(p.value, 3, prefix = "")) %>% 
-  mutate(estimate = round_tidy(estimate,2), 
-         conf.low = round_tidy(conf.low, 2), 
-         conf.high = round_tidy(conf.high, 2)) %>% 
-  dplyr::relocate(estimate, .before = conf.low) %>%  
-    dplyr::relocate(p.value, .after = last_col())
-
-# join the corr tibble with the means tibble 
-practice_means_corr <- practice_means %>% inner_join(corr, by = "practice")
-
-# combine the confidence intervals into one column
-practice_means_corr$Correlation <- paste0(practice_means_corr$estimate, 
-                            " [",
-                            practice_means_corr$conf.low,
-                            ", ", 
-                            practice_means_corr$conf.high,
-                            "]")
-
-# clean up the tibble                          
-practice_means_corr <- practice_means_corr %>% 
-  relocate (practice, .before = Norm) %>% 
-  relocate (p.value, .after = last_col())
-
-practice_means_corr <- practice_means_corr %>% 
   rename(Practice = practice) %>% 
-  rename("Correlation p-value" = p.value) %>% 
-  dplyr::select(-c(estimate, conf.low, conf.high))
+  dplyr::select(Practice, Norm, Counternorm, Difference)
 
 
-practice_means_corr$Practice <- c("Critical thinking", "HARKing", "Info for replicability", "Open access", "Open data", "Open materials", "p-hacking", "Preprint", "Preregistration", "Registered reports")
+
+practice_means$Practice <- c("Critical thinking", "HARKing", "Info for replicability", "Open access", "Open data", "Open materials", "p-hacking", "Preprints", "Preregistration", "Registered Reports")
 
 
-# need to figure out whether I can rotate a page in papaja
-# EK - You can rotate the table, but I don't think it will rotate the page and it won't
-# carry over into word. 
-# JB: Moving correlations to a supplement will solve the problem I'm trying to resolve anyway...
-  
-knitr::kable(practice_means_corr,
-             caption = "Means (sd) for norms, counternorms, the difference between norms and counternorms, and correlations between norms and counternorms",
+knitr::kable(practice_means,
+             caption = "Means, standard deviations, and 95% confidence intervals (in square brackets) for norms, counternorms, and the difference between norms and counternorms",
              digits = 2,
              align = c('lccc'))
   
 
 ```
 
-<!-- I imagine we will remove the p.value column, but we might want this for now.  -->
-<!-- It's not clear which stat the pvalue relates to, I would support removing it  -->
-<!-- JB: I've changed the heading of the p.value column for clarity. If we pull the corrs out
-into a new table in the supplemental material, then we will want the p-value with it. -->
 
 ## Norms in practice
 Participants were also asked to estimate the proportion of psychology studies globally that apply each of ten practices (see Table \@ref(tab:normsinpractice)). For many of these practices, participants’ estimates were near the midpoint of 50%. This said, participants perceived some practices as being applied relatively infrequently: For example, the mean estimate of the prevalence of HARKing, preprint sharing before publication, and open data sharing were all near 30%. See Figure A in Supplemental Materials to see the distribution for each item. Participants perceived the most common practice was providing enough information in written reports to permit replication without asking any questions of the original researchers.
@@ -621,7 +560,7 @@ in_practice_means <- in_prac_means %>%
 # I need to use apa_tables.... (in line with papaja)
 # update practice descriptions so they make sense to readers
 
-in_practice_means$Practice <- c("Data on request", "Info for replicability", "HARKing", "p-hacking", "Open access", "Open data", "Open materials", "Preprint", "Pre-registration", "Registered report")
+in_practice_means$Practice <- c("Data on request", "Info for replicability", "HARKing", "p-hacking", "Open access", "Open data", "Open materials", "Preprints", "Pre-registration", "Registered report")
 
   
 knitr::kable(in_practice_means,
@@ -683,6 +622,69 @@ Overall these findings suggest that incoming psychology students have a degree o
 
 
 # Supplemental Materials
+
+Table A contains the correlations between norms and counternorms, with the 95% confidence intervals and the associated *p*-value.
+
+
+
+```{r corrbetweennormandcounternorm}
+
+# ADD CORRELATIONS (per participant, use df)
+
+# use this tutorial to get the correlations for each practice (using the long data)
+# https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html
+
+# this will create a tibble for each practice
+
+# calculates the correlation test for each tibble & then tidies it up
+corr <- norm_cnorm_long %>% 
+  nest(data = -practice) %>% # create a tibble for each practice
+  mutate (test = map(data, ~ cor.test(.x$`norm rating`, .x$`cnorm rating`)), 
+          tidied = map(test,tidy)) %>% # run the corr & tidy it
+  unnest(tidied) # unnest it to look at the results
+
+# remove unnecessary columns, round the values, and move columns
+corr <- corr %>% 
+  dplyr::select(-c(data, test, statistic, parameter, method, alternative))  %>%
+  mutate(p.value = p_tidy(p.value, 3, prefix = "")) %>% 
+  mutate(estimate = round_tidy(estimate,2), 
+         conf.low = round_tidy(conf.low, 2), 
+         conf.high = round_tidy(conf.high, 2)) %>% 
+  dplyr::relocate(estimate, .before = conf.low) %>%  
+    dplyr::relocate(p.value, .after = last_col())
+
+# combine the confidence intervals into one column
+corr$Correlation <- paste0(corr$estimate, 
+                            " [",
+                            corr$conf.low,
+                            ", ", 
+                            corr$conf.high,
+                            "]")
+
+# clean up the tibble                          
+corr <- corr %>% 
+  relocate (p.value, .after = last_col()) %>% 
+  rename(Practice = practice) %>% 
+  dplyr::select(-c(estimate, conf.low, conf.high))
+
+# reorder the tibble to match the order in Table 3
+
+corr <- corr %>% 
+  arrange(match(Practice, c("critical", "hark", "info_for_rep", "open_access", "open_data", "open_materials", "phack", "preprint", "prereg", "reg_report")), desc(Practice))
+
+
+corr$Practice <- c("Critical thinking", "HARKing", "Info for replicability", "Open access", "Open data", "Open materials", "p-hacking", "Preprints", "Preregistration", "Registered reports")
+
+
+knitr::kable(corr,
+             caption = "Correlations between norms and counternorms with the 95% confidence intervals (in square brackets) and the associated p-value",
+             digits = 2,
+             align = c('lccc'))
+  
+
+```
+
+\newpage
 
 Figure A displays the histograms for each of the norms in practice items. 
 
