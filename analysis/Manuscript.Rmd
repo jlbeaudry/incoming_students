@@ -62,13 +62,13 @@ output:
 abstract: |
  BACKGROUND: Understanding students’ naive conceptions about how science works and the norms that guide scientific best practice is important so that teachers can adapt their teaching to the students’ existing understandings.
  OBJECTIVE: To describe what incoming undergraduate students of psychology believe about reproducibility and open science practices in spsychology.
- METHOD: International online survey with participants who were about to start their first course in psychology at a university (N = 239) .
+ METHOD: International online survey with participants who were about to start their first course in psychology at a university (N = 239).
  RESULTS: When asked about how research *should* be done, most students endorsed most (but not all) of ten open science practices. When asked to estimate the proportion of published psychological studies that apply each of a set of 10 open science practices, participants' estimates tended to average near 50%. Only 18% of participants had heard of the term "replication crisis".
  CONCLUSION: Despite relatively significant media attention on the replication crisis, few incoming psychology students are familiar with the term. Incoming students nevertheless appear to be sympathetic toward most open science practices, although they may overestimate the prevalence of these practices in psychology.
  TEACHING IMPLICATIONS: Teaching materials aimed at incoming psychology students should not assume pre-existing knowledge about open science or replicability.
 
 keywords: open science, psychology, teaching, reproducibility, replication
-wordcount:  3161 (need to update)
+wordcount: (need to update)
 bibliography: ['r-references.bib','Undergrads & Open Science (public).bib']
 floatsintext: yes
 figurelist: no
@@ -92,7 +92,7 @@ Abstract currently includes hand-typed numbers because it's hard to get them to 
 <!-- To knit to RMarkdown you will probably need the papaja package installed, and to knit to .pdf you will need a tex distro (e.g., TinyTex). However, it is possible to run all the R code (without knitting to .docx or .pdf) by clicking Run > Run All Chunks Below. This could be useful in future for readers interested in reproducing results but who don't have or wish to install papaja and its many dependencies. -->
 
 ```{r setup, include = FALSE}
-library(papaja) #install with devtools1
+library(papaja) #install with devtools
 library(here)
 library(tidyverse)
 library(finalfit) # to keep trailing zeros & round_tidy
@@ -103,9 +103,7 @@ r_refs("r-references.bib")
 ```
 
 ```{r analysis-preferences}
-# Seed for random number generation
-# JB: We aren't generating random numbers though--any reason to keep it?
-set.seed(42)
+
 knitr::opts_chunk$set(
   cache.extra = knitr::rand_seed,
   results = 'as.is')
@@ -120,6 +118,17 @@ p_tidy <- function (x, digits, prefix = "= ") {
     x.out[x.out == all_zeros] = less_than
     return(x.out)
 }
+
+meta_rename <-  function(df, metadata, old, new) {
+  
+  keys   <- metadata[[deparse(substitute(old))]]
+  values <- metadata[[deparse(substitute(new))]]
+  
+  matchlist <- setNames(values, keys)
+  names(df) <- matchlist[names(df)]
+  return(df)
+  
+}
 ```
 
 
@@ -130,6 +139,14 @@ df <- read.csv (here::here("data", "students_processed.csv"))
 
 # upload the replication crisis responses, marked as accurate and inaccurate (outside of R)
 crisis_descriptions = read.csv(here::here ("data", "crisis_descriptions_marked.csv"))
+
+# import the metadata
+metadata <- here::here("data", "students_metadata.csv") %>%
+read_csv(col_names = TRUE, skip_empty_rows = TRUE, lazy = FALSE) %>%
+filter(!is.na(old_variable))
+
+# relabel the variable names
+df <- meta_rename(df, metadata = metadata, old = old_variable, new = new_variable)
 
 # convert variables to factors as needed
 df$age <- as_factor(df$age)
@@ -143,10 +160,7 @@ df$major <- as.character(df$major)
 df$uni_country <- as.character(df$uni_country)
 df$nationality <- as.character(df$nationality)
 
-# import the metadata [if using]
-# metadata <- here::here("survey", "data", "students_metadata.csv") %>%
-# read_csv(col_names = TRUE, skip_empty_rows = TRUE) %>%
-# filter(!is.na(old_variable))
+
 
 ```
 
