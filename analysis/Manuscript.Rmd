@@ -271,10 +271,9 @@ of study in psychology at a university within the next month. Of the eligible
 participants, most reported that they were 18–24 years old (*n* = `r age[1,2]`);
 `r age [2,2]` reported that they were 25–34 years old, `r age [3,2]` were 35–44 
 years old, `r age [4,2]` were 45–54 years old, and `r age [5,2]` was 55–64 years old. 
-Most participants (*n* = `r gender[1,2]`) reported that they were female, 
-`r gender[2,2]` reported that they were male, `r gender[3,2]` participant reported 
-their gender identity as "queer man", and `r gender[3,2]` participant reported 
-non-binary gender. *We still need to fix this...see email from Nov 12th*
+Most participants (*n* = `r gender[3,2]`) reported that they were women, 
+`r gender[1,2]` reported that they were men, and `r gender[2,2]` participant reported 
+non-binary gender.
 
 <!--We had a footnote here (below) but given the word limit it might be safely left out unless a reviewer queries it...
 
