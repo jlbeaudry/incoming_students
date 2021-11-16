@@ -102,11 +102,11 @@ df <- df %>%
 
 ######### RECODE GENDER ##########
 
-custom_dictionary <- list(
-  `female.` = "female",
-  `femamle` = "female",
+custom_dictionary <- c(
+  `female.` = "woman",
+  `femamle` = "woman",
   `-` = NA_character_,
-  `gender no longer has a place in modern society. sex is male.` = "male",
+  `gender no longer has a place in modern society. sex is male.` = "man",
   `queer man` = "queer man"
 )
 
@@ -116,7 +116,7 @@ custom_dictionary <- list(
 
 # new recode gender (which still doesn't work)
 df <- df %>%
-   mutate(gender  = recode_gender(gender, dictionary = c(manylevels_en, custom_dictionary), fill = TRUE))
+   mutate(gender  = recode_gender(gender, dictionary = c(manylevels_en, custom_dictionary), retain_unmatched = FALSE))
 
 ########## EXCLUSION CRITERIA ############
 
