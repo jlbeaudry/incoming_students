@@ -1,5 +1,5 @@
 ##### INCOMING STUDENTS' KNOWLEDGE OF RESEARCH PRACTICES #####
-##### Jennifer Beaudry, Matthew Williams, Michael Philipp ####
+##### Jennifer Beaudry, Matthew Williams, Michael Philipp & Emily Kothe ####
 
 ##### PREPROCESSING THE DATA #####
 
@@ -110,13 +110,10 @@ custom_dictionary <- c(
   `queer man` = "queer man"
 )
 
-# original recode gender
-# df <- df %>%
-  # mutate(gender  = recode_gender(gender, dictionary = c(broad, custom_dictionary), fill = TRUE))
 
-# new recode gender (which still doesn't work)
+# recode gender
 df <- df %>%
-   mutate(gender  = recode_gender(gender, dictionary = c(manylevels_en, custom_dictionary), retain_unmatched = FALSE))
+   mutate(gender = recode_gender(gender, dictionary = c(manylevels_en, custom_dictionary), retain_unmatched = FALSE))
 
 ########## EXCLUSION CRITERIA ############
 
@@ -143,9 +140,9 @@ study_var <- c("critical_cnorm",
                  "open_access_cnorm",
                  "preregistration",
                  "registered_report",
-                 "incomplete_results",
+                 "phack",
                  "harking",
-                 "detailed_methodology",
+                 "info_for_rep",
                  "preprint_pre",
                  "open_materials",
                  "open_data",
@@ -506,6 +503,6 @@ write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
 ### CODING REPLICATION CRISIS QUALTITATIVE RESPONSES
 
 # write this one variable to a csv file for coding
-write.csv(data.frame("crisis_text" = df$crisis_text[is.na(df$crisis_text)==FALSE]), here::here( "data", "crisis_descriptions.csv")) #written for coding
+write.csv(data.frame("crisis_text" = df$crisis_text[is.na(df$crisis_text)==FALSE]), here::here( "data", "crisis_descriptions.csv"))
 
-# cannot join it because we aren't linking the responses to the ids. Will use this file in Rmd.
+#written for manual coding, which is then used in Rmd
