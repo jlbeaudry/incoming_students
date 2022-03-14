@@ -397,7 +397,7 @@ df <- df %>%
 # create a new variable for major type
 # For participants who mention a major in psychology, code as "psychology"
 # For participants who do not, code as "not psychology"
-## TODO - check coding for participants in psychology degrees such as the B Psych
+# Code all students in a psychology degree as having a psychology major
 df <- df %>%
   mutate(major_recoded = toTitleCase(major)) %>%
   mutate(
@@ -491,8 +491,11 @@ df <- df %>%
       is.na(major_recoded) ~ NA_character_,
       degree_type == "Psychology" ~ "Psychology",
       TRUE ~ "Uncoded"
-    )
-  )
+    ))
+
+df <- df %>%
+  mutate(major_recoded = case_when(degree_type == "Psychology" ~ "Psychology",
+         TRUE ~ major_recoded))
 
 ################### WRITE DATA TO CSV #############
 
