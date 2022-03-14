@@ -239,7 +239,7 @@ first_gen <- df %>% dplyr::count(first_gen_lab)
 
 ## Procedure
 
-Contacts from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. These contacts were identified via several avenues, including a dedicated session at the Society for the Improvement of Psychological Science 2019 annual conference, a Twitter thread, and by contacting colleagues of the research team. Although we did not have any specific inclusion criteria with respect to country, although [most? all?] of the contacts who advertised the study were from the United Kingdom, Australia, or New Zealand.
+Contacts from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. These contacts were identified via several avenues, including a dedicated session at the Society for the Improvement of Psychological Science 2019 annual conference, a Twitter thread, and by contacting colleagues of the research team. Although we did not have any specific inclusion criteria with respect to country, [most? all?] of the contacts who advertised the study were from the United Kingdom, Australia, or New Zealand.
 
 Each contact then sent their students invitations to participate via email or a course website 1–2 weeks before their course began. The invitation specified that student needed to be 18 years or older and starting their first course/unit of study in psychology at a university within the following month and included a link to the survey. The measures and items in the survey were presented in the same order for all participants.
 
