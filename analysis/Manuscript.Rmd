@@ -174,7 +174,7 @@ Second, anecdotal evidence suggests that students being taught about open scienc
 We therefore conducted a descriptive study, asking incoming undergraduate psychology students about their beliefs regarding reproducibility and open science practices in psychology. Our survey encompassed questions concerning norms (how students felt research should be conducted), norms in practice (how students believe psychological research is conducted), and replicability (how replicable students believe psychological research is). Our study was exploratory [see @wagenmakersAgendaPurelyConfirmatory2012] and descriptive, and did not involve the specification or testing of hypotheses. 
 
 # Methods
-We preregistered the exploratory nature of this study at https://tinyurl.com/4p64mvwp [blinded]. Our materials, data, and analysis script are available at https://osf.io/fz6ya/?view_only=51769fc1de304ad3ba0e12a26494ac40 [blinded]. Ethical approval for this study was granted by [institution blinded].
+We preregistered the exploratory nature of this study at https://tinyurl.com/4p64mvwp [blinded]. Our materials, data, and analysis script are available at https://tinyurl.com/yz76f4s6 [blinded]. Ethical approval for this study was granted by [institution blinded].
 
 ```{r inclusion}
 
