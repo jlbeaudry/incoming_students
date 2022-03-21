@@ -99,6 +99,7 @@ library(tidyverse)
 library(finalfit) # to keep trailing zeros & round_tidy
 library(tidyselect) 
 library(broom)
+library(irr)
 
 r_refs("r-references.bib")
 
@@ -142,6 +143,7 @@ df <- read.csv (here::here("data", "students_processed.csv"))
 
 # upload the replication crisis responses, marked as accurate and inaccurate (outside of R)
 crisis_descriptions = read.csv(here::here ("data", "crisis_descriptions_marked.csv"))
+inter_rater <- read.csv(here::here("data", "crisis_descriptions_marked_comparison.csv"))
 
 # import the metadata
 
@@ -320,31 +322,6 @@ knitr::kable(norm_items_wide,
 We also sought to measure participants' normative beliefs about how researchers actually conduct psychological science. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to the ten norm–counternorm pairs described above, with two exceptions (see Table \@ref(tab:normsinpracticeitems)). We excluded one norm because it did not refer to externally observable behaviour (critically evaluating published studies vs. accepting them), and we included one practice out of interest (data sharing on request). Participants indicated their estimate on a slider bar ranging from 0% to 100%.
 
 
-```{r normsinpracticeitemsold, eval = FALSE}
-practice_items = data.frame(
-  "Practice" = c("Preregistration", "Registered Reports", "p-hacking", "HARKing", "Information for replicability",
-                 "Preprints", "Open materials", "Open data", "Data on request", "Open access"),
-  "Item" = c("The plan for collecting and analysing data for the study is posted in an online registry before data collection starts",
-             "A plan for the study is submitted to a journal to be checked by experts (peer reviewed) before the data is collected and analysed",
-             "The researchers run many different analyses of the data, and report only those that produce interesting findings",
-             "The researchers describe their results as if they predicted those results from the beginning, even if that isn’t actually true",
-             "The researchers provide enough practical detail in their written report that another researcher could fully repeat (replicate) their study without needing to ask any questions of the original researchers",
-             "A manuscript describing the findings of the study is posted openly online as soon as it is complete, even if the manuscript has not yet been checked by experts (peer reviewed) and accepted for publication in a journal",
-             "The written materials and measures for the study are posted openly online so that other researchers and members of the public can access and use them",
-             "Once the study is published, the anonymous responses from participants are posted openly online so that anyone can access and use the responses in their own research",
-             "Once the study is published, the anonymous responses from participants are available to other researchers on request",
-             "The research report describing the study and its findings is published in a journal that is free for anyone to access")
-)
-
-  
-knitr::kable(practice_items,
-             caption = "Norms in practice items",
-             align = c('ll'))
-
-
-```
-
-
 ```{r normsinpracticeitems}
 
 # create a table with the norms in practice items from the metadata
@@ -371,7 +348,6 @@ Estimates were recorded using a slider bar ranging from 0% to 100%.
 A second question asked participants whether they had heard of the replication crisis. Those who had heard of the replication crisis were asked two additional open-ended questions. First, they were asked to describe what the replication crisis is. Second, they were asked which scientific disciplines were most affected by the replication crisis. 
 
 # Results
-
 
 In line with our preregistered analysis plan, we calculated the difference in means
 between responses to each norm item and its accompanying counternorm, along with 
@@ -544,18 +520,26 @@ knitr::kable(in_practice_means,
 
 ```
 
-
 ## The Replication Crisis
+
+```{r coding qual responses}
+
+inter_rater_test <- inter_rater %>% 
+  select(c(coding_1, coding_2))
+
+# calculate the percentage of agreement
+perc_agree <- agree(inter_rater_test, tolerance = 0)
+kappa <- kappa2(inter_rater_test)
+
+```
+
 Interestingly, only `r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% of participants indicated they had heard of "the replication crisis". Most (`r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`%) indicated that they had not heard of the crisis, and `r round(sum(is.na(df$crisis))/length(df$crisis)*100, 0)`% did not respond.
 
-Participants who indicated they had heard of the replication crisis were asked, "What do you think 'the replication crisis' is"? Of the `r length(df$crisis_text[is.na(df$crisis_text)==FALSE])` participants who answered this question, most (`r sum(crisis_descriptions$accurate =="y")/length(df$crisis_text[is.na(df$crisis_text)==FALSE])*100`%) provided responses consistent with the conventional interpretation of the term (i.e., describing a realisation that some or many scientific findings cannot be replicated). Example responses included, "The crisis where most studies were unable to be replicated when researchers decided to replicate previously done studies" and "Where previously trusted studies have been replicated the results were not able to be replicated". Only `r sum(crisis_descriptions$accurate == "n")` responses were suggestive of a misunderstanding of the term (e.g., "Plagiaris[m]", "only same results being published").
+Participants who indicated they had heard of the replication crisis were asked, "What do you think 'the replication crisis' is"? Two independent coders marked the responses as accurate or inaccurate; they agreed on `r perc_agree$value`% of the descriptions. They resolved the disagreements through discussion. Of the `r length(df$crisis_text[is.na(df$crisis_text)==FALSE])` participants who answered this question, most (`r sum(crisis_descriptions$accurate =="y")/length(df$crisis_text[is.na(df$crisis_text)==FALSE])*100`%) provided responses consistent with the conventional interpretation of the term (i.e., describing a realisation that some or many scientific findings cannot be replicated). Example responses included, "The crisis where most studies were unable to be replicated when researchers decided to replicate previously done studies" and "Where previously trusted studies have been replicated the results were not able to be replicated". Only `r sum(crisis_descriptions$accurate == "n")` responses were suggestive of a misunderstanding of the term (e.g., "Plagiaris[m]", "only same results being published").
 
 Participants' estimates of the replicability of psychological studies were variable. The mean (_M_ = `r mean(df$rep_perc, na.rm = TRUE)`) was near the midpoint of 50%, but with substantial variability around this estimate (_SD_ = `r sd(df$rep_perc, na.rm = TRUE)`, range = `r min(df$rep_perc, na.rm = TRUE)` to `r max(df$rep_perc, na.rm = TRUE)`). A histogram of participants' responses is provided in Figure \@ref(fig:repperchistogram).
 
 ```{r repperchistogram, fig.cap="Histogram of Participants' Estimates of the Percentage of Psychology Studies that Replicate"}
-
-# hist(df$rep_perc, main = NULL, ylim = range(0,40), xlab = "Percentage")
-
 
 df %>%
   filter(!is.na(rep_perc)) %>% 
@@ -591,11 +575,6 @@ Our questions focused primarily on attitudes and beliefs so that we could better
 Although we have interpreted our findings with respect to the norm and counternorm items as reflecting  students' personal endorsement of practices, their perceptions of what we might perceive as the "right" answers could have also influenced their responses. Differences between endorsement of norms and counternorms may have also been affected by wording differences between the matched options; for example, the HARKing, information for replicability, and p-hacking counternorm items included the phrase "good scientific practice" whereas their matched norm items did not. More broadly, our choices of terminology in constructing items likely affected participants' responses to some degree. For example, the reference to keeping data "protected" in the open data counternorm item may have nudged participants towards endorsing this item, since failing to "protect" participants' data might sound irresponsible. Future research could examine the influence of revised language on participants' responses. 
 
 We did not investigate the degree to which results differed according to whether or not participants had studied psychology in high school. Interested readers could conduct this comparison using our open data.
-
-<!--
-MW: The bit from "It's quite possible..." is sensible, but if needed could possibly shave some words off by excluding? 
-See how we go when we check full word count
--->
 
 ## Conclusion and Teaching Implications
 Overall these findings suggest that the incoming psychology students had a degree of sympathy for open science norms. Nevertheless, despite significant media attention on the replication crisis, few had heard of this crisis. Similarly, the students seemed to be relatively unfamiliar with responses to the replication crisis (e.g., open science practices). It is therefore important that teachers of psychology not assume pre-existing knowledge among incoming students. 
@@ -699,7 +678,20 @@ in_prac_long %>%
 
 *Note:* Responses provided on a visual slider from 0% to 100%.
 
+\newpage
 
+```{r awarenessofrepcrisisbymajor}
+
+psyc_major <- df %>% 
+  filter(major_recoded)
+
+
+```
+
+
+Interestingly, only `r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% of participants indicated they had heard of "the replication crisis". Most (`r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`%) indicated that they had not heard of the crisis, and `r round(sum(is.na(df$crisis))/length(df$crisis)*100, 0)`% did not respond.
+
+Participants who indicated they had heard of the replication crisis were asked, "What do you think 'the replication crisis' is"? Two independent coders marked the responses as accurate or inaccurate; they agreed on `r perc_agree$value`% of the descriptions. They resolved the disagreements through discussion. Of the `r length(df$crisis_text[is.na(df$crisis_text)==FALSE])` participants who answered this question, most (`r sum(crisis_descriptions$accurate =="y")/length(df$crisis_text[is.na(df$crisis_text)==FALSE])*100`%) provided responses consistent with the conventional interpretation of the term (i.e., describing a realisation that some or many scientific findings cannot be replicated). Example responses included, "The crisis where most studies were unable to be replicated when researchers decided to replicate previously done studies" and "Where previously trusted studies have been replicated the results were not able to be replicated". Only `r sum(crisis_descriptions$accurate == "n")` responses were suggestive of a misunderstanding of the term (e.g., "Plagiaris[m]", "only same results being published").
 
 \newpage
 
