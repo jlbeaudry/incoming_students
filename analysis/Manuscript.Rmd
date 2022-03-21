@@ -287,45 +287,27 @@ Each practice was elucidated by a pair of items (pro-open science; counter-open 
 
 
 ```{r normcounternormitems}
-norm_items = data.frame(
-  "Practice" = c("Critical thinking", "Critical thinking", "HARKing", "HARKing", "Information for replicability", "Information for replicability",
-                 "Open access", "Open access", "Open data", "Open data", "Open materials", "Open materials",
-                 "p-hacking", "p-hacking", "Preprints", "Preprints", "Preregistration", "Preregistration",
-                 "Registered reports", "Registered reports"),
-  "Category" = rep(c("Norm", "Counternorm"), times = 10),
-  "Item" = c("Deborah used previously published research to inform her research study. Deborah should be critical of the findings published in journals because published research can be wrong.",
-             "Deborah used previously published research to inform her research study. Deborah should accept the findings published in journals because journals would not publish research with errors.",
-             "Deborah should only describe her study as a test of a hypothesis if she decided on her hypothesis and how she would test it before she started collecting data.",
-             "Once Deborah has analysed her results, it would be good scientific practice for her to write her manuscript as if she predicted those results from the beginning.",
-             "When reporting the findings of her study, Deborah should describe how she completed the study in enough detail that another researcher could repeat her entire study without having to check any details with her - even if this means including lots of “boring” practical details in her report, or in an appendix.",
-             "When reporting the findings of her study, it would be good scientific practice for Deborah to gloss over some of the practical details so she can tell a good story.",
-             "Once her study is complete, Deborah should publish her findings in a journal that is free for others to access.",
-             "Once her study is complete, Deborah should publish the findings in the most prestigious journal she can, even if that journal charges others a fee to access the report.",
-             "When Deborah publishes her study, she should post the anonymous responses from participants online so that anyone can access and use the responses in their own research.",
-             "Deborah should keep the participants’ responses from her study protected, so that only she and her research team can access them.",
-             "Deborah should share the written materials and measures for her study openly online so that other researchers and members of the public can access and use them.",
-             "Deborah should keep the written materials and measures for her study protected, so that only she and her research team can access them.",
-             "Deborah should report the findings of all analyses of her data that she conducts.",
-             "It would be good scientific practice for Deborah to run many different analyses of her data, and report only those that produce interesting findings.",
-             "Deborah should post a manuscript describing the findings of her study openly online as soon as it is complete, even if the manuscript has not yet been checked by experts (peer reviewed) and accepted for publication in a journal.",
-             "Deborah should not post a manuscript describing the findings of her study online until after it has been checked by experts (peer reviewed) and accepted for publication in a journal.",
-             "Before collecting her data, Deborah should write down what her hypotheses are and how she plans to collect and analyse data. She should then save her plan in an online registry so others can tell what methods and analyses she will use to test her hypotheses after collecting data.",
-             "Deborah should decide which data analyses are suitable to test her hypotheses only after looking at her data.",
-             "Deborah should submit a plan for her study to a journal to be checked by experts (peer reviewed) before she collects and analyses data.",
-             "Deborah should submit her study to a journal to be checked by experts (peer reviewed) only after she has finished collecting and analysing her data."))
 
-# [breadcrumb Sept 10: pull in this info from the meta data]
+# create a table with the norms and counternorm items from the metadata
+
+norm_items <- metadata %>% 
+  filter(scale == "norms") %>% 
+  mutate(Category = case_when(str_detect(new_variable, "_cnorm") ~ "Counternorm",
+         TRUE ~ "Norm"))   %>% 
+  select (c(text_label, item_text, Category))
 
 
 norm_items_wide <- pivot_wider(
   norm_items,
   names_from = Category,
-  values_from = Item)
+  values_from = item_text) %>% 
+  relocate(Norm, .before = Counternorm)
+
 
 knitr::kable(norm_items_wide,
              caption = "Norm and Counternorm Items",
+             col.names = c("Practice", "Norm", "Counternorm"),
              align = c('lll'))
-
 
 ```
 
