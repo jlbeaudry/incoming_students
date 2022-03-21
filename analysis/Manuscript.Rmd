@@ -320,7 +320,7 @@ knitr::kable(norm_items_wide,
 We also sought to measure participants' normative beliefs about how researchers actually conduct psychological science. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to the ten norm–counternorm pairs described above, with two exceptions (see Table \@ref(tab:normsinpracticeitems)). We excluded one norm because it did not refer to externally observable behaviour (critically evaluating published studies vs. accepting them), and we included one practice out of interest (data sharing on request). Participants indicated their estimate on a slider bar ranging from 0% to 100%.
 
 
-```{r normsinpracticeitems}
+```{r normsinpracticeitemsold, eval = FALSE}
 practice_items = data.frame(
   "Practice" = c("Preregistration", "Registered Reports", "p-hacking", "HARKing", "Information for replicability",
                  "Preprints", "Open materials", "Open data", "Data on request", "Open access"),
@@ -344,6 +344,21 @@ knitr::kable(practice_items,
 
 ```
 
+
+```{r normsinpracticeitems}
+
+# create a table with the norms in practice items from the metadata
+
+practice_items <- metadata %>% 
+  filter(scale == "practice") %>% 
+  select (c(text_label, item_text))
+
+knitr::kable(practice_items,
+             caption = "Norms in practice items",
+             col.names = c("Practice", "Item"),
+             align = c('ll'))
+
+```
 \ 
 
 ### Beliefs About Replications
@@ -533,7 +548,7 @@ knitr::kable(in_practice_means,
 ## The Replication Crisis
 Interestingly, only `r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% of participants indicated they had heard of "the replication crisis". Most (`r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`%) indicated that they had not heard of the crisis, and `r round(sum(is.na(df$crisis))/length(df$crisis)*100, 0)`% did not respond.
 
-Participants who indicated they had heard of the replication crisis were asked, "What do you think 'the replication crisis' is"? Of the `r length(df$crisis_text[is.na(df$crisis_text)==FALSE])` participants who answered this question, most (`r sum(crisis_descriptions$Accurate =="y")/length(df$crisis_text[is.na(df$crisis_text)==FALSE])*100`%) provided responses consistent with the conventional interpretation of the term (i.e., describing a realisation that some or many scientific findings cannot be replicated). Example responses included, "The crisis where most studies were unable to be replicated when researchers decided to replicate previously done studies" and "Where previously trusted studies have been replicated the results were not able to be replicated". Only `r sum(crisis_descriptions$Accurate == "n")` responses were suggestive of a misunderstanding of the term (e.g., "Plagiaris[m]", "only same results being published").
+Participants who indicated they had heard of the replication crisis were asked, "What do you think 'the replication crisis' is"? Of the `r length(df$crisis_text[is.na(df$crisis_text)==FALSE])` participants who answered this question, most (`r sum(crisis_descriptions$accurate =="y")/length(df$crisis_text[is.na(df$crisis_text)==FALSE])*100`%) provided responses consistent with the conventional interpretation of the term (i.e., describing a realisation that some or many scientific findings cannot be replicated). Example responses included, "The crisis where most studies were unable to be replicated when researchers decided to replicate previously done studies" and "Where previously trusted studies have been replicated the results were not able to be replicated". Only `r sum(crisis_descriptions$accurate == "n")` responses were suggestive of a misunderstanding of the term (e.g., "Plagiaris[m]", "only same results being published").
 
 Participants' estimates of the replicability of psychological studies were variable. The mean (_M_ = `r mean(df$rep_perc, na.rm = TRUE)`) was near the midpoint of 50%, but with substantial variability around this estimate (_SD_ = `r sd(df$rep_perc, na.rm = TRUE)`, range = `r min(df$rep_perc, na.rm = TRUE)` to `r max(df$rep_perc, na.rm = TRUE)`). A histogram of participants' responses is provided in Figure \@ref(fig:repperchistogram).
 
