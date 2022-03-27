@@ -181,7 +181,7 @@ Second, anecdotal evidence suggests that students being taught about open scienc
 We therefore conducted a descriptive study, asking incoming undergraduate psychology students about their beliefs regarding reproducibility and open science practices in psychology. Our survey encompassed questions concerning norms (how students felt research should be conducted), norms in practice (how students believe psychological research is conducted), and replicability (how replicable students believe psychological research is). Our study was exploratory [see @wagenmakersAgendaPurelyConfirmatory2012] and descriptive, and did not involve the specification or testing of hypotheses. 
 
 # Methods
-We preregistered the exploratory nature of this study at https://tinyurl.com/4p64mvwp [blinded]. Our materials, data, and analysis script are available at https://tinyurl.com/yz76f4s6 [blinded]. Ethical approval for this study was granted by [institution blinded].
+We preregistered the exploratory nature of this study at https://tinyurl.com/4p64mvwp [blinded]. Our materials, data, and analysis script are available at https://tinyurl.com/excm4heu [blinded]. Ethical approval for this study was granted by [institution blinded].
 
 ```{r inclusion}
 
@@ -246,9 +246,9 @@ first_gen <- df %>% dplyr::count(first_gen_lab)
 
 ## Procedure
 
-Contacts from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. These contacts were identified via several avenues, including a dedicated session at the Society for the Improvement of Psychological Science 2019 annual conference, a Twitter thread, and by contacting colleagues of the research team. Although we did not have any specific inclusion criteria with respect to country, [most? all?] of the contacts who advertised the study were from the United Kingdom, Australia, or New Zealand.
+Contacts from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. These contacts were identified via several avenues, including a dedicated session at the Society for the Improvement of Psychological Science 2019 annual conference, a Twitter thread, and by contacting colleagues of the research team. Although we did not have any specific inclusion criteria with respect to country, most contacts who advertised the study were from the United Kingdom, Australia, or New Zealand.
 
-Each contact then sent their students invitations to participate via email or a course website 1–2 weeks before their course began. The invitation specified that student needed to be 18 years or older and starting their first course/unit of study in psychology at a university within the following month and included a link to the survey. The measures and items in the survey were presented in the same order for all participants.
+Each contact sent their students invitations to participate via email or a course website 1–2 weeks before their course began. The invitation specified that student needed to be 18 years or older and starting their first course/unit of study in psychology at a university within the following month and included a link to the survey. The measures and items in the survey were presented in the same order for all participants.
 
 ## Participants
 
@@ -573,7 +573,7 @@ The fact that the mean estimated prevalence was no higher than 64% for any pract
 
 
 ## Strengths and Limitations
-Despite a relatively large sample size, our results provide an imperfect picture of new psychology students’ methodological understandings. Our use of convenience samples coupled with the imprecision of polling students’ impressions at one point in time suggest that we can make only tentative generalisations to a wider population of incoming psychology students. In particular, the fact that our sample was relatively small and mostly comprised of students from Australia or the United Kingdom limits the extent to which our findings can be generalised to other populations.
+Despite a relatively large sample size, our results provide an imperfect picture of new psychology students’ methodological understandings. Our use of convenience samples coupled with the imprecision of polling students’ impressions at one point in time suggest that we can make only tentative generalisations to a wider population of incoming psychology students. In particular, the fact that our sample was relatively small and mostly comprised of students from Australia, NZ, or the United Kingdom limits the extent to which our findings can be generalised to other populations.
 
 Our questions focused primarily on attitudes and beliefs so that we could better document the implicit understanding that guided students’ thoughts about the research process. However, we did not probe students' factual knowledge of most methodological findings or concepts, except the replication crisis. It is quite possible that reform in secondary school instruction has improved students’ understandings of more fundamental statistical (e.g., confidence interval estimation) and design (e.g., direct replications) considerations without necessarily influencing their open science attitudes and beliefs. Yet, research at the tertiary level casts doubt that the disciplinary reform from the past two decades has had much impact on the content of our teaching [@friedrichReplicatingNationalSurvey2018].
 
