@@ -286,9 +286,9 @@ participants reported that at least one of their parents attended university
 
 ### Open Science Norms and Counternorms
 
-Our approach to measuring norms and counternorms focussed on participants' evaluations of ten specific open science practices that reflected diverse open science norms (see Table \@ref(tab:normcounternormitems)). Although we acknowledge the debatable merits of some of these practices [@TQMP16-4-376; @rubinWhenDoesHARKing2017; @szollosiPreregistrationWorthwhile2020], we selected the items to be emblematic of common concerns in the open science movement.
+To measure norms and counternorms, we focussed on participants' evaluations of ten specific open science practices that reflected diverse open science norms (see Table \@ref(tab:normcounternormitems)). Although we acknowledge the debatable merits of some of these practices [@TQMP16-4-376; @rubinWhenDoesHARKing2017; @szollosiPreregistrationWorthwhile2020], we selected the items to be emblematic of common concerns in the open science movement.
 
-Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario (see the note accompanying Table \@ref(tab:normcounternormitems)). Participants rated their agreement separately for each norm and counternorm on a 1 (*strongly disagree*) to 5 (*strongly agree*) scale. We used the scenario of a specific researcher rather than referring to psychology researchers in general because it allowed us to make the items more concrete, engaging, and clear. 
+Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario (see the note accompanying Table \@ref(tab:normcounternormitems)). Participants rated their agreement separately for each norm and counternorm on a 1 (*strongly disagree*) to 5 (*strongly agree*) scale. We used the scenario of a specific researcher rather than referring to psychology researchers in general because the items were more concrete, engaging, and clear. 
 
 
 ```{r normcounternormitems}
@@ -322,7 +322,7 @@ knitr::kable(norm_items_wide,
 
 ### Beliefs About the Practice of Psychological Science
 
-We also measured participants' normative beliefs about how researchers actually conduct psychological science. We asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to our ten norm–counternorm pairs, with two exceptions (see Table \@ref(tab:normsinpracticeitems)). We excluded the critical thinking norm because it did not refer to externally observable behaviour, and we included another practice out of interest (data availability on request). Participants indicated their estimate on a visual slider from 0% to 100%.
+We measured participants' normative beliefs about how researchers actually conduct psychological science. We asked, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to our ten norm–counternorm pairs, with two exceptions (see Table \@ref(tab:normsinpracticeitems)). We excluded the critical thinking norm because it did not refer to externally observable behaviour, and we included data availability on request out of interest. Participants provided their estimate on a visual slider from 0% to 100%.
 
 
 ```{r normsinpracticeitems}
@@ -348,13 +348,12 @@ Two questions measured participants' beliefs about the replicability of results 
 > "Imagine that a set of researchers selected 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a 'replication study.' At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?”
 
 Estimates were recorded using a visual slider from 0% to 100%. 
-A second question asked participants whether they had heard of the replication crisis. Those who had heard of the replication crisis were asked two additional open-ended questions: (1) describe the replication crisis, and (2) name the scientific disciplines most affected by the replication crisis. 
+A second question asked participants whether they had heard of the replication crisis. Those who had heard of the crisis were asked two additional open-ended questions: (1) describe the replication crisis, and (2) name the scientific disciplines most affected by the replication crisis. 
 
 # Results
 
 As preregistered, we calculated the difference in means
-between responses to each norm item and its accompanying counternorm (with 
-95% confidence intervals). For this analysis, we removed three cases with missing values. 
+between responses to each norm item and its accompanying counternorm. For this analysis, we removed three cases with missing values. 
 Table \@ref(tab:differencebetweennormandcounternorm) displays the means and standard deviations for each norm, counternorm, and the difference values. See Table \@ref(tab:corrbetweennormandcounternorm) in the Supplemental Materials for the correlations between norm and counternorm items.
 
 In general, the students seemed to endorse open science practices: For seven of the ten open science practices, agreement with the norm item was stronger than for the corresponding counternorm item. However, participants' endorsement of norms varied substantially across different practices. Participants most strongly endorsed norms that researchers should provide sufficient information about studies to permit replicability, be critical of published findings, and avoid *p*-hacking. They also tended to agree that researchers should avoid HARKing, share papers as open access, share open materials, and preregister their studies. On the other hand, they tended to disagree with the practice of sharing preprints prior to peer review and, to a lesser extent, with sharing open data.
