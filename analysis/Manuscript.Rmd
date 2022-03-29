@@ -246,40 +246,38 @@ first_gen <- df %>% dplyr::count(first_gen_lab)
 
 ## Procedure
 
-Contacts from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. These contacts were identified via several avenues, including a dedicated session at the Society for the Improvement of Psychological Science 2019 annual conference, a Twitter thread, and by contacting colleagues of the research team. Although we did not have any specific inclusion criteria with respect to country, most contacts who advertised the study were from the United Kingdom, Australia, or New Zealand.
+Contacts from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. These contacts were identified via several avenues, including a dedicated session at the Society for the Improvement of Psychological Science 2019 annual conference, a Twitter thread, and through contacts of the research team. Although we did not have inclusion criteria with respect to country, most contacts who advertised the study were from the United Kingdom, Australia, or New Zealand.
 
-Each contact sent their students invitations to participate via email or a course website 1–2 weeks before their course began. The invitation specified that student needed to be 18 years or older and starting their first course/unit of study in psychology at a university within the following month and included a link to the survey. The measures and items in the survey were presented in the same order for all participants.
+Each contact sent their students invitations to participate via email or a course website 1–2 weeks before their course began. The invitation specified that students needed to be 18 years or older and starting their first course/unit of study in psychology at a university within the following month and included a link to the survey. The measures and items in the survey were presented in the same order for all participants.
 
 ## Participants
 
 Of those who started the survey (*n* = `r n_all`), we screened out `r ex` 
 participants who were ineligible based on our
-preregistered exclusion criteria. Specifically, we screened out people who were younger than 18 years (*n* = `r age_ex`). We also screened out individuals who had already 
+preregistered exclusion criteria. Specifically, we screened out people who were younger 
+than 18 years (*n* = `r age_ex`). We also screened out individuals who had already 
 started a psychology unit at a university, regardless of whether they had 
 completed it (*n* = `r el[1,2] + el[3,2] + el[4,2]`); were not enrolled in a 
 psychology unit at a university (*n* = `r el[2,2]`); or did not answer this 
-question (*n* = `r el[5,2]`). We then excluded additional responses that 
+question (*n* = `r el[5,2]`). We excluded additional responses that 
 Qualtrics flagged as spam (*n* = `r status [1,2]`) or as a survey preview 
 (*n* = `r status [2,2]`). Finally, we excluded participants who met all other 
-eligibility criteria, but did not respond to any of the main items
-in the study (*n* = `r nmiss`). 
+eligibility criteria, but did not respond to any of the main survey items (*n* = `r nmiss`). 
 
-The remaining `r n` participants were eligible based on starting their first unit 
-of study in psychology at a university within the next month. Of the eligible 
-participants, most reported that they were 18–24 years old (*n* = `r age[1,2]`);
+Of the eligible `r n` participants, most reported that they were 18–24 years old (*n* = `r age[1,2]`);
 `r age [2,2]` reported that they were 25–34 years old, `r age [3,2]` were 35–44 
 years old, `r age [4,2]` were 45–54 years old, and `r age [5,2]` was 55–64 years old. 
 Most participants (*n* = `r gender[3,2]`) reported that they were women, 
 `r gender[1,2]` reported that they were men, and `r gender[2,2]` participant reported 
 non-binary gender.
 
-Most participants reported attending university in Australia (*n* = `r uni_country[1,2]`), 
+Most participants attended university in Australia (*n* = `r uni_country[1,2]`), 
 the United Kingdom (*n* = `r uni_country[5,2]`), or New Zealand (*n* = 
 `r uni_country[4,2]`). Nearly all reported graduating from high school or secondary 
-school (*n* = `r hs_status[3,2]`). Of those participants who attended high school, 
-fewer than half completed psychology courses in high school (*n* = `r hs_psyc[2,2]`).
+school (*n* = `r hs_status[3,2]`). Of those who attended high school, 
+fewer than half completed high school psychology courses (*n* = `r hs_psyc[2,2]`).
 Participants reported `r nrow(nationality)` different nationalities; the most 
-common were Australia (*n* = `r nationality[3,2]`), the United Kingdom (*n* = 
+common were from Australia (*n* = `r nationality[3,2]`), the United Kingdom (*n* = 
 `r nationality[24,2]`), and China (*n* = `r nationality[6,2]`). About two-thirds of 
 participants reported that at least one of their parents attended university 
 (*n* = `r first_gen[2,2]`). 
@@ -288,9 +286,9 @@ participants reported that at least one of their parents attended university
 
 ### Open Science Norms and Counternorms
 
-Our approach to measuring norms and counternorms focussed on participants' evaluations of ten specific open science practices that reflected diverse open science norms (see Table \@ref(tab:normcounternormitems)). Although we acknowledge the merits of some of these practices are debatable [@TQMP16-4-376; @rubinWhenDoesHARKing2017; @szollosiPreregistrationWorthwhile2020], we selected the items to be emblematic of common concerns in the open science movement.
+Our approach to measuring norms and counternorms focussed on participants' evaluations of ten specific open science practices that reflected diverse open science norms (see Table \@ref(tab:normcounternormitems)). Although we acknowledge the debatable merits of some of these practices [@TQMP16-4-376; @rubinWhenDoesHARKing2017; @szollosiPreregistrationWorthwhile2020], we selected the items to be emblematic of common concerns in the open science movement.
 
-Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario, "Imagine that Deborah is a psychology researcher who has designed a study to test a specific hypothesis." (see Table \@ref(tab:normcounternormitems)). Participants rated their agreement separately for each norm and counternorm on a 1 (*strongly disagree*) to 5 (*strongly agree*) scale. We used the scenario of a specific researcher rather than referring to psychology researchers in general in an attempt to make the questions more concrete and engaging, and because referring to a single named researcher made it easier to construct short and clear items.
+Each practice was elucidated by a pair of items (pro-open science; counter-open science) in the context of a common scenario (see the note accompanying Table \@ref(tab:normcounternormitems)). Participants rated their agreement separately for each norm and counternorm on a 1 (*strongly disagree*) to 5 (*strongly agree*) scale. We used the scenario of a specific researcher rather than referring to psychology researchers in general because it allowed us to make the items more concrete, engaging, and clear. 
 
 
 ```{r normcounternormitems}
@@ -324,7 +322,7 @@ knitr::kable(norm_items_wide,
 
 ### Beliefs About the Practice of Psychological Science
 
-We also sought to measure participants' normative beliefs about how researchers actually conduct psychological science. To that end we asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to the ten norm–counternorm pairs described above, with two exceptions (see Table \@ref(tab:normsinpracticeitems)). We excluded one norm because it did not refer to externally observable behaviour (critically evaluating published studies vs. accepting them), and we included one practice out of interest (data sharing on request). Participants indicated their estimate on a slider bar ranging from 0% to 100%.
+We also measured participants' normative beliefs about how researchers actually conduct psychological science. We asked participants, "When you consider all of the psychology studies conducted globally each year, what percentage of them would have the following characteristics?" These practices corresponded approximately to our ten norm–counternorm pairs, with two exceptions (see Table \@ref(tab:normsinpracticeitems)). We excluded the critical thinking norm because it did not refer to externally observable behaviour, and we included another practice out of interest (data sharing on request). Participants indicated their estimate on a slider bar ranging from 0% to 100%.
 
 
 ```{r normsinpracticeitems}
@@ -345,12 +343,12 @@ knitr::kable(practice_items,
 
 ### Beliefs About Replications
 
-Participants' beliefs about the replicability of results in psychological science were indexed by two questions. The first asked participants to: 
+Two questions measured participants' beliefs about the replicability of results in psychological science. The first asked participants to: 
 
 > "Imagine that a set of researchers selected 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a 'replication study.' At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?”
 
 Estimates were recorded using a slider bar ranging from 0% to 100%. 
-A second question asked participants whether they had heard of the replication crisis. Those who had heard of the replication crisis were asked two additional open-ended questions. First, they were asked to describe what the replication crisis is. Second, they were asked which scientific disciplines were most affected by the replication crisis. 
+A second question asked participants whether they had heard of the replication crisis. Those who had heard of the replication crisis were asked two additional open-ended questions: (1) describe the replication crisis, and (2) name the scientific disciplines most affected by the replication crisis. 
 
 # Results
 
