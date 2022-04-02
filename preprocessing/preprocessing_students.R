@@ -505,4 +505,4 @@ write.csv(df, here::here("data", "students_processed.csv"), row.names = FALSE)
 # write this one variable to a csv file for coding
 write.csv(data.frame("crisis_text" = df$crisis_text[is.na(df$crisis_text)==FALSE]), here::here( "data", "crisis_descriptions.csv"))
 
-#written for manual coding, which is then used in Rmd
+#written for manual coding; the coded data is then used in Rmd
