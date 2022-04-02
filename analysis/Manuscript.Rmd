@@ -65,10 +65,10 @@ abstract: |
  Objective: We examined what incoming undergraduate students of psychology believe about reproducibility and open science practices.
  Method: We conducted an online survey with participants who were about to start their first course in psychology at a university (*N* = 239).
  Results: When asked to indicate how a researcher should conduct her study, most students endorsed several open science practices. When asked to estimate the proportion of published psychological studies that follow various open science practices, participants' estimates averaged near 50%. Only 18% of participants reported that they had heard the term "replication crisis".
- Conclusion: Despite media attention about the replication crisis, few incoming psychology students in our sample were familiar with the term. The students were nevertheless in favour of most open science practices, although they appeared to overestimate the prevalence of some of these practices in psychology.
- Teaching Implications: Teaching materials aimed at incoming psychology students should not assume pre-existing knowledge about open science or replicability.
+ Conclusion: Despite media attention about the replication crisis, few incoming psychology students in our sample were familiar with the term. The students were nevertheless in favour of most open science practices, although they overestimated the prevalence of some of these practices in psychology.
+ Teaching Implications: Teachers of incoming psychology students should not assume pre-existing knowledge about open science or replicability.
 keywords: open science, psychology, teaching, reproducibility, replication
-wordcount: (need to update)
+wordcount: 3,009
 bibliography: ['r-references.bib','Undergrads & Open Science (public).bib']
 floatsintext: yes
 figurelist: no
@@ -246,7 +246,7 @@ first_gen <- df %>% dplyr::count(first_gen_lab)
 
 ## Procedure
 
-Contacts from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. These contacts were identified via several avenues, including a dedicated session at the Society for the Improvement of Psychological Science 2019 annual conference, a Twitter thread, and through contacts of the research team. We did not have inclusion criteria with respect to country, but most contacts who advertised the study were from the United Kingdom, Australia, or New Zealand.
+Contacts from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. These contacts were identified via several avenues: a session at the annual meeting of the Society for the Improvement of Psychological Science (2019), a Twitter thread, and through contacts of the research team. We did not have inclusion criteria with respect to country, but most contacts who advertised the study were from the United Kingdom, Australia, or New Zealand.
 
 Each contact sent their students invitations to participate via email or a course website 1–2 weeks before their course began. The invitation specified that students needed to be 18 years or older and starting their first course/unit of study in psychology at a university within the following month and included a link to the survey. The measures and items in the survey were presented in the same order for all participants.
 
@@ -535,7 +535,7 @@ kappa <- kappa2(inter_rater_test)
 
 ```
 
-Interestingly, only `r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% of participants indicated they had heard of "the replication crisis". Most (`r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`%) indicated that they had not heard of the crisis, and `r round(sum(is.na(df$crisis))/length(df$crisis)*100, 0)`% did not respond.
+Interestingly, only `r round(sum(df$crisis==1, na.rm = TRUE)/length(df$crisis)*100, 0)`% of participants indicated they had heard of "the replication crisis". Most (`r round(sum(df$crisis==2, na.rm = TRUE)/length(df$crisis)*100, 0)`%) indicated that they had not heard of the crisis; `r round(sum(is.na(df$crisis))/length(df$crisis)*100, 0)`% did not respond.
 
 Participants who indicated they had heard of the replication crisis were asked, "What do you think 'the replication crisis' is"? Two independent coders marked the responses as accurate or inaccurate; they agreed on `r perc_agree$value`% of the descriptions and resolved disagreements through discussion. Of the `r length(df$crisis_text[is.na(df$crisis_text)==FALSE])` participants who answered this question, most (`r sum(crisis_descriptions$accurate =="y")/length(df$crisis_text[is.na(df$crisis_text)==FALSE])*100`%) provided responses consistent with the conventional interpretation of the term (i.e., describing a realisation that some scientific findings cannot be replicated). For example, "Where previously trusted studies have been replicated the results were not able to be replicated". Only `r sum(crisis_descriptions$accurate == "n")` responses indicated a misunderstanding of the term (e.g., "Plagiaris[m]").
 
@@ -555,7 +555,7 @@ df %>%
 ```
 
 
-*Note* Responses to the question: \"Imagine that a set of researchers select 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a \'replication study\'. At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?\" Responses provided on a visual slider from 0% to 100%.
+*Note:* Responses to the question: \"Imagine that a set of researchers select 100 published studies about psychology, and repeat each study again, exactly how it was described in the original report but with a new set of participants. We call repeating a study like this a \'replication study\'. At a guess, how many of these replication studies do you think would produce the same conclusions as the original studies?\" Responses provided on a visual slider from 0% to 100%.
 
 <!-- Participants were also asked "Which scientific disciplines do you think are most affected by the replication crisis?" As we discussed, I'm not sure this response will really be useful to look at given that we have "primed" them to think of psychology as being most affected (and indeed that's what the responses largely indicate).-->
 
@@ -574,9 +574,9 @@ Despite a moderate sample size, our results provide an imperfect picture of new 
 
 Our questions focused primarily on attitudes and beliefs so that we could better document the implicit understanding that guided students’ thoughts about the research process. However, we did not probe students' factual knowledge of most methodological findings or concepts, except the replication crisis. It is quite possible that reform in secondary school instruction has improved students’ understandings of more fundamental statistical (e.g., confidence interval estimation) and design (e.g., direct replications) considerations without necessarily influencing their open science attitudes and beliefs. Yet, research at the tertiary level casts doubt that the methodological reform in psychology has had much impact on the content of our teaching [@friedrichReplicatingNationalSurvey2018].
 
-Although we have interpreted participants' responses to the norm and counternorm items as reflecting  students' personal endorsement of practices, their perceptions of what we might perceive as the "right" answers could have also influenced their responses. Differences between endorsement of norms and counternorms might have also been affected by wording differences between the matched options; for example, the HARKing, information for replicability, and *p*-hacking counternorm items included the phrase "good scientific practice" whereas their matched norm items did not. More broadly, our choices of terminology in constructing items likely affected participants' responses to some degree. For example, the reference to keeping data "protected" in the open data counternorm item may have nudged participants towards endorsing this item because failing to "protect" participants' data might sound irresponsible. Future research could examine the influence of revised language on participants' responses. 
+Although we have interpreted participants' responses to the norm and counternorm items as reflecting  students' personal endorsement of practices, their perceptions of what we might perceive as the "right" answers could have also influenced their responses. Differences between endorsement of norms and counternorms might have also been affected by wording differences between the matched options; for example, the HARKing, information for replicability, and *p*-hacking counternorm items included the phrase "good scientific practice" whereas their matched norm items did not. More broadly, our choices of terminology in constructing items might have affected participants' responses to some degree. For example, the reference to keeping data "protected" in the open data counternorm item may have nudged participants towards endorsing this item because failing to "protect" participants' data might sound irresponsible. Future research could examine the influence of revised language on participants' responses. 
 
-We did not investigate the degree to which results differed according to whether or not participants had studied psychology in high school. Interested readers could conduct this comparison using our open data.
+We did not investigate the degree to which results differed according to whether or not participants had studied psychology in high school. Interested readers could conduct this and other comparisons using our open data.
 
 ## Conclusion and Teaching Implications
 Our findings suggest that these incoming psychology students had a degree of sympathy for open science norms. Nevertheless, despite significant media attention, few had heard of the replication crisis. Similarly, the students seemed to be relatively unfamiliar with responses to the replication crisis (e.g., open science practices). It is therefore important that teachers of psychology not assume pre-existing knowledge among incoming students. 
@@ -585,6 +585,8 @@ For teachers interested in systematically surveying their students' existing und
 
 
 # Supplemental Materials
+
+The supplemental materials contain three sets of results and details of the R packages we used in our analyses. In order, the three results are: (1) the correlations between norm and counternorm items; (2) histograms of participants’ prevalence ratings for each of the norms in practice items; and (3) an additional exploratory analysis examining whether the proportion of students who are unaware of the replication crisis differed between psychology and non-psychology majors. 
 
 Table A contains the correlations between norms and counternorms, with the 95% confidence intervals and associated *p*-values.
 
@@ -639,7 +641,7 @@ corr$Practice <- c("Critical thinking", "HARKing", "Information for replicabilit
 
 
 knitr::kable(corr,
-             caption = "Correlations between Norms and Counternorms with the 95% Confidence Intervals (in Square Brackets) and the Associated p-values",
+             caption = "Correlations between Norms and Counternorms with 95% Confidence Intervals (in Square Brackets) and Associated p-values",
              digits = 2,
              align = c('lccc'))
   
@@ -729,11 +731,11 @@ We used `r cite_r(file = "r-references.bib", pkgs = c("broom", "finalfit", "gend
 
 <div id="refs" custom-style="Bibliography"></div>
 
-<!-- We have a four references that aren't including the urls. Including here so we can add them to the final document.
+<!-- We have four references that aren't including the urls. Including here so we can add them to the final document.
+
+Beaudry, J. L., Kaufman, J., Johnstone, T., & Given, L. (2019). Swinburne Open Science Task Force Survey Report. https://osf.io/eczvd/
 
 O’Grady, C. (2020, December 9). Psychology’s replication crisis inspires ecologists to push for more reliable research. Science. https://www.sciencemag.org/news/2020/12/psychology-s-replication-crisis-inspires-ecologists-push-more-reliable-research
-
-Vazire, S. (2019). Do we want to be credible or incredible? Association for Interdisciplinary Meta-research & Open Science conference, Melbourne. https://osf.io/thm9a/
 
 Yong, E. (2016, March 4). Psychology’s replication crisis can’t be wished away. The Atlantic. https://www.theatlantic.com/science/archive/2016/03/psychologys-replication-crisis-cant-be-wished-away/472272/
 
