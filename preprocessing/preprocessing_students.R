@@ -94,8 +94,7 @@ df <- meta_rename(df, metadata, old = old_variable, new = new_variable)
 
 
 ###### REARRANGE THE VARIABLES IN THE TIBBLE TO ALIGN WITH SURVEY ORDER ######
-# at least somewhat; I haven't moved the number and label variables of each
-  # question together, but this brings the demographics info together
+# bring the demographics info together
 
 df <- df %>%
   relocate (c(uni_country, nationality), .after = gender)
@@ -166,11 +165,8 @@ df <- df %>%
   # also need to exclude those who were eligible, but did not answer any of the
   # key questions (nmiss = 32).
 
-# breadcrumb: add the exclusion variables to the dataframe & metadata (and remove when
-  # loading metadata) [still need to do!]
-
-# create new variables for each of the eliibility criteria
-  # capture the hieararchy of decisions, but forcing previously-excluded cases to
+# create new variables for each of the eligibility criteria
+  # capture the hierarchy of decisions, but forcing previously-excluded cases to
   # be recoded as "N/A" for each subsequent criterion
 
 df <- df %>%
@@ -395,6 +391,7 @@ df <- df %>%
 # For participants who mention a major in psychology, code as "psychology"
 # For participants who do not, code as "not psychology"
 # Code all students in a psychology degree as having a psychology major
+
 df <- df %>%
   mutate(major_recoded = toTitleCase(major)) %>%
   mutate(
