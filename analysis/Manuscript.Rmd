@@ -68,7 +68,7 @@ abstract: |
  Conclusion: Despite media attention about the replication crisis, few incoming psychology students in our sample were familiar with the term. The students were nevertheless in favour of most open science practices, although they overestimated the prevalence of some of these practices in psychology.
  Teaching Implications: Teachers of incoming psychology students should not assume pre-existing knowledge about open science or replicability.
 keywords: open science, psychology, teaching, reproducibility, replication
-wordcount: 3,009
+wordcount: 3009
 bibliography: ['r-references.bib','Undergrads & Open Science (public).bib']
 floatsintext: yes
 figurelist: no
