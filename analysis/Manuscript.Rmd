@@ -68,7 +68,7 @@ abstract: |
  Conclusion: Despite media attention about the replication crisis, few incoming psychology students in our sample were familiar with the term. The students were nevertheless in favour of most open science practices, although they overestimated the prevalence of some of these practices in psychology.
  Teaching Implications: Teachers of incoming psychology students should not assume pre-existing knowledge about open science or replicability.
 keywords: open science, psychology, teaching, reproducibility, replication
-wordcount: 3009
+wordcount: 3011
 bibliography: ['r-references.bib','Undergrads & Open Science (public).bib']
 floatsintext: yes
 figurelist: no
@@ -157,7 +157,7 @@ read_csv(col_names = TRUE, skip_empty_rows = TRUE) %>%
 filter(!is.na(old_variable))
 
 # convert variables to factors as needed
-df$age <- as_factor(df$age)
+df$age <- as_factor(wtdf$age)
 df$eligibility <- as_factor(df$eligibility)
 
 # convert factors to characters as needed
@@ -246,7 +246,7 @@ first_gen <- df %>% dplyr::count(first_gen_lab)
 
 ## Procedure
 
-Contacts from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. These contacts were identified via several avenues: a session at the annual meeting of the Society for the Improvement of Psychological Science (2019), a Twitter thread, and through contacts of the research team. We did not have inclusion criteria with respect to country, but most contacts who advertised the study were from the United Kingdom, Australia, or New Zealand.
+Contacts from tertiary institutions in Australia, New Zealand, the UK, and the USA invited students enrolled in their first-year psychology course to participate in the online survey hosted on Qualtrics. These contacts were identified through several avenues: direct contact with our colleagues, a session at the international meeting of the Society for the Improvement of Psychological Science (2019), and a Twitter thread with >15,000 impressions. We did not have inclusion criteria with respect to country, but most contacts who advertised the study were from the United Kingdom, Australia, or New Zealand.
 
 Each contact sent their students invitations to participate via email or a course website 1–2 weeks before their course began. The invitation specified that students needed to be 18 years or older and starting their first course/unit of study in psychology at a university within the following month and included a link to the survey. The measures and items in the survey were presented in the same order for all participants.
 
